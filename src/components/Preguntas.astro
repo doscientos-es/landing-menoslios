@@ -30,15 +30,15 @@ const preguntas = [
 
 
 
-<section class="mx-100 py-30 flex gap-13">
-    <div class="w-2/5 flex flex-col justify-between bg-black/90 rounded-2xl box-border p-10 text-white">
+<section class="mx-5 xl:mx-100 py-30 flex flex-col xl:flex-row gap-13">
+    <div class="w-full xl:max-w-2/5 flex flex-col justify-between bg-black/90 rounded-2xl box-border p-8 md:p-10 text-white">
         <h2 class="text-4xl font-semibold w-40">Preguntas frecuentes</h2>
-        <div class="flex flex-col gap-3 w-70">
+        <div class="flex flex-col gap-3 w-70 mt-10 sm:mt-0">
             <p class="font-bold text-md">¿Te has quedado con alguna duda?</p>
             <a href="#" class="bg-primary text-primary-light h-10 w-50 rounded-3xl flex items-center justify-center text-sm hover:bg-primary-light hover:text-primary duration-200">Contacta con nosotros</a>
         </div>
     </div>
-    <div class="w-3/5 flex flex-col gap-3">
+    <div class="w-full flex flex-col gap-3">
 
         {preguntas.map((p, i) =>(
             <Question 

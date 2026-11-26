@@ -1,3 +1,85 @@
-<section>
-    
+---
+import { Image } from "astro:assets";
+import ventas from "../assets/ventas.png";
+
+import { Sparkles } from '@lucide/astro';
+---
+
+
+<section class="my-40 2xl:mx-80 xl:mx-40 lg:mx-20 mx-5">
+    <h2 class="md:text-4xl text-3xl font-semibold text-center">Cómo funciona Ábaco en tu día a día</h2>
+    <p class="mt-3 max-w-xl text-md text-gray-500 mb-15 text-center m-auto md:w-110 w-full">
+      Herramientas prácticas para cada momento de tu operativa diaria, <strong>sin pasos innecesarios</strong>.
+    </p>
+    <div class="grid lg:grid-cols-4 grid-cols-1 gap-6">
+        <div class="lg:col-span-2 lg:h-60 h-auto w-full bg-black/90 rounded-2xl text-white box-border md:p-10 p-8 flex flex-col justify-center">
+            <h3 class="font-bold md:text-3xl text-2xl lg:w-130 w-full mb-6">El ciclo completo de tu servicio, paso a paso</h3>
+            <p class="text-sm lg:w-130 w-full">Una secuencia pensada para reducir el tiempo y facilitar el orden dentro de un mismo lugar.</p>
+        </div>
+        <div class="bg-white rounded-2xl box-border p-8 lg:col-span-2 relative overflow-hidden">
+            <div class="h-full lg:w-2/4 w-full">
+                <div class="h-full flex flex-col justify-between gap-5">
+                    <div class="flex flex-col gap-2">
+                        <span class="size-7 bg-primary text-white rounded-full flex items-center justify-center"><small class="text-[13px] font-bold tracking-wide">1</small></span>
+                        <h2 class="font-bold text-2xl text-primary">Presupuesto online</h2>
+                    </div>
+                    <p>Envía el presupuesto por correo o WhatsApp con enlace público para que el cliente lo acepte al instante.</p>
+                </div>
+            </div>
+            <div>
+                <Image src={ventas} alt="Presupuestos Doscientos" class="lg:block hidden absolute -bottom-2 right-8 ring-1 ring-gray-500 rounded-xl"/>
+            </div>
+        </div>
+        <div class="lg:h-60 h-auto bg-white rounded-2xl box-border p-8">
+            <div class="h-full flex flex-col justify-between gap-5">
+                <div class="flex flex-col gap-2">
+                    <span class="size-7 bg-primary text-white rounded-full flex items-center justify-center"><small class="text-[13px] font-bold tracking-wide">2</small></span>
+                    <h2 class="font-bold text-2xl text-primary">Agenda y visitas</h2>
+                </div>
+                <p>Organiza el calendario y asigna cada aviso para que los técnicos vean su jornada en el móvil.</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl lg:col-span-2 box-border p-8">
+            <div class="h-full flex flex-col justify-between gap-5">
+                <div class="flex flex-col gap-2">
+                    <span class="size-7 bg-primary text-white rounded-full flex items-center justify-center"><small class="text-[13px] font-bold tracking-wide">3</small></span>
+                    <h2 class="font-bold text-2xl text-primary">Parte de trabajo en movilidad («Mi jornada»)</h2>
+                </div>
+                <p>El equipo anota tareas, mediciones, fotos e incidencias desde la calle en su móvil y genera un PDF listo para compartir al momento.</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl box-border p-8">
+            <div class="flex flex-col gap-2">
+                <span class="size-7 bg-primary text-white rounded-full flex items-center justify-center"><small class="text-[13px] font-bold tracking-wide">4</small></span>
+                <h2 class="font-bold text-2xl text-primary">Facturación y control de cobros</h2>
+                <p>Convierte partes en facturas, programa mantenimientos y controla tus cobros pendientes.</p>
+            </div>
+        </div>
+
+
+
+         <!-- IA -->
+        <div class="lg:h-15 h-auto py-4 bg-primary rounded-2xl lg:col-span-4 flex justify-center items-center gap-3">
+            <h2 class="text-white text-sm font-bold md:text-xl text-lg text-center">Ahora con asistente de IA integrado</h2>
+            <Sparkles class="text-primary-light size-5 rotate-12"/>
+        </div>
+
+        <!-- <div class="bg-black/90 h-60 rounded-2xl col-span-3 box-border p-10 text-white flex justify-between">
+            <div class="flex flex-col gap-2 w-2/4 h-full justify-between">
+                <h2 class="font-bold text-2xl text-white">Pregunta a tus datos y automatiza tareas repetitivas</h2>
+                <p>Convierte partes en facturas, programa mantenimientos y controla tus cobros pendientes.</p>
+            </div>
+            <div class="w-2/4 h-full flex justify-end items-center">
+                <div class="bg-white w-80 h-30 rounded-xl text-black box-border p-5 text-sm ">
+                    <p class="font-semibold">Ejemplo real de uso:</p>
+                    <ul class="mr-5 text-[11px]">
+                        <li>«¿Qué facturas de climatización siguen pendientes este mes?»</li>
+                        <li>«Resume las incidencias del último parte del cliente García.»</li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+
+    </div>
 </section>
