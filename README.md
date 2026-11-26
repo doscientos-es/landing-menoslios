@@ -1,46 +1,29 @@
-# Astro Starter Kit: Basics
+# MenosLios
 
-```sh
-npm create astro@latest -- --template basics
-```
+Landing de MenosLios, software de gestión de Doscientos para profesionales y empresas de servicios. El sitio está construido con Astro y Tailwind CSS y genera páginas estáticas.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Dominio previsto: [menoslios.com](https://menoslios.com).
+- Repositorio: [doscientos-es/landing-menoslios](https://github.com/doscientos-es/landing-menoslios).
 
-## 🚀 Project Structure
+## Desarrollo
 
-Inside of your Astro project, you'll see the following folders and files:
+Requiere Node.js 22.23.4 o superior y npm. Desde la raíz del proyecto:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- `npm ci`: instala las dependencias del lockfile.
+- `npm run dev`: inicia el servidor de desarrollo.
+- `npm run build`: genera el sitio en `dist/`.
+- `npm run preview`: previsualiza la compilación.
+- `node --test tests/landing.test.mjs`: comprueba la marca y los metadatos del sitio compilado; ejecuta antes `npm run build`.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Estructura
 
-## 🧞 Commands
+- `src/components/`: secciones compartidas de la landing.
+- `src/pages/`: página principal y páginas de sectores.
+- `src/content/`: contenidos de sectores y funcionalidades.
+- `src/layouts/Base.astro`: metadatos y estructura HTML compartida.
+- `astro.config.mjs`: configuración de Astro y dominio canónico.
+- `public/`: recursos estáticos.
 
-All commands are run from the root of the project, from a terminal:
+## Publicación
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Publica el contenido de `dist/` y configura `menoslios.com` y su DNS en el proveedor de hosting. El acceso a la aplicación sigue apuntando a `https://abaco.doscientos.es/` hasta confirmar su nueva dirección; no debe confundirse con el dominio de la landing.

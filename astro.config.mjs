@@ -1,11 +1,11 @@
+import tailwindcss from '@tailwindcss/vite'
 // @ts-check
-import { defineConfig } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://menoslios.com',
   vite: {
-    plugins: [tailwindcss()]
-  }
-});
+    plugins: [tailwindcss()],
+  },
+})

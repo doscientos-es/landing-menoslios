@@ -1,13 +1,32 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'MenosLios | Software de gestión para empresas de servicios',
+	description = 'Organiza presupuestos, clientes, trabajos y cobros en un mismo lugar con MenosLios.',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<script src="https://kit.fontawesome.com/a9b5133090.js" crossorigin="anonymous"></script>
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="MenosLios" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta name="twitter:card" content="summary" />
 	</head>
 	<body class="selection:bg-primary selection:text-white font-primary overflow-x-hidden">
 		<slot />
