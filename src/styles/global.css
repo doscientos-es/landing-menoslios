@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+
+@theme {
+  --font-primary: "Onest", sans-serif;
+
+  --color-primary: #2a4227;     
+  --color-primary-light: #e8f0e7;
+  --color-accent: #bdff7b;   
+  --color-background: #f8f9f7; 
+  --color-foreground: #171717;  
+
+  --radius-base: 0.625rem;
+
+  --animate-arrow: arrow 1.5s ease-in-out infinite;
+  --animate-abrir: abrir 0.3s ease-out;
+}
+
+
+@keyframes arrow {
+    0%, 100% { transform: translateY(-2px); }
+    50% { transform: translateY(2px); }
+}
+
+
+@keyframes abrir {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

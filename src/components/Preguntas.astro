@@ -1,0 +1,52 @@
+---
+import Question from "./Question.astro";
+
+const preguntas = [
+    {
+        pregunta: "¿Qué es Ábaco?",
+        respuesta: "PoolOps es la presentación de Ábaco para profesionales del mantenimiento de piscinas. Ábaco es el producto de Doscientos que utilizarás para gestionar tu negocio.",
+        open: true,
+    },
+    {
+        pregunta: "¿Necesito instalar algo para usarlo?",
+        respuesta: "No. Ábaco funciona desde el navegador y también desde el móvil, así que puedes consultar tus rutas y registrar visitas sin instalar nada en el ordenador.",
+    },
+    {
+        pregunta: "¿Puedo gestionar a mis clientes y sus piscinas?",
+        respuesta: "Sí. Puedes guardar los datos de cada cliente, las características de sus piscinas y el historial completo de visitas, tratamientos y mediciones.",
+    },
+    {
+        pregunta: "¿Se pueden organizar rutas y asignar trabajos a mi equipo?",
+        respuesta: "Sí. Planifica las rutas del día, asigna visitas a cada técnico y consulta en tiempo real qué se ha hecho y qué queda pendiente.",
+    },
+    {
+        pregunta: "¿Puedo registrar las mediciones del agua y los productos usados?",
+        respuesta: "Sí. En cada visita anotas pH, cloro y el resto de parámetros, junto con los productos aplicados, para tener un control claro de cada piscina.",
+    },
+];
+
+---
+
+
+
+
+<section class="mx-100 py-30 flex gap-13">
+    <div class="w-2/5 flex flex-col justify-between bg-black/90 rounded-2xl box-border p-10 text-white">
+        <h2 class="text-4xl font-semibold w-40">Preguntas frecuentes</h2>
+        <div class="flex flex-col gap-3 w-70">
+            <p class="font-bold text-md">¿Te has quedado con alguna duda?</p>
+            <a href="#" class="bg-primary text-primary-light h-10 w-50 rounded-3xl flex items-center justify-center text-sm hover:bg-primary-light hover:text-primary duration-200">Contacta con nosotros</a>
+        </div>
+    </div>
+    <div class="w-3/5 flex flex-col gap-3">
+
+        {preguntas.map((p, i) =>(
+            <Question 
+            abierta={p.open ?? true }
+            numero={i + 1} 
+            pregunta={p.pregunta} 
+            respuesta={p.respuesta}/>            
+        ))}
+
+    </div>
+</section>

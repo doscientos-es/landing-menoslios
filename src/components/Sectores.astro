@@ -1,0 +1,48 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { getCollection } from "astro:content";
+
+const sectores = (await getCollection("sectores")).sort(
+  (a, b) => a.data.orden - b.data.orden
+);
+---
+
+
+
+<section class="mx-80 my-40">
+    <h2 class="text-4xl font-semibold text-center">Pensado para todos los sectores</h2>
+    <p class="mt-3 max-w-xl text-md text-gray-500 mb-15 text-center m-auto w-110">
+      Da igual si instalas, reparas o mantienes: Ábaco <strong>organiza presupuestos, visitas y cobros a tu manera</strong>.
+    </p>
+    <div class="grid grid-cols-4 justify-center gap-8">
+
+        {sectores.map((p) => (
+            <a href={`/sectores/${p.id}`} class="group flex h-90 w-75 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm duration-200 hover:border-primary hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)]">
+                <div class="h-2/5 overflow-hidden relative">
+                    <img src={p.data.imagen} alt={p.data.titulo} class="h-full w-full object-cover"/>
+                    <div class="absolute inset-0 group-hover:bg-primary/50 duration-200"></div>
+                </div>
+                <div class="h-3/5 box-border p-5 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-2">{p.data.titulo}</h3>
+                        <p class="text-gray-400 text-sm">{p.data.descripcion}</p>
+                    </div>
+                    <p class="text-primary items-center group-hover:text-white text-sm flex gap-2">Ver mas <ArrowRight class="size-3.5 -rotate-45 group-hover:rotate-0 duration-150"/></p>
+                </div>
+            </a>
+        ))}
+
+        <a href="#" class="group flex h-90 w-75 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm duration-200 hover:border-primary hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)]">
+            <div class="h-full box-border p-5 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-2">Y mucho más</h3>
+                    <p class="text-gray-400 text-sm">¿No ves tu sector? Pruébalo 14 días y comprueba si Ábaco se adapta a tu forma de trabajar.</p>
+                </div>
+                <p class="text-primary items-center group-hover:text-white text-sm flex gap-2">Probar 14 días gratis <ArrowRight class="size-3.5 -rotate-45 group-hover:rotate-0 duration-150"/></p>
+            </div>
+        </a>
+        
+     
+        
+    </div>
+</section>
