@@ -10,17 +10,17 @@ const sector = await readFile(
 
 test('la landing utiliza la nueva marca y el dominio canónico', () => {
   assert.match(home, /<html lang="es"/)
-  assert.match(home, /<title>MenosLios \|/)
+  assert.match(home, /<title>Menos Lios \|/)
   assert.match(home, /rel="canonical" href="https:\/\/menoslios\.com\/"/)
-  assert.match(home, /property="og:site_name" content="MenosLios"/)
-  assert.doesNotMatch(home, /Ábaco|PoolOps|abaco-logo\.svg/)
+  assert.match(home, /property="og:site_name" content="Menos Lios"/)
+  assert.doesNotMatch(home, /Ábaco|PoolOps|MenosLios|abaco-logo\.svg/)
   assert.match(home, /href="https:\/\/abaco\.doscientos\.es\/"/)
 })
 
 test('las páginas de sectores tienen metadatos propios', () => {
-  assert.match(sector, /<title>[^<]+ \| MenosLios<\/title>/)
+  assert.match(sector, /<title>[^<]+ \| Menos Lios<\/title>/)
   assert.match(sector, /rel="canonical" href="https:\/\/menoslios\.com\/sectores\/electricidad\/"/)
-  assert.doesNotMatch(sector, /Ábaco|abaco-logo\.svg/)
+  assert.doesNotMatch(sector, /Ábaco|MenosLios|abaco-logo\.svg/)
 })
 
 test('los sectores sin comparativa se generan correctamente', async () => {
@@ -28,7 +28,7 @@ test('los sectores sin comparativa se generan correctamente', async () => {
     new URL('../dist/sectores/climatizacion/index.html', import.meta.url),
     'utf8',
   )
-  assert.match(climatizacion, /<title>Climatización \| MenosLios<\/title>/)
+  assert.match(climatizacion, /<title>Climatización \| Menos Lios<\/title>/)
   assert.doesNotMatch(climatizacion, /undefined/)
 })
 

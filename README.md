@@ -1,6 +1,6 @@
-# MenosLios
+# Menos Lios
 
-Landing de MenosLios, software de gestión de Doscientos para profesionales y empresas de servicios. El sitio está construido con Astro y Tailwind CSS y genera páginas estáticas.
+Landing de Menos Lios, software de gestión de Doscientos para profesionales y empresas de servicios. El sitio está construido con Astro y Tailwind CSS y genera páginas estáticas.
 
 - Dominio previsto: [menoslios.com](https://menoslios.com).
 - Repositorio: [doscientos-es/landing-menoslios](https://github.com/doscientos-es/landing-menoslios).

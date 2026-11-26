@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-	title = 'MenosLios | Software de gestión para empresas de servicios',
-	description = 'Organiza presupuestos, clientes, trabajos y cobros en un mismo lugar con MenosLios.',
+	title = 'Menos Lios | Software de gestión para empresas de servicios',
+	description = 'Organiza presupuestos, clientes, trabajos y cobros en un mismo lugar con Menos Lios.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -22,7 +22,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="MenosLios" />
+		<meta property="og:site_name" content="Menos Lios" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
