@@ -11,4 +11,16 @@ const sectores = defineCollection({
   }),
 });
 
-export const collections = { sectores };
+
+
+const funcionalidades = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/funcionalidades" }),
+  schema: z.object({
+    titulo: z.string(),
+    descripcion: z.string(),
+    orden: z.number().default(0),
+  }),
+});
+
+
+export const collections = { sectores, funcionalidades};

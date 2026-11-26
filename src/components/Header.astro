@@ -1,12 +1,18 @@
 ---
 import { ChevronDown } from '@lucide/astro';
 import { Menu } from '@lucide/astro';
-
 import { getCollection } from "astro:content";
+
+import { NavHeader } from './NavHeader.astro';
 
 const sectores = (await getCollection("sectores")).sort(
   (a, b) => a.data.orden - b.data.orden
 );
+
+const funcionalidades = (await getCollection("funcionalidades")).sort(
+  (a, b) => a.data.orden - b.data.orden
+);
+
 ---
 
 <header id="main-header" class="fixed top-0 left-0 w-full z-10 transition-transform duration-300 ease-in-out rounded-b-3xl">
@@ -26,13 +32,13 @@ const sectores = (await getCollection("sectores")).sort(
         <a href="/"><img src="https://abaco.doscientos.es/abaco-logo.svg" alt="Logo Ábaco" class="size-25 sm:size-33 mb-1"></a>
         <nav class="lg:flex hidden gap-5 text-sm font-semibold">
             <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group sectoresBtn">Sectores <ChevronDown class="size-5 duration-200 arrowSection" /></a>
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Cómo te ayudamos</a>
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Funcionalidades</a>
+            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group  funcionalidadesBtn">Funcionalidades <ChevronDown class="size-5 duration-200 arrowFuncionalidades" /></a>
+            <a href="#pasos" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Cómo te ayudamos</a>
             <a href="#preguntas" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Preguntas frecuentes</a>
         </nav>
         <Menu class="block ml-auto sm:hidden cursor-pointer menuBtn"/>
         <div>
-            <a href="" class="hidden sm:flex md:w-50 w-40 group flex bg-primary text-white h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
+            <a href="https://abaco.doscientos.es/" class="hidden sm:flex md:w-50 w-40 group bg-primary text-white h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
                 <div class="bg-primary-light w-full h-full absolute rounded-3xl duration-200 -translate-x-[100%] group-hover:translate-x-0"></div>
                 <div class="absolute flex gap-2 items-center">
                     <p class="font-medium">Probar Ábaco</p>
@@ -48,28 +54,36 @@ const sectores = (await getCollection("sectores")).sort(
     </div>
 
     <!-- Sectores Nav -->
-
     <div class="max-lg:hidden hidden bg-white max-w-300 mx-auto box-border p-10 rounded-2xl -mt-2 shadow-xl shadow-black/60 border border-gray-200 navSectores">
         <nav class="grid grid-cols-4 w-full gap-5 justify-center ">
-
             {sectores.map((p) => (
                 <a href={`/sectores/${p.id}`} class="hover:bg-gray-200 duration-200 box-border p-5 rounded-2xl">
                     <h3 class="font-semibold mb-3 text-xl">{p.data.titulo}</h3>
                     <p>{p.data.descripcion}</p>
                 </a>
             ))}
-         
-        
         </nav>
     </div>
 
+    <!-- Funcionalidades Nav -->
+    <div class="max-lg:hidden hidden bg-white max-w-300 mx-auto box-border p-10 rounded-2xl -mt-2 shadow-xl shadow-black/60 border border-gray-200 navFuncionalidades">
+        <nav class="grid grid-cols-4 w-full gap-5 justify-center ">
+            {funcionalidades.map((p) => (
+                <a href={`/funcionalidades/${p.id}`} class="hover:bg-gray-200 duration-200 box-border p-5 rounded-2xl">
+                    <h3 class="font-semibold mb-3 text-xl">{p.data.titulo}</h3>
+                    <p>{p.data.descripcion}</p>
+                </a>
+            ))}
+        </nav>
+    </div>
+
+
     <!-- Movil Menu -->
      
-    <div class="hidden sm:hidden bg-white box-border p-5 border-b-4 border-black navPhone">
-        <ul class="space-y-4">
-            <li>Sectores</li>
-            <li>Cómo te ayudamos</li>
-            <li>Funcionalidades</li>
+    <div class="hidden sm:hidden bg-white box-border p-5 border-b-1 border-black navPhone">
+        <ul class="flex flex-col gap-4">
+            <a href="#sectores"><li>Sectores</li></a>
+            <a href="#pasos"><li>Cómo te ayudamos</li></a>
             <a href="#preguntas"><li>Preguntas frecuentes</li></a>
         </ul>
         <a href="" class="mt-5 md:w-50 w-40 group flex bg-primary text-white h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
@@ -110,8 +124,48 @@ const sectores = (await getCollection("sectores")).sort(
     })
 
 
+    
+    const navFuncionalidades = document.querySelector(".navFuncionalidades")
+    const funcionalidadesBtn = document.querySelector(".funcionalidadesBtn")
+    const arrowFuncionalidades = document.querySelector(".arrowFuncionalidades")
+    funcionalidadesBtn?.addEventListener("click", function(e){
+        e.preventDefault()
+        if(navFuncionalidades?.classList.contains("hidden")){
+            arrowFuncionalidades.style.transform = "rotate(180deg)"
+        }else{
+            arrowFuncionalidades.style.transform = "rotate(0)"
+        }
+        navFuncionalidades?.classList.toggle("hidden")
+    })
 
 
+    
+
+  
+
+    document.addEventListener("click", function (e) {
+        const target = e.target
+        const dentroSectores = target.closest(".navSectores") || target.closest(".sectoresBtn")
+        const dentroFuncionalidades = target.closest(".navFuncionalidades") || target.closest(".funcionalidadesBtn")
+
+        if (!dentroSectores && navSectores && !navSectores.classList.contains("hidden")) {
+            cerrarSectores()
+        }
+
+        if (!dentroFuncionalidades && navFuncionalidades && !navFuncionalidades.classList.contains("hidden")) {
+            cerrarFuncionalidades()
+        }
+    })
+    
+    function cerrarSectores() {
+        navSectores?.classList.add("hidden")
+        if (arrowSection) arrowSection.style.transform = "rotate(0)"
+    }
+
+    function cerrarFuncionalidades() {
+        navFuncionalidades?.classList.add("hidden")
+        if (arrowFuncionalidades) arrowFuncionalidades.style.transform = "rotate(0)"
+    }
  
     const header = document.querySelector("#main-header");
     let lastScrollY = window.scrollY;
