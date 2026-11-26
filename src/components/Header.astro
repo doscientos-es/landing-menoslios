@@ -1,9 +1,15 @@
 ---
 import { ChevronDown } from '@lucide/astro';
 import { Menu } from '@lucide/astro';
+
+import { getCollection } from "astro:content";
+
+const sectores = (await getCollection("sectores")).sort(
+  (a, b) => a.data.orden - b.data.orden
+);
 ---
 
-<header id="main-header" class="fixed top-0 left-0 w-full z-10 transition-transform duration-300 ease-in-out bg-primary rounded-b-3xl">
+<header id="main-header" class="fixed top-0 left-0 w-full z-10 transition-transform duration-300 ease-in-out rounded-b-3xl">
 
     <div class="md:flex hidden bg-primary w-full h-8 items-center justify-center relative box-border">
         <a href="https://doscientos.es/" class="absolute flex left-5 items-center text-white gap-1 tracking-[1px] text-[11px]">
@@ -19,10 +25,10 @@ import { Menu } from '@lucide/astro';
     <div class="2xl:px-80 xl:px-40 lg:px-20 px-5 text-primary flex justify-between w-full h-18 bg-white sm:bg-white sm:rounded-b-3xl items-center box-border shadow-sm">
         <a href="/"><img src="https://abaco.doscientos.es/abaco-logo.svg" alt="Logo Ábaco" class="size-25 sm:size-33 mb-1"></a>
         <nav class="lg:flex hidden gap-5 text-sm font-semibold">
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Sectores <ChevronDown class="size-5 duration-150 group-hover:rotate-180" /></a>
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Cómo te ayudamos <ChevronDown class="size-5 duration-150 group-hover:rotate-180" /></a>
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Funcionalidades <ChevronDown class="size-5 duration-150 group-hover:rotate-180" /></a>
-            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Preguntas frecuentes <ChevronDown class="size-5 duration-150 group-hover:rotate-180" /></a>
+            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group sectoresBtn">Sectores <ChevronDown class="size-5 duration-200 arrowSection" /></a>
+            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Cómo te ayudamos</a>
+            <a href="" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Funcionalidades</a>
+            <a href="#preguntas" class="flex gap-1 items-center no-underline text-primary py-1 px-3 rounded-2xl hover:text-primary hover:bg-primary-light duration-200 group">Preguntas frecuentes</a>
         </nav>
         <Menu class="block ml-auto sm:hidden cursor-pointer menuBtn"/>
         <div>
@@ -41,12 +47,30 @@ import { Menu } from '@lucide/astro';
         </div>
     </div>
 
+    <!-- Sectores Nav -->
+
+    <div class="max-lg:hidden hidden bg-white max-w-300 mx-auto box-border p-10 rounded-2xl -mt-2 shadow-xl shadow-black/60 border border-gray-200 navSectores">
+        <nav class="grid grid-cols-4 w-full gap-5 justify-center ">
+
+            {sectores.map((p) => (
+                <a href={`/sectores/${p.id}`} class="hover:bg-gray-200 duration-200 box-border p-5 rounded-2xl">
+                    <h3 class="font-semibold mb-3 text-xl">{p.data.titulo}</h3>
+                    <p>{p.data.descripcion}</p>
+                </a>
+            ))}
+         
+        
+        </nav>
+    </div>
+
+    <!-- Movil Menu -->
+     
     <div class="hidden sm:hidden bg-white box-border p-5 border-b-4 border-black navPhone">
         <ul class="space-y-4">
             <li>Sectores</li>
             <li>Cómo te ayudamos</li>
             <li>Funcionalidades</li>
-            <li>Preguntas frecuentes</li>
+            <a href="#preguntas"><li>Preguntas frecuentes</li></a>
         </ul>
         <a href="" class="mt-5 md:w-50 w-40 group flex bg-primary text-white h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
             <div class="bg-primary-light w-full h-full absolute rounded-3xl duration-200 -translate-x-[100%] group-hover:translate-x-0"></div>
@@ -65,11 +89,27 @@ import { Menu } from '@lucide/astro';
 
 <script>
 
+
     const menuBtn = document.querySelector(".menuBtn")
     const navPhone = document.querySelector(".navPhone")
     menuBtn?.addEventListener("click", function(){
         navPhone?.classList.toggle("hidden")
     })
+
+    const navSectores = document.querySelector(".navSectores")
+    const sectoresBtn = document.querySelector(".sectoresBtn")
+    const arrowSection = document.querySelector(".arrowSection")
+    sectoresBtn?.addEventListener("click", function(e){
+        e.preventDefault()
+        if(navSectores?.classList.contains("hidden")){
+            arrowSection.style.transform = "rotate(180deg)"
+        }else{
+            arrowSection.style.transform = "rotate(0)"
+        }
+        navSectores?.classList.toggle("hidden")
+    })
+
+
 
 
  
