@@ -14,7 +14,7 @@ test('la landing utiliza la nueva marca y el dominio canónico', () => {
   assert.match(home, /rel="canonical" href="https:\/\/menoslios\.com\/"/)
   assert.match(home, /property="og:site_name" content="Menos Lios"/)
   assert.doesNotMatch(home, /Ábaco|PoolOps|MenosLios|abaco-logo\.svg/)
-  assert.match(home, /href="https:\/\/abaco\.doscientos\.es\/"/)
+  assert.doesNotMatch(home, /href="https:\/\/abaco\.doscientos\.es\//)
 })
 
 test('las páginas de sectores tienen metadatos propios', () => {
@@ -30,6 +30,22 @@ test('los sectores sin comparativa se generan correctamente', async () => {
   )
   assert.match(climatizacion, /<title>Climatización \| Menos Lios<\/title>/)
   assert.doesNotMatch(climatizacion, /undefined/)
+})
+
+test('los CTA comerciales enlazan a la inscripción de la demo semanal', () => {
+  for (const [html, minimum] of [
+    [home, 8],
+    [sector, 3],
+  ]) {
+    const links = [
+      ...html.matchAll(
+        /<a\b[^>]*href="https:\/\/cal\.com\/demo-grupal-de-menoslios"[^>]*>([\s\S]*?)<\/a>/g,
+      ),
+    ]
+    assert.ok(links.length >= minimum)
+    for (const [, content] of links) assert.match(content, /Unirme a la siguiente demo/)
+    assert.doesNotMatch(html, /href="https:\/\/abaco\.doscientos\.es\//)
+  }
 })
 
 test('la portada conserva el hero activo y sus secciones principales', () => {

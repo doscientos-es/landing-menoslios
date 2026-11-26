@@ -23,9 +23,10 @@ Requiere Node.js 22.23.4 o superior y npm. Desde la raíz del proyecto:
 - `src/pages/`: página principal y páginas de sectores.
 - `src/content/`: contenidos de sectores y funcionalidades.
 - `src/layouts/Base.astro`: metadatos y estructura HTML compartida.
+- `src/config/demo.ts`: enlace y texto de inscripción a la demo grupal.
 - `astro.config.mjs`: configuración de Astro y dominio canónico.
 - `public/`: recursos estáticos.
 
 ## Publicación
 
-Publica el contenido de `dist/` y configura `menoslios.com` y su DNS en el proveedor de hosting. El acceso a la aplicación sigue apuntando a `https://abaco.doscientos.es/` hasta confirmar su nueva dirección; no debe confundirse con el dominio de la landing.
+Publica el contenido de `dist/` y configura `menoslios.com` y su DNS en el proveedor de hosting. Los CTA comerciales enlazan a la inscripción semanal de Cal.com. Revisa las fechas disponibles y añade nuevas sesiones antes de que se agoten.

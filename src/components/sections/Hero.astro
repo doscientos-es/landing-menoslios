@@ -1,5 +1,6 @@
 ---
 import { ArrowDown } from '@lucide/astro';
+import { demo } from '../../config/demo';
 ---
 
 
@@ -16,10 +17,10 @@ import { ArrowDown } from '@lucide/astro';
     <h1 class="mb-20 text-sm md:text-xl font-bold leading-tight tracking-tight max-w-80 mx-auto -mt-4 px-4">Todo el control de tu negocio, en un solo lugar</h1>
 
     <div class="flex flex-col sm:flex-row gap-5">
-      <a href="https://abaco.doscientos.es/" class="group flex bg-primary text-white w-50 h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
+      <a href={demo.url} class="group flex bg-primary text-white w-64 max-w-full h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
           <div class="bg-primary-light w-full h-full absolute rounded-3xl duration-200 -translate-x-[100%] group-hover:translate-x-0"></div>
           <div class="absolute flex gap-2 items-center">
-              <p class="font-medium">Probar Menos Lios</p>
+              <p class="font-medium text-sm whitespace-nowrap">{demo.label}</p>
               <div class="relative w-5 h-4 overflow-hidden flex items-center mt-0.5">
                   <div class="flex items-center gap-3 -translate-x-7 transition-transform duration-300 ease-in-out group-hover:translate-x-0">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-4 shrink-0 fill-current"><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
