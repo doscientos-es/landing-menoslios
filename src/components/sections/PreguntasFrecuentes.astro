@@ -1,5 +1,5 @@
 ---
-import Question from "./Question.astro";
+import PreguntaFrecuente from "../ui/PreguntaFrecuente.astro";
 
 const preguntas = [
     {
@@ -41,7 +41,7 @@ const preguntas = [
     <div class="w-full flex flex-col gap-3">
 
         {preguntas.map((p, i) =>(
-            <Question
+            <PreguntaFrecuente
             abierta={p.open ?? true }
             numero={i + 1}
             pregunta={p.pregunta}

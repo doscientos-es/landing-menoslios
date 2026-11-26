@@ -17,7 +17,9 @@ Requiere Node.js 22.23.4 o superior y npm. Desde la raíz del proyecto:
 
 ## Estructura
 
-- `src/components/`: secciones compartidas de la landing.
+- `src/components/layout/`: cabecera y pie compartidos.
+- `src/components/sections/`: secciones de la landing. `Ayudas` y `Beneficios` se conservan, pero no se muestran actualmente.
+- `src/components/ui/`: piezas reutilizables de interfaz.
 - `src/pages/`: página principal y páginas de sectores.
 - `src/content/`: contenidos de sectores y funcionalidades.
 - `src/layouts/Base.astro`: metadatos y estructura HTML compartida.
