@@ -1,110 +1,103 @@
 ---
 import { demo } from '../../config/demo';
+
+const app = 'https://app.menoslios.com';
 ---
 
-<section class="mt-50 py-20 md:py-20 2xl:px-80 xl:px-40 lg:px-20 px-5 box-border md:rounded-t-[200px] rounded-t-4xl md:rounded-t-[80px] bg-white" id="precios">
-    <div class="mb-10 text-center">
-         <h2 class="text-4xl font-semibold text-center">Precios claros, sin sorpresas</h2>
-        <p class="mt-3 max-w-xl text-md text-gray-500 mb-15 text-center m-auto md:w-110">
-        Prueba Menos Lios <strong>14 días gratis</strong>. Después, una cuota fija por empresa, no por usuario.
-        </p>
+<section class="bg-white px-5 py-20 lg:px-12" id="precios" aria-labelledby="pricing-title">
+  <div class="mx-auto max-w-5xl">
+    <header class="mx-auto mb-10 max-w-xl text-center">
+      <h2 class="text-4xl font-semibold" id="pricing-title">Precios claros, sin sorpresas</h2>
+      <p class="mt-3 text-gray-600">Una cuota base con una persona incluida. Añade los asientos y módulos que necesite tu empresa.</p>
+    </header>
+
+    <div class="grid gap-5 lg:grid-cols-[1fr_1.15fr]" data-pricing-endpoint={`${app}/api/public-pricing`}>
+      <article class="rounded-3xl bg-primary p-6 text-white sm:p-8" aria-labelledby="base-price-title">
+        <h3 class="text-2xl font-bold" id="base-price-title">Plan base</h3>
+        <p class="mt-2 text-sm">Presupuestos, planificación, partes y facturación.</p>
+        <p class="mt-6 text-sm" data-price-status role="status" hidden></p>
+        <dl class="mt-5 space-y-3 text-sm" data-base-prices hidden>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+            <dt>Cuota mensual</dt><dd class="text-3xl font-bold" data-price="base_monthly_cents"></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+            <dt>Cuota anual · pagas 10 meses</dt><dd class="text-right"><strong class="block text-xl" data-price="base_yearly_cents"></strong><span data-equivalent></span></dd>
+          </div>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-3 border-t border-white/30 pt-3">
+            <dt>Asiento extra</dt><dd class="font-semibold" data-seat-price></dd>
+          </div>
+        </dl>
+        <p class="mt-3 text-sm">Importes sin IVA. El pago anual ahorra dos mensualidades de la cuota base.</p>
+        <a href={`${app}/registro`} class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#bdff7b] px-5 text-center text-sm font-bold text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Crear mi empresa</a>
+      </article>
+
+      <article class="rounded-3xl border border-gray-200 p-6 sm:p-8" aria-labelledby="module-price-title">
+        <h3 class="text-2xl font-bold" id="module-price-title">Módulos opcionales</h3>
+        <p class="mt-2 text-sm text-gray-600">Los módulos se cobran por empresa; el asistente de IA, por usuario.</p>
+        <ul class="mt-4 divide-y divide-gray-200" data-module-prices hidden></ul>
+        <p class="mt-4 text-sm text-gray-600" data-no-modules hidden>No hay módulos publicados en este momento.</p>
+        <a href={demo.url} class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 px-5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2">{demo.label}</a>
+      </article>
+      <p class="text-sm text-gray-600 lg:col-span-2">
+        <a class="font-medium underline underline-offset-2" href={`${app}/precios`}>Ver el catálogo en la app</a>
+        <button type="button" class="ml-3 min-h-10 font-semibold underline underline-offset-2" data-pricing-retry hidden>Volver a cargar precios</button>
+      </p>
     </div>
-    <div class="lg:flex-row lg:items-stretch flex flex-col items-center justify-between gap-10">
-        <div class="bg-white box-border w-full sm:w-100 p-11 rounded-2xl shadow-md shadow-md order-3 md:order-1">
-            <div class="flex flex-col gap-2 mb-10 min-h-27">
-                <span class="inline-block w-26 text-xs font-semibold text-[#525252] bg-gray-100 px-3 py-1 rounded-full mb-4">
-                    Para empezar
-                </span>
-                <h2 class="text-2xl font-bold">Prueba Gratuita</h2>
-                <p class="text-gray-600 text-[13px]">Conoce Menos Lios con tu propio trabajo diario.</p>
-            </div>
-            <div class="flex items-baseline gap-3 mb-4">
-                <span class="text-[50px] font-bold">0€</span>
-                <span class="text-gray-500 text-sm">/ 14 días</span>
-            </div>
-            <div class="flex flex-col gap-3 ">
-                <a href={demo.url} class="bg-gray-200 border border-gray-300 rounded-3xl flex justify-center items-center h-12 px-3 text-center font-bold text-sm">{demo.label}</a>
-                <small class="text-center text-gray-400 text-[11px]">Elige una sesión de la demo grupal</small>
-            </div>
-            <hr class="my-6">
-            <div class="text-sm flex flex-col gap-5">
-                <h4 class="font-bold">Qué incluye:</h4>
-                <ul class="flex flex-col gap-3">
-                    <li class="flex gap-2.5 after:order-first after:content-['✓'] after:font-bold after:text-green-800">Acceso completo al núcleo de Menos Lios</li>
-                    <li class="flex gap-2.5 after:order-first after:content-['✓'] after:font-bold after:text-green-800">Clientes, ubicaciones y catálogo</li>
-                    <li class="flex gap-2.5 after:order-first after:content-['✓'] after:font-bold after:text-green-800">Presupuestos en PDF y respuesta online</li>
-                    <li class="flex gap-2.5 after:order-first after:content-['✓'] after:font-bold after:text-green-800">Agenda y partes de trabajo en móvil</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="bg-primary text-white box-border w-full sm:w-100 p-11 rounded-2xl border-2 border-primary shadow-md transition-shadow order-1 md:order-2">
-            <div class="flex flex-col gap-2 mb-10">
-                <span class="inline-block text-xs w-34 font-bold uppercase tracking-wider text-[#171717] bg-[#bdff7b] px-3 py-1 rounded-full mb-4">
-                    Plan principal
-                </span>
-                <h2 class="text-2xl font-bold">Plan Base</h2>
-                <p class="text-sm">Todo lo necesario para llevar tu negocio en orden.</p>
-            </div>
-            <div class="mb-6">
-                <div class="flex items-baseline gap-3">
-                    <span class="text-[50px] font-bold">20€</span>
-                    <span>/ mes</span>
-                </div>
-                <p class="text-sm">Facturado mensualmente + IVA</p>
-            </div>
-            <div class="flex flex-col gap-3">
-                <a href={demo.url} class="bg-[#bdff7b] text-black border rounded-3xl flex justify-center items-center h-12 px-3 text-center font-bold text-sm">{demo.label}</a>
-                <small class="text-center text-gray-400 text-[11px]">Elige una sesión de la demo grupal</small>
-            </div>
-            <hr class="my-6">
-            <div class="text-sm flex flex-col gap-3">
-                <h4 class="font-bold">Todo lo de la prueba y además:</h4>
-                <ul class="flex flex-col gap-3">
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-[#bdff7b]"><span><span class="font-bold">Gestión multiempresa</span> en una misma cuenta</span></li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-[#bdff7b]"><span><span class="font-bold">Permisos por rol:</span> administración y usuario</span></li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-[#bdff7b]"><span>Contratos recurrentes y facturas programadas</span></li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-[#bdff7b]"><span>Borradores recuperables en campo (móvil)</span></li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-[#bdff7b]"><span>Control de ingresos, gastos y márgenes</span></li>
-                </ul>
-            </div>
-        </div>
-
-
-        <div class="bg-white box-border w-full sm:w-100 p-11 rounded-2xl  shadow-md order-2 md:order-3">
-            <div class="flex flex-col gap-2 mb-10">
-                <span class="inline-block text-xs font-semibold text-[#2a4227] bg-[#bdff7b]/35 px-3 py-1 rounded-full mb-4 w-min">
-                    Personalizable
-                </span>
-                <h2 class="text-2xl font-bold">Módulos opcionales</h2>
-                <p class="text-gray-500 text-sm">Amplía tu empresa con complementos específicos.</p>
-            </div>
-            <div class="mb-6">
-                <div class="flex items-baseline gap-1.5">
-                    <span class="text-4xl font-bold">Desde 9 €</span>
-                    <span class="text-gray-500">/ mes</span>
-                </div>
-                <p class="mt-1 text-sm text-gray-500">Por empresa, cuota fija (no por usuario)</p>
-            </div>
-            <div class="flex flex-col gap-5">
-                <a href={demo.url} class="bg-primary text-white border border-gray-300 rounded-3xl flex justify-center items-center h-12 px-3 text-center font-bold text-sm">{demo.label}</a>
-                <small class="text-center text-gray-400">Conoce los módulos en la demo grupal</small>
-            </div>
-            <hr class="my-6">
-            <div class="text-sm flex flex-col gap-3">
-                <h4 class="font-bold">Módulos disponibles:</h4>
-                <ul class="flex flex-col gap-3">
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-green-800">
-                    <span><span class="font-bold">Trabajadores (+9 €/mes):</span> funciones, horarios, documentos y ausencias del equipo.</span>
-                    </li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-green-800">
-                    <span><span class="font-bold">Proveedores (+15 €/mes):</span> compras, stock, faltantes y pedidos de material.</span>
-                    </li>
-                    <li class="flex gap-2.5 before:content-['✓'] before:font-bold before:text-green-800">
-                    <span><span class="font-bold">MCP (+9 €/mes):</span> conexión de Menos Lios con asistentes y herramientas compatibles.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
+
+<script>
+  import { loadPricing } from '../../config/pricing.mjs';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-pricing-endpoint]')) {
+    const endpoint = root.dataset.pricingEndpoint;
+    const amounts = root.querySelector<HTMLElement>('[data-base-prices]');
+    const list = root.querySelector<HTMLElement>('[data-module-prices]');
+    const empty = root.querySelector<HTMLElement>('[data-no-modules]');
+    const status = root.querySelector<HTMLElement>('[data-price-status]');
+    const retry = root.querySelector<HTMLButtonElement>('[data-pricing-retry]');
+    if (!endpoint || !amounts || !list || !empty || !status || !retry) continue;
+
+    const euros = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
+    const money = (cents: number) => euros.format(cents / 100);
+
+    const refresh = async () => {
+      retry.hidden = true;
+      status.hidden = false;
+      status.textContent = 'Cargando precios…';
+      try {
+        const pricing = await loadPricing(endpoint);
+        for (const field of ['base_monthly_cents', 'base_yearly_cents'] as const) {
+          const value = amounts.querySelector(`[data-price="${field}"]`);
+          if (value) value.textContent = money(pricing[field]);
+        }
+        const equivalent = amounts.querySelector('[data-equivalent]');
+        if (equivalent) equivalent.textContent = `Equivale a ${money(Math.round(pricing.base_yearly_cents / 12))}/mes`;
+        const seat = amounts.querySelector('[data-seat-price]');
+        if (seat) seat.textContent = `${money(pricing.seat_monthly_cents)}/mes o ${money(pricing.seat_yearly_cents)}/año`;
+        list.replaceChildren(...pricing.modules.map((module) => {
+          const item = document.createElement('li');
+          item.className = 'flex flex-wrap justify-between gap-x-3 gap-y-1 py-3 text-sm';
+          const name = document.createElement('strong');
+          name.textContent = module.name;
+          const rate = document.createElement('span');
+          rate.className = 'text-gray-600';
+          rate.textContent = `${money(module.monthly_cents)}/mes o ${money(module.yearly_cents)}/año · ${module.unit === 'person' ? 'por usuario' : 'por empresa'}`;
+          item.append(name, rate);
+          return item;
+        }));
+        amounts.hidden = false;
+        list.hidden = !pricing.modules.length;
+        empty.hidden = Boolean(pricing.modules.length);
+        status.textContent = 'Precios actualizados.';
+        status.classList.add('sr-only');
+      } catch {
+        status.textContent = 'No se pudieron cargar los precios. Puedes reintentar o consultar el catálogo en la app.';
+        status.classList.remove('sr-only');
+        retry.hidden = false;
+      }
+    };
+    retry.addEventListener('click', () => void refresh());
+    void refresh();
+  }
+</script>

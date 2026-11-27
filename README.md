@@ -30,3 +30,11 @@ Requiere Node.js 22.23.4 o superior y npm. Desde la raíz del proyecto:
 ## Publicación
 
 Publica el contenido de `dist/` y configura `menoslios.com` y su DNS en el proveedor de hosting. Los CTA comerciales enlazan a la inscripción semanal de Cal.com. Revisa las fechas disponibles y añade nuevas sesiones antes de que se agoten.
+
+## Precios
+
+La sección pública consulta en cada carga `https://app.menoslios.com/api/public-pricing`.
+El importe base, los asientos extra y las tarifas de módulos se publican desde
+**Superadmin → Planes y precios** en la aplicación. No hay precios de reserva
+en la landing: si falla el catálogo, se puede reintentar o abrir el catálogo
+en la app. `node --test tests/pricing.test.mjs` comprueba ese contrato.

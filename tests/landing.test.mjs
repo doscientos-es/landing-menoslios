@@ -34,7 +34,7 @@ test('los sectores sin comparativa se generan correctamente', async () => {
 
 test('los CTA comerciales enlazan a la inscripción de la demo semanal', () => {
   for (const [html, minimum] of [
-    [home, 8],
+    [home, 6],
     [sector, 3],
   ]) {
     const links = [
@@ -57,4 +57,10 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   }
   assert.doesNotMatch(home, /Más piscinas/)
   assert.match(home, /<footer\b/)
+})
+
+test('pricing links to registration and uses a live catalogue without a free trial', () => {
+  assert.match(home, /data-pricing-endpoint="https:\/\/app\.menoslios\.com\/api\/public-pricing"/)
+  assert.match(home, /href="https:\/\/app\.menoslios\.com\/registro"/)
+  assert.doesNotMatch(home, /Prueba Gratuita|14 días gratis|>20€</i)
 })
