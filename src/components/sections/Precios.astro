@@ -1,6 +1,4 @@
 ---
-import { demo } from '../../config/demo';
-
 const app = 'https://app.menoslios.com';
 ---
 
@@ -28,7 +26,6 @@ const app = 'https://app.menoslios.com';
           </div>
         </dl>
         <p class="mt-3 text-sm">Importes sin IVA. El pago anual ahorra dos mensualidades de la cuota base.</p>
-        <a href={`${app}/registro`} class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#bdff7b] px-5 text-center text-sm font-bold text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Crear mi empresa</a>
       </article>
 
       <article class="rounded-3xl border border-gray-200 p-6 sm:p-8" aria-labelledby="module-price-title">
@@ -36,7 +33,6 @@ const app = 'https://app.menoslios.com';
         <p class="mt-2 text-sm text-gray-600">Los módulos se cobran por empresa; el asistente de IA, por usuario.</p>
         <ul class="mt-4 divide-y divide-gray-200" data-module-prices hidden></ul>
         <p class="mt-4 text-sm text-gray-600" data-no-modules hidden>No hay módulos publicados en este momento.</p>
-        <a href={demo.url} class="mt-6 inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 px-5 text-center text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2">{demo.label}</a>
       </article>
       <p class="text-sm text-gray-600 lg:col-span-2">
         <a class="font-medium underline underline-offset-2" href={`${app}/precios`}>Ver el catálogo en la app</a>
