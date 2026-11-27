@@ -1,37 +1,76 @@
 ---
-import { ArrowDown } from '@lucide/astro';
-import { demo } from '../../config/demo';
+import { ArrowDown, CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
+import { brand } from '../../config/brand';
+import DemoLink from '../ui/DemoLink.astro';
+
+const steps = [
+  { label: 'Presupuestos', action: 'Envía y recibe la aprobación', icon: FileText },
+  { label: 'Agenda', action: 'Asigna el trabajo al equipo', icon: CalendarDays },
+  { label: 'Partes', action: 'Deja constancia de la visita', icon: ClipboardCheck },
+  { label: 'Facturas', action: 'Controla lo que falta por cobrar', icon: Receipt },
+];
 ---
 
+<section class="hero relative isolate overflow-hidden bg-primary text-primary-foreground" aria-labelledby="hero-title">
+  <video id="hero-background" class="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-30" src="/fondo.mp4" preload="none" muted loop playsinline aria-hidden="true"></video>
+  <div class="absolute inset-0 -z-10 bg-linear-to-br from-primary via-primary/75 to-black/75" aria-hidden="true"></div>
 
-<section class="relative h-[101vh] overflow-hidden text-white border-b-2 border-b-primary">
-    <video
-      class="absolute inset-0 h-full w-full object-cover"
-      src="/fondo.mp4"
-      autoplay muted loop playsinline></video>
+  <div class="site-container grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-16 lg:py-28">
+    <div>
+      <p class="mb-4 text-xs font-bold tracking-[0.18em] text-accent uppercase">{brand.audience}</p>
+      <h1 id="hero-title" class="max-w-[15ch] text-4xl leading-[1.03] font-black tracking-[-0.055em] text-balance sm:text-6xl lg:text-7xl">Del presupuesto al cobro, <span class="text-accent">sin líos.</span></h1>
+      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/90 sm:text-lg">Envía presupuestos, organiza las visitas del equipo y controla lo que queda por cobrar. Todo sin tener el trabajo repartido entre hojas de cálculo, mensajes y papel.</p>
+      <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <DemoLink />
+        <a href="#pasos" class="inline-flex min-h-12 items-center gap-2 rounded-full px-2 font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
+          Ver cómo funciona <ArrowDown class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
 
-    <div class="absolute inset-0 bg-linear-to-b from-primary/70 via-black/80 to-black/80"></div>
-
-    <div class="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
-    <a href="/" class="mb-8 text-4xl font-bold tracking-tight" aria-label="Menos Lios, inicio">Menos Lios</a>
-    <h1 class="mb-20 text-sm md:text-xl font-bold leading-tight tracking-tight max-w-80 mx-auto -mt-4 px-4">Todo el control de tu negocio, en un solo lugar</h1>
-
-    <div class="flex flex-col sm:flex-row gap-5">
-      <a href={demo.url} class="group flex bg-primary text-white w-64 max-w-full h-11 rounded-3xl items-center justify-center gap-4 no-underline transition-all relative hover:text-primary overflow-hidden hover:bg-primary/1">
-          <div class="bg-primary-light w-full h-full absolute rounded-3xl duration-200 -translate-x-[100%] group-hover:translate-x-0"></div>
-          <div class="absolute flex gap-2 items-center">
-              <p class="font-medium text-sm whitespace-nowrap">{demo.label}</p>
-              <div class="relative w-5 h-4 overflow-hidden flex items-center mt-0.5">
-                  <div class="flex items-center gap-3 -translate-x-7 transition-transform duration-300 ease-in-out group-hover:translate-x-0">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-4 shrink-0 fill-current"><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="size-4 shrink-0 fill-current"><path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z"/></svg>
-                  </div>
-              </div>
-          </div>
-      </a>
-      <a href="#pasos" class="w-40 h-11 items-center  flex gap-3 justify-center group m-auto">
-        <p>Ver beneficios</p><ArrowDown class="size-4 group-hover:animate-arrow"/>
-      </a>
+    <div class="rounded-3xl border border-white/20 bg-black/30 p-5 sm:p-7">
+      <p class="mb-3 text-xs font-bold tracking-widest text-accent uppercase">Un solo recorrido</p>
+      <ol class="divide-y divide-white/15" aria-label="Del presupuesto al cobro">
+        {steps.map(({ label, action, icon: Icon }) => (
+          <li class="flex items-center gap-3 py-3.5">
+            <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-white/10 text-accent"><Icon class="size-5" aria-hidden="true" /></span>
+            <div>
+              <p class="font-semibold">{label}</p>
+              <p class="text-sm text-white/80">{action}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   </div>
+
+  <button type="button" data-video-toggle aria-controls="hero-background" class="absolute right-3 bottom-2 min-h-11 rounded-full px-3 text-xs font-semibold text-white underline underline-offset-4" hidden>Pausar vídeo de fondo</button>
 </section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('#hero-background');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-video-toggle]');
+
+  if (video && toggle) {
+    const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+    const desktop = matchMedia('(min-width: 1024px)');
+    const syncPlayback = () => {
+      if (motion.matches && desktop.matches) {
+        void video.play().then(() => { toggle.hidden = false; }).catch(() => {});
+      } else {
+        video.pause();
+        toggle.hidden = true;
+      }
+    };
+
+    video.addEventListener('pause', () => { toggle.textContent = 'Reproducir vídeo de fondo'; });
+    video.addEventListener('play', () => { toggle.textContent = 'Pausar vídeo de fondo'; });
+    toggle.addEventListener('click', () => {
+      if (video.paused) void video.play().catch(() => {});
+      else video.pause();
+    });
+    motion.addEventListener('change', syncPlayback);
+    desktop.addEventListener('change', syncPlayback);
+    syncPlayback();
+  }
+</script>

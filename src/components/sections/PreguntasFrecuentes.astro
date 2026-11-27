@@ -1,52 +1,40 @@
 ---
-import PreguntaFrecuente from "../ui/PreguntaFrecuente.astro";
+import PreguntaFrecuente from '../ui/PreguntaFrecuente.astro';
 
 const preguntas = [
-    {
-        pregunta: "¿Qué es Menos Lios?",
-        respuesta: "Menos Lios es un software de Doscientos para gestionar presupuestos, clientes, trabajos y cobros de empresas de servicios.",
-        open: true,
-    },
-    {
-        pregunta: "¿Necesito instalar algo para usarlo?",
-        respuesta: "No. Menos Lios funciona desde el navegador y también desde el móvil, sin instalar nada en el ordenador.",
-    },
-    {
-        pregunta: "¿Puedo gestionar a mis clientes?",
-        respuesta: "Sí. Puedes organizar los datos de tus clientes y ubicaciones desde un mismo lugar.",
-    },
-    {
-        pregunta: "¿Puedo organizar los trabajos de mi equipo?",
-        respuesta: "Sí. Puedes organizar visitas y trabajos para hacer seguimiento de la actividad de tu equipo.",
-    },
-    {
-        pregunta: "¿Puedo preparar presupuestos y controlar los cobros?",
-        respuesta: "Sí. Puedes preparar presupuestos y llevar el control de facturas y cobros.",
-    },
+  {
+    pregunta: '¿Qué es Menos Líos?',
+    respuesta: 'Es un software de Doscientos para empresas de servicios. Reúne clientes, presupuestos, visitas, partes, facturas y cobros.',
+  },
+  {
+    pregunta: '¿Necesito instalar algo para usarlo?',
+    respuesta: 'No. Menos Líos funciona desde el navegador, tanto en el ordenador de la oficina como en el móvil.',
+  },
+  {
+    pregunta: '¿Qué ve un técnico desde el móvil?',
+    respuesta: 'Puede consultar su jornada, ver las visitas asignadas y completar los partes de trabajo con tareas, materiales, fotos e incidencias.',
+  },
+  {
+    pregunta: '¿Tiene sentido para trabajos recurrentes?',
+    respuesta: 'Sí. Puedes planificar mantenimientos y visitas periódicas y consultar qué se hizo en cada intervención.',
+  },
+  {
+    pregunta: '¿Qué veré en la demo?',
+    respuesta: 'Verás el recorrido de un trabajo, desde preparar el presupuesto hasta revisar qué queda por cobrar. Puedes preguntar cómo encajaría en tu empresa.',
+  },
 ];
-
 ---
 
-
-
-
-<section class="mx-5 xl:mx-100 py-30 flex flex-col xl:flex-row gap-13" id="preguntas">
-    <div class="w-full xl:max-w-2/5 flex flex-col justify-between bg-black/90 rounded-2xl box-border p-8 md:p-10 text-white">
-        <h2 class="text-4xl font-semibold w-40">Preguntas frecuentes</h2>
-        <div class="flex flex-col gap-3 w-70 mt-10 sm:mt-0">
-            <p class="font-bold text-md">¿Te has quedado con alguna duda?</p>
-            <a href="#" class="bg-primary text-primary-light h-10 w-50 rounded-3xl flex items-center justify-center text-sm hover:bg-primary-light hover:text-primary duration-200">Contacta con nosotros</a>
-        </div>
-    </div>
-    <div class="w-full flex flex-col gap-3">
-
-        {preguntas.map((p, i) =>(
-            <PreguntaFrecuente
-            abierta={p.open ?? true }
-            numero={i + 1}
-            pregunta={p.pregunta}
-            respuesta={p.respuesta}/>
-        ))}
-
-    </div>
+<section class="site-container grid gap-8 py-16 sm:py-22 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" id="preguntas" aria-labelledby="preguntas-title">
+  <header>
+    <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Preguntas frecuentes</p>
+    <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="preguntas-title">Antes de empezar.</h2>
+    <p class="mt-4 max-w-[37ch] text-base leading-relaxed text-gray-700">¿Te queda alguna pregunta sobre tu equipo o tu forma de trabajar?</p>
+    <a href="mailto:hola@doscientos.es" class="mt-4 inline-flex min-h-11 items-center rounded-full font-bold text-primary underline underline-offset-4">Escríbenos</a>
+  </header>
+  <div class="grid gap-3">
+    {preguntas.map(({ pregunta, respuesta }, i) => (
+      <PreguntaFrecuente abierta={i === 0} numero={i + 1} pregunta={pregunta} respuesta={respuesta} />
+    ))}
+  </div>
 </section>

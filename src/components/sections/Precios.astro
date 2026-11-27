@@ -2,11 +2,12 @@
 const app = 'https://app.menoslios.com';
 ---
 
-<section class="bg-white px-5 py-20 lg:px-12" id="precios" aria-labelledby="pricing-title">
-  <div class="mx-auto max-w-5xl">
-    <header class="mx-auto mb-10 max-w-xl text-center">
-      <h2 class="text-4xl font-semibold" id="pricing-title">Precios claros, sin sorpresas</h2>
-      <p class="mt-3 text-gray-600">Una cuota base con una persona incluida. Añade los asientos y módulos que necesite tu empresa.</p>
+<section class="bg-white" id="precios" aria-labelledby="pricing-title">
+  <div class="site-container py-16 sm:py-22">
+    <header class="mb-8 max-w-[44rem] sm:mb-10">
+      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Precios</p>
+      <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="pricing-title">Empieza con lo que necesitas.</h2>
+      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Una cuota base con una persona incluida. Añade los asientos y módulos que necesite tu empresa.</p>
     </header>
 
     <div class="grid gap-5 lg:grid-cols-[1fr_1.15fr]" data-pricing-endpoint={`${app}/api/public-pricing`}>

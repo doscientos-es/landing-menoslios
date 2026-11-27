@@ -1,7 +1,7 @@
 ---
 titulo: "Climatización"
 descripcion: "Controla equipos, revisiones y mantenimientos programados de cada cliente."
-imagen: "https://www.dosreisinstalaciones.es/images/climatizacion-y-ventilacion-en-vilagarcia-mv.jpg"
+imagen: "/sectores/climatizacion.avif"
 orden: 2
 
 caso_uso:
@@ -25,7 +25,7 @@ beneficios_sector:
 
 faq_sector:
   - pregunta: "¿Puedo llevar el control de las revisiones obligatorias y normativas RITE?"
-    respuesta: "Sí. Menos Lios te permite registrar las fechas de las inspecciones obligatorias y programar avisos automáticos para saber cuándo toca la próxima revisión."
+    respuesta: "Sí. Menos Líos te permite registrar las fechas de las inspecciones obligatorias y programar avisos automáticos para saber cuándo toca la próxima revisión."
   - pregunta: "¿Los técnicos pueden consultar el historial de una máquina desde la calle?"
     respuesta: "Sí. Desde el móvil el operario accede al historial completo del equipo instalado (reparaciones anteriores, piezas cambiadas y cargas de gas) antes de empezar."
   - pregunta: "¿Puedo facturar el material usado nada más terminar el aviso?"

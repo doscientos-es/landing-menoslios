@@ -10,17 +10,26 @@ const sector = await readFile(
 
 test('la landing utiliza la nueva marca y el dominio canónico', () => {
   assert.match(home, /<html lang="es"/)
-  assert.match(home, /<title>Menos Lios \|/)
+  assert.match(home, /<title>Menos Líos \| Del presupuesto al cobro, sin líos<\/title>/)
   assert.match(home, /rel="canonical" href="https:\/\/menoslios\.com\/"/)
-  assert.match(home, /property="og:site_name" content="Menos Lios"/)
-  assert.doesNotMatch(home, /Ábaco|PoolOps|MenosLios|abaco-logo\.svg/)
+  assert.match(home, /property="og:site_name" content="Menos Líos"/)
+  assert.match(home, /name="twitter:title" content="Menos Líos \| Del presupuesto al cobro, sin líos"/)
+  assert.doesNotMatch(home, /Ábaco|PoolOps|MenosLios|Menos Lios|abaco-logo\.svg/)
   assert.doesNotMatch(home, /href="https:\/\/abaco\.doscientos\.es\//)
 })
 
 test('las páginas de sectores tienen metadatos propios', () => {
-  assert.match(sector, /<title>[^<]+ \| Menos Lios<\/title>/)
+  assert.match(sector, /<title>[^<]+ \| Menos Líos<\/title>/)
   assert.match(sector, /rel="canonical" href="https:\/\/menoslios\.com\/sectores\/electricidad\/"/)
-  assert.doesNotMatch(sector, /Ábaco|MenosLios|abaco-logo\.svg/)
+  assert.doesNotMatch(sector, /Ábaco|MenosLios|Menos Lios|abaco-logo\.svg/)
+  assert.match(sector, /<h1[^>]*>Electricidad<\/h1>/)
+  assert.match(sector, /Presupuesta instalaciones, gestiona avisos urgentes y factura al terminar el trabajo\./)
+  assert.match(sector, /href="\/#precios"/)
+  assert.match(sector, /<footer\b/)
+  assert.match(sector, /Gestión de apagones urgentes y boletines en el acto/)
+  assert.match(sector, /Materiales y cableado/)
+  assert.match(sector, /¿Puedo detallar los materiales eléctricos específicos utilizados en una avería\?/)
+  assert.doesNotMatch(sector, /14 días gratis|prueba gratuita/i)
 })
 
 test('los sectores sin comparativa se generan correctamente', async () => {
@@ -28,14 +37,14 @@ test('los sectores sin comparativa se generan correctamente', async () => {
     new URL('../dist/sectores/climatizacion/index.html', import.meta.url),
     'utf8',
   )
-  assert.match(climatizacion, /<title>Climatización \| Menos Lios<\/title>/)
+  assert.match(climatizacion, /<title>Climatización \| Menos Líos<\/title>/)
   assert.doesNotMatch(climatizacion, /undefined/)
 })
 
 test('los CTA comerciales enlazan a la inscripción de la demo semanal', () => {
   for (const [html, minimum] of [
-    [home, 6],
-    [sector, 3],
+    [home, 5],
+    [sector, 4],
   ]) {
     const links = [
       ...html.matchAll(
@@ -49,9 +58,20 @@ test('los CTA comerciales enlazan a la inscripción de la demo semanal', () => {
 })
 
 test('la portada conserva el hero activo y sus secciones principales', () => {
-  assert.match(home, /<main>/)
+  assert.match(home, /<main\b[^>]*id="contenido"/)
   assert.match(home, /<video\b[^>]*src="\/fondo\.mp4"/)
-  assert.match(home, /<h1[^>]*>Todo el control de tu negocio, en un solo lugar<\/h1>/)
+  assert.match(home, /<h1[^>]*>Del presupuesto al cobro, <span[^>]*>sin líos\.<\/span><\/h1>/)
+  assert.equal((home.match(/<h1\b/g) ?? []).length, 1)
+  assert.match(home, /La oficina y el equipo, en la misma página\./)
+  assert.match(home, /Cada oficio tiene su ritmo\./)
+  assert.match(home, /Empieza con lo que necesitas\./)
+  assert.match(home, /aria-controls="hero-background"/)
+  assert.doesNotMatch(home, /<video\b[^>]*autoplay/)
+  assert.match(home, /href="#contenido"[^>]*>Saltar al contenido/)
+  assert.match(home, /<details\b[^>]*data-header-menu/)
+  for (const step of ['Presupuesta y envía', 'Organiza las visitas', 'Deja el parte hecho', 'Factura y sigue los cobros']) {
+    assert.ok(home.includes(step), step)
+  }
   for (const id of ['pasos', 'sectores', 'precios', 'preguntas']) {
     assert.match(home, new RegExp(`id="${id}"`))
   }
@@ -59,8 +79,11 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   assert.match(home, /<footer\b/)
 })
 
-test('pricing links to registration and uses a live catalogue without a free trial', () => {
+test('pricing preserves the live catalogue without adding commercial buttons or trial claims', () => {
   assert.match(home, /data-pricing-endpoint="https:\/\/app\.menoslios\.com\/api\/public-pricing"/)
-  assert.match(home, /href="https:\/\/app\.menoslios\.com\/registro"/)
+  const pricing = home.match(/<section[^>]+id="precios"[\s\S]*?<\/section>/)?.[0]
+  assert.ok(pricing)
+  assert.match(pricing, /href="https:\/\/app\.menoslios\.com\/precios"/)
+  assert.doesNotMatch(pricing, /\/registro|cal\.com|Crear mi empresa/)
   assert.doesNotMatch(home, /Prueba Gratuita|14 días gratis|>20€</i)
 })

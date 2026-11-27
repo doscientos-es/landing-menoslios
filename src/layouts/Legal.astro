@@ -1,0 +1,97 @@
+---
+import '../styles/global.css'
+import Base from './Base.astro'
+import { legalPages, type LegalPath } from '../config/legal'
+
+interface Props {
+  title: string
+  description: string
+  current: LegalPath
+}
+
+const { title, description, current } = Astro.props
+---
+
+<Base title={`${title} | Menos Líos`} description={description}>
+  <div class="min-h-screen bg-background text-foreground">
+    <header class="border-b border-primary/10">
+      <div class="mx-auto flex max-w-4xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
+        <a href="/" aria-label="Menos Líos, inicio" class="text-xl font-bold tracking-tight text-primary rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4">Menos Líos</a>
+        <a href="/" class="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4">Volver a la web</a>
+      </div>
+    </header>
+    <main class="mx-auto max-w-4xl px-5 py-12 sm:px-8 sm:py-16" id="contenido">
+      <article aria-labelledby="titulo-legal" class="rounded-3xl border border-primary/10 bg-white px-5 py-8 shadow-xs sm:px-10 sm:py-12">
+        <p class="mb-3 text-xs font-semibold tracking-widest text-primary uppercase">Información legal</p>
+        <h1 id="titulo-legal" class="mb-4 text-4xl leading-tight font-semibold tracking-tight text-primary sm:text-5xl">{title}</h1>
+        <p class="mb-8 max-w-2xl text-base leading-relaxed text-gray-700 sm:mb-10 sm:text-lg">{description}</p>
+        <div class="legal-copy">
+          <slot />
+        </div>
+      </article>
+    </main>
+    <footer class="border-t border-primary/10">
+      <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-5 py-6 text-sm text-gray-700 sm:px-8">
+        <p>Menos Líos · Un producto de <a href="https://doscientos.es/" class="underline underline-offset-4">Doscientos</a></p>
+        <nav aria-label="Información legal">
+          <ul class="flex flex-wrap gap-x-5 gap-y-2">
+            {legalPages.map(({ path, label }) => (
+              <li><a href={path} aria-current={path === current ? 'page' : undefined} class="rounded-sm underline decoration-primary/40 underline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 aria-[current=page]:font-semibold aria-[current=page]:text-primary">{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</Base>
+
+<style>
+  .legal-copy {
+    color: #374151;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-copy :global(section + section) {
+    margin-block-start: 2rem;
+  }
+
+  .legal-copy :global(h2) {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    font-weight: 650;
+    line-height: 1.4;
+    margin-block-end: 0.55rem;
+  }
+
+  .legal-copy :global(p),
+  .legal-copy :global(li),
+  .legal-copy :global(dd) {
+    line-height: 1.65;
+  }
+
+  .legal-copy :global(p + p) {
+    margin-block-start: 0.75rem;
+  }
+
+  .legal-copy :global(ul) {
+    list-style: disc;
+    padding-inline-start: 1.2rem;
+    margin-block: 0.75rem;
+  }
+
+  .legal-copy :global(li + li) {
+    margin-block-start: 0.5rem;
+  }
+
+  .legal-copy :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .legal-copy :global(a:focus-visible) {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+</style>

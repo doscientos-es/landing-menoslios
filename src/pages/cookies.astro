@@ -1,0 +1,43 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { company } from '../config/legal'
+---
+
+<Legal
+  title="Política de cookies"
+  description="Cómo utiliza la web comercial de Menos Líos las cookies y tecnologías similares."
+  current="/cookies"
+>
+  <section aria-labelledby="uso">
+    <h2 id="uso">Cookies en esta web</h2>
+    <p>
+      La web comercial no incorpora cookies de publicidad, personalización publicitaria ni analítica de usuarios.
+      Los proveedores de infraestructura pueden utilizar cookies técnicas cuando sean necesarias para proteger la navegación
+      o prestar el servicio solicitado. Estas cookies no se usan para mostrar publicidad personalizada ni elaborar perfiles
+      en esta web.
+    </p>
+    <p>
+      La consulta del catálogo público de precios se realiza sin enviar cookies ni credenciales al servidor de la aplicación.
+      En el navegador puedes bloquear o eliminar cookies desde sus ajustes; bloquear las estrictamente necesarias puede
+      afectar al funcionamiento de algunos servicios.
+    </p>
+  </section>
+
+  <section aria-labelledby="externos">
+    <h2 id="externos">Enlaces a otros servicios</h2>
+    <p>
+      Esta política no cubre otros sitios. Si abres la aplicación de Menos Líos o el enlace para reservar en Cal.com,
+      pueden utilizarse cookies necesarias para iniciar sesión, mantener la sesión o completar la reserva.
+      Consulta la información del servicio al que accedas antes de facilitar tus datos.
+    </p>
+  </section>
+
+  <section aria-labelledby="mas">
+    <h2 id="mas">Más información</h2>
+    <p>
+      Puedes consultar la <a href="/privacidad">política de privacidad</a>, escribirnos a
+      <a href={`mailto:${company.email}`}>{company.email}</a>
+      o consultar la <a href="https://www.aepd.es/guias/guia-cookies.pdf">guía de cookies de la AEPD</a>.
+    </p>
+  </section>
+</Legal>

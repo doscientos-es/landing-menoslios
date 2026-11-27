@@ -25,7 +25,7 @@ beneficios_sector:
 
 faq_sector:
   - pregunta: "¿Cómo puedo automatizar los avisos de mantenimiento periódico de mis clientes?"
-    respuesta: "Menos Lios te permite programar calendarios recurrentes (mensuales, trimestrales o anuales) para que el sistema te avise con antelación de qué revisiones tocan cada semana."
+    respuesta: "Menos Líos te permite programar calendarios recurrentes (mensuales, trimestrales o anuales) para que el sistema te avise con antelación de qué revisiones tocan cada semana."
   - pregunta: "¿Los técnicos pueden rellenar listas de comprobación o checklists durante la revisión?"
     respuesta: "Sí. Desde la aplicación móvil pueden marcar los puntos revisados, anotar mediciones o dejar observaciones técnicas para garantizar un trabajo metódico."
   - pregunta: "¿Se puede adjuntar el informe de mantenimiento al cliente de forma inmediata?"

@@ -1,0 +1,80 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { company } from '../config/legal'
+---
+
+<Legal
+  title="Política de privacidad"
+  description="Qué datos se tratan al visitar esta web, escribirnos o reservar una demo de Menos Líos."
+  current="/privacidad"
+>
+  <section aria-labelledby="responsable">
+    <h2 id="responsable">Responsable</h2>
+    <p>
+      El responsable es {company.name} (NIF {company.taxId}), con domicilio en {company.address}.
+      Puedes contactar con nosotros en <a href={`mailto:${company.email}`}>{company.email}</a>.
+      Esta política se refiere a la web comercial. El registro, el uso del producto y los pagos en la aplicación no se realizan en esta web.
+    </p>
+  </section>
+
+  <section aria-labelledby="finalidades">
+    <h2 id="finalidades">Qué datos usamos y para qué</h2>
+    <ul>
+      <li>
+        <strong>Navegación.</strong> Al cargar páginas, recursos o el catálogo público de precios, los servicios técnicos reciben
+        datos de conexión como la dirección IP, la fecha y hora de la petición y datos del navegador.
+        El interés legítimo es entregar el sitio y el catálogo, diagnosticar errores y proteger el servicio frente a abusos (art. 6.1.f del RGPD).
+      </li>
+      <li>
+        <strong>Consultas.</strong> Si nos escribes, usamos tu dirección de correo y la información que nos envíes para responderte.
+        La base es adoptar medidas precontractuales a tu solicitud si consultas por una contratación en nombre propio (art. 6.1.b del RGPD),
+        o nuestro interés legítimo en atender otras consultas y comunicaciones (art. 6.1.f).
+      </li>
+      <li>
+        <strong>Demos.</strong> La reserva abre Cal.com. Si la realizas, usamos los datos de contacto y la información
+        de la reserva necesaria para coordinar, confirmar o gestionar la sesión que solicitas. La base es atender tu solicitud precontractual (art. 6.1.b del RGPD) si actúas en nombre propio
+        o, si representas a una empresa, nuestro interés legítimo en organizar la sesión que has solicitado (art. 6.1.f).
+      </li>
+    </ul>
+    <p>La web comercial no pide datos de pago ni contiene formularios propios de registro. No es necesario enviar datos sensibles para pedir información o reservar una demo.</p>
+  </section>
+
+  <section aria-labelledby="destinatarios">
+    <h2 id="destinatarios">Proveedores y transferencias</h2>
+    <p>
+      Para prestar el servicio pueden intervenir proveedores de alojamiento y seguridad web (Vercel y Cloudflare),
+      correo electrónico y gestión de reservas (Cal.com). Las fotografías alojadas externamente implican una
+      conexión con su proveedor, que recibe los datos técnicos necesarios para entregar la imagen.
+      También podemos comunicar datos si existe una obligación legal.
+    </p>
+    <p>
+      Cuando un proveedor de este servicio trate datos fuera del Espacio Económico Europeo, la transferencia debe
+      contar con una decisión de adecuación u otra garantía válida, como las cláusulas contractuales tipo de la Comisión Europea.
+      Puedes pedirnos información o una copia de las garantías aplicables en
+      <a href={`mailto:${company.email}`}>{company.email}</a>.
+      Consulta también la <a href="https://cal.com/privacy">política de Cal.com</a> y los acuerdos de tratamiento de
+      <a href="https://vercel.com/legal/dpa">Vercel</a> y
+      <a href="https://www.cloudflare.com/cloudflare-customer-dpa/">Cloudflare</a>.
+    </p>
+  </section>
+
+  <section aria-labelledby="conservacion">
+    <h2 id="conservacion">Cuánto tiempo los conservamos</h2>
+    <p>
+      Conservamos las consultas y reservas mientras sean necesarias para atenderlas y gestionar su seguimiento.
+      Los datos técnicos se conservan según cuánto tiempo sean necesarios para prestar el servicio, resolver incidencias
+      o prevenir abusos. Se podrán conservar los datos que corresponda durante los plazos legales aplicables
+      si es necesario cumplir obligaciones o atender reclamaciones.
+    </p>
+  </section>
+
+  <section aria-labelledby="derechos">
+    <h2 id="derechos">Tus derechos</h2>
+    <p>
+      Puedes solicitar acceso, rectificación, supresión o limitación de tus datos, oponerte al tratamiento y pedir
+      su portabilidad cuando proceda. Escribe a <a href={`mailto:${company.email}`}>{company.email}</a>,
+      indicando qué derecho quieres ejercer. También puedes presentar una reclamación ante la
+      <a href="https://www.aepd.es/derechos-y-deberes/ejerce-tus-derechos">Agencia Española de Protección de Datos</a>.
+    </p>
+  </section>
+</Legal>

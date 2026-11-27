@@ -1,22 +1,19 @@
 ---
-const { numero, pregunta, respuesta, abierta = false} = Astro.props
+import { Plus } from '@lucide/astro';
+interface Props {
+  numero: number;
+  pregunta: string;
+  respuesta: string;
+  abierta?: boolean;
+}
+const { numero, pregunta, respuesta, abierta = false } = Astro.props;
 ---
 
-
-<details name="faq" class="bg-white rounded-2xl box-border p-5 px-8 items-center group cursor-pointer open:shadow-sm open:ring-1 open:ring-black/10 group
-           [interpolate-size:allow-keywords]
-           motion-safe:details-content:h-0
-           motion-safe:details-content:overflow-hidden
-           motion-safe:details-content:transition-[height,content-visibility]
-           motion-safe:details-content:duration-300
-           motion-safe:details-content:transition-discrete
-           open:details-content:h-auto" open={abierta}>
-    <summary class="flex items-center">
-        <span class="w-10 text-gray-500">{numero}</span>
-        <span class="flex-1 font-semibold">{pregunta}</span>
-        <svg class="flex-none size-3 w-4 group-open:rotate-0 duration-200" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 8h12"/><path class="group-open:hidden" d="M8 2v12"/></svg>
-    </summary>
-    <p class="mt-4 ml-10 text-[13px] leading-relaxed tracking-[1px]">
-        {respuesta}
-    </p>
+<details name="faq" class="group rounded-xl border border-primary/10 bg-white px-4 py-3 open:border-primary/30 sm:px-5" open={abierta}>
+  <summary class="flex min-h-10 cursor-pointer list-none items-center gap-3 rounded text-primary [&::-webkit-details-marker]:hidden">
+    <span class="text-xs font-bold tracking-wider" aria-hidden="true">0{numero}</span>
+    <span class="flex-1 font-bold">{pregunta}</span>
+    <Plus class="size-4 shrink-0 motion-safe:transition-transform group-open:rotate-45" aria-hidden="true" />
+  </summary>
+  <p class="mt-2 mb-1 pl-7 text-sm leading-relaxed text-gray-700">{respuesta}</p>
 </details>

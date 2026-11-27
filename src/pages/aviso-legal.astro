@@ -1,0 +1,59 @@
+---
+import Legal from '../layouts/Legal.astro'
+import { company } from '../config/legal'
+---
+
+<Legal
+  title="Aviso legal"
+  description="Quién está detrás de Menos Líos y cómo contactar con la empresa titular de esta web."
+  current="/aviso-legal"
+>
+  <section aria-labelledby="titular">
+    <h2 id="titular">Titular del sitio</h2>
+    <dl class="grid gap-4 rounded-2xl bg-primary-light p-5 sm:grid-cols-2 sm:p-6">
+      <div>
+        <dt class="font-semibold text-primary">Denominación social</dt>
+        <dd>{company.name}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-primary">NIF</dt>
+        <dd>{company.taxId}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-primary">Domicilio social</dt>
+        <dd>{company.address}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-primary">Contacto</dt>
+        <dd><a href={`mailto:${company.email}`}>{company.email}</a></dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="font-semibold text-primary">Datos registrales</dt>
+        <dd>{company.register} <a href={company.registerSource}>Publicación en el BORME</a>.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="alcance">
+    <h2 id="alcance">Qué cubre este aviso</h2>
+    <p>
+      En menoslios.com presentamos Menos Líos, un software de gestión para profesionales y empresas de servicios.
+      En esta web puedes consultar información comercial y precios, y acceder a enlaces para reservar una demo o abrir la aplicación.
+      Aquí no se formalizan suscripciones ni se realizan pagos.
+    </p>
+  </section>
+
+  <section aria-labelledby="contenidos">
+    <h2 id="contenidos">Contenidos y enlaces</h2>
+    <p>
+      Los textos, logotipos, imágenes y demás contenidos están protegidos por los derechos de sus titulares.
+      Puedes consultar los contenidos para informarte sobre el producto; cualquier otro uso debe respetar
+      las licencias aplicables y los derechos de sus titulares.
+    </p>
+    <p>
+      Algunos enlaces llevan a servicios con sus propias condiciones. Para conocer cómo se tratan
+      los datos personales en esta web, consulta la <a href="/privacidad">política de privacidad</a>
+      y la <a href="/cookies">política de cookies</a>.
+    </p>
+  </section>
+</Legal>

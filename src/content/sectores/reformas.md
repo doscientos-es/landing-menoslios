@@ -25,7 +25,7 @@ beneficios_sector:
 
 faq_sector:
   - pregunta: "¿Cómo puedo controlar si una obra de reforma se está desviando del presupuesto?"
-    respuesta: "Menos Lios te permite contrastar las partidas presupuestadas con los gastos reales de materiales y las horas de los gremios registradas en tiempo real, ayudándote a proteger tu margen de beneficio."
+    respuesta: "Menos Líos te permite contrastar las partidas presupuestadas con los gastos reales de materiales y las horas de los gremios registradas en tiempo real, ayudándote a proteger tu margen de beneficio."
   - pregunta: "¿Es posible gestionar presupuestos complejos divididos en diferentes gremios?"
     respuesta: "Sí. Puedes organizar el presupuesto por capítulos y partidas (demolición, tabiquería, revestimientos, instalaciones), facilitando la comprensión del cliente y el seguimiento de la ejecución."
   - pregunta: "¿Cómo se gestionan los extras o modificaciones que surgen durante la obra?"

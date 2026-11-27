@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { demo } from '../../config/demo';
+import { brand } from '../../config/brand';
 
 const sectores = (await getCollection("sectores")).sort(
   (a, b) => a.data.orden - b.data.orden
@@ -10,15 +11,15 @@ const sectores = (await getCollection("sectores")).sort(
 
 
 <footer class="bg-[#141414] text-white rounded-t-4xl md:rounded-t-[60px] mt-24 pt-16 pb-10 px-6 sm:px-10 lg:px-20 font-['Onest',sans-serif]">
-  <div class="mx-5 md:mx-30 xl:mx-60">
+  <div class="mx-auto max-w-6xl">
 
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14 border-b border-white/10">
 
       <div class="md:col-span-5 flex flex-col justify-between gap-6">
         <div>
-          <a href="/" class="inline-block text-2xl font-bold tracking-tight text-white mb-3" aria-label="Menos Lios, inicio">Menos Lios</a>
+          <a href="/" class="inline-block text-2xl font-bold tracking-tight text-white mb-3" aria-label={`${brand.name}, inicio`}>{brand.name}</a>
           <p class="text-sm text-gray-400 leading-relaxed max-w-sm">
-            Software de gestión para profesionales y pequeñas empresas de servicios. Del presupuesto al cobro, todo en un mismo lugar.
+            {brand.promise} Software de gestión para profesionales y pequeñas empresas de servicios.
           </p>
         </div>
 
@@ -47,10 +48,10 @@ const sectores = (await getCollection("sectores")).sort(
           PRODUCTO
         </h4>
         <ul class="space-y-3 text-xs text-gray-300">
-          <li><a href="#pasos" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Cómo te ayudamos</a></li>
-          <li><a href="#precios" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Precios</a></li>
-          <li><a href="#preguntas" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Preguntas frecuentes</a></li>
-          <li><a href="#sectores" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Sectores</a></li>
+          <li><a href="/#pasos" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Cómo te ayudamos</a></li>
+          <li><a href="/#precios" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Precios</a></li>
+          <li><a href="/#preguntas" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Preguntas frecuentes</a></li>
+          <li><a href="/#sectores" class="inline-block hover:text-white hover:translate-x-2 transition-all duration-200">Sectores</a></li>
         </ul>
       </div>
 
@@ -71,7 +72,7 @@ const sectores = (await getCollection("sectores")).sort(
 
     <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
       <p>
-        © 2026 Menos Lios · Un producto de <a href="https://doscientos.es" class="text-gray-300 hover:text-white underline underline-offset-4">Doscientos</a>
+        © 2026 {brand.name} · Un producto de <a href="https://doscientos.es" class="text-gray-300 hover:text-white underline underline-offset-4">Doscientos</a>
       </p>
       <div class="flex flex-wrap items-center gap-6">
         <a href="/aviso-legal" class="hover:text-white transition-colors">Aviso legal</a>

@@ -25,7 +25,7 @@ beneficios_sector:
 
 faq_sector:
   - pregunta: "¿Cómo puedo gestionar los servicios recurrentes o de limpieza periódica?"
-    respuesta: "Menos Lios te permite programar servicios periódicos (semanales, quincenales o mensuales) para que aparezcan automáticamente en el calendario de tus operarios sin necesidad de recrearlos cada vez."
+    respuesta: "Menos Líos te permite programar servicios periódicos (semanales, quincenales o mensuales) para que aparezcan automáticamente en el calendario de tus operarios sin necesidad de recrearlos cada vez."
   - pregunta: "¿Los operarios pueden fichar o registrar el tiempo en cada centro de trabajo?"
     respuesta: "Sí. Desde la aplicación móvil, el equipo puede indicar cuándo llega y cuándo termina el servicio en cada inmueble, dejando constancia de las horas reales trabajadas."
   - pregunta: "¿Se pueden emitir facturas mensuales automáticas a los clientes de comunidades u oficinas?"

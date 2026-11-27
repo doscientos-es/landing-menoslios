@@ -1,0 +1,21 @@
+---
+import { ArrowUpRight } from '@lucide/astro';
+import { demo } from '../../config/demo';
+
+interface Props {
+  variant?: 'accent' | 'primary' | 'outline';
+  class?: string;
+}
+
+const { variant = 'accent', class: extraClass } = Astro.props;
+const styles = {
+  accent: 'bg-accent text-accent-foreground hover:bg-primary-light',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/85',
+  outline: 'border border-primary/25 text-primary hover:bg-primary-light',
+};
+---
+
+<a href={demo.url} class:list={['inline-flex min-h-12 w-fit max-w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center text-sm font-bold motion-safe:transition-colors', styles[variant], extraClass]}>
+  {demo.label}
+  <ArrowUpRight class="size-4 shrink-0" aria-hidden="true" />
+</a>

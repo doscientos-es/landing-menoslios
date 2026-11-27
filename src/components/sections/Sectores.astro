@@ -1,49 +1,39 @@
 ---
-import { ArrowRight } from '@lucide/astro';
-import { getCollection } from "astro:content";
-import { demo } from '../../config/demo';
+import { ArrowUpRight } from '@lucide/astro';
+import { getCollection } from 'astro:content';
+import DemoLink from '../ui/DemoLink.astro';
 
-const sectores = (await getCollection("sectores")).sort(
-  (a, b) => a.data.orden - b.data.orden
-);
+const sectores = (await getCollection('sectores')).sort((a, b) => a.data.orden - b.data.orden);
 ---
 
+<section class="border-y border-primary/10 bg-primary-light" id="sectores" aria-labelledby="sectores-title">
+  <div class="site-container py-16 sm:py-22">
+    <header class="mb-8 max-w-[44rem] sm:mb-10">
+      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Sectores</p>
+      <h2 id="sectores-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Cada oficio tiene su ritmo.</h2>
+      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Da igual si haces instalaciones, atiendes avisos o llevas mantenimientos. Mira cómo encaja Menos Líos en tu forma de trabajar.</p>
+    </header>
 
-
-<section class="mx-10 lg:mx-80 my-40" id="sectores">
-    <h2 class="text-4xl font-semibold text-center">Pensado para todos los sectores</h2>
-    <p class="mt-3 max-w-xl text-md text-gray-500 mb-15 text-center m-auto w-auto sm:w-110">
-      Da igual si instalas, reparas o mantienes: Menos Lios <strong>organiza presupuestos, visitas y cobros a tu manera</strong>.
-    </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center gap-8">
-
-        {sectores.map((p) => (
-            <a href={`/sectores/${p.id}`} class="group flex h-90 w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm duration-200 hover:border-primary hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)]">
-                <div class="h-2/5 overflow-hidden relative">
-                    <img src={p.data.imagen} alt={p.data.titulo} class="h-full w-full object-cover"/>
-                    <div class="absolute inset-0 group-hover:bg-primary/50 duration-200"></div>
-                </div>
-                <div class="h-3/5 box-border p-5 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-2">{p.data.titulo}</h3>
-                        <p class="text-gray-400 text-sm">{p.data.descripcion}</p>
-                    </div>
-                    <p class="text-primary items-center group-hover:text-white text-sm flex gap-2">Ver mas <ArrowRight class="size-3.5 -rotate-45 group-hover:rotate-0 duration-150"/></p>
-                </div>
-            </a>
-        ))}
-
-        <a href={demo.url} class="group flex h-90 w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm duration-200 hover:border-primary hover:bg-primary hover:text-white hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),0_20px_40px_rgba(0,0,0,0.15)]">
-            <div class="h-full box-border p-5 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-2xl font-semibold mb-2">Y mucho más</h3>
-                    <p class="text-gray-400 text-sm">¿No ves tu sector? Descubre en una demo si Menos Lios se adapta a tu forma de trabajar.</p>
-                </div>
-                <p class="text-primary items-center group-hover:text-white text-sm flex gap-2">{demo.label} <ArrowRight class="size-3.5 -rotate-45 group-hover:rotate-0 duration-150"/></p>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {sectores.map(({ id, data }) => (
+        <li>
+          <a href={`/sectores/${id}`} class="group flex h-full flex-col overflow-hidden rounded-2xl border border-primary/10 bg-white hover:border-primary/45">
+            <img src={data.imagen} alt="" width="400" height="240" loading="lazy" decoding="async" class="aspect-[5/3] w-full bg-primary/15 object-cover" />
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <h3 class="text-xl font-bold text-primary">{data.titulo}</h3>
+              <p class="grow text-sm leading-relaxed text-gray-700">{data.descripcion}</p>
+              <span class="mt-3 flex items-center gap-1 text-sm font-bold text-primary group-hover:underline">Ver sector <ArrowUpRight class="size-4" aria-hidden="true" /></span>
             </div>
-        </a>
-
-
-
-    </div>
+          </a>
+        </li>
+      ))}
+      <li class="flex flex-col justify-between gap-5 rounded-2xl bg-primary p-5 text-primary-foreground">
+        <div>
+          <h3 class="text-xl font-bold">¿No ves tu sector?</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/85">Cuéntanos cómo organizas tus trabajos y vemos si Menos Líos encaja.</p>
+        </div>
+        <DemoLink class="text-xs" />
+      </li>
+    </ul>
+  </div>
 </section>

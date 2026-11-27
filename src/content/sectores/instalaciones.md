@@ -1,7 +1,7 @@
 ---
 titulo: "Instalaciones"
 descripcion: "Reduce y organiza todos tus clientes y materiales en un solo lugar."
-imagen: "https://www.reparalia.es/images/og/instalacion-aire-acondicionado.jpg"
+imagen: "/sectores/instalacion.avif"
 orden: 1
 
 caso_uso:
@@ -24,12 +24,12 @@ beneficios_sector:
     texto: "Cierra el proyecto obteniendo el visto bueno y la firma de conformidad del cliente en el acto."
 
 faq_sector:
-  - pregunta: "¿Cómo ayuda Menos Lios a coordinar las instalaciones grandes de mi empresa?"
+  - pregunta: "¿Cómo ayuda Menos Líos a coordinar las instalaciones grandes de mi empresa?"
     respuesta: "Te permite agrupar toda la información de un mismo proyecto (clientes, fases, avisos y materiales) en un panel centralizado para que oficina y técnicos remen siempre en la misma dirección."
   - pregunta: "¿Puedo llevar un control de los materiales que salen hacia una obra?"
     respuesta: "Sí. Puedes registrar y descontar el material asignado a cada instalación para saber en todo momento qué se ha instalado y qué stock queda disponible."
   - pregunta: "¿Qué ocurre si una instalación requiere varios días de trabajo?"
-    respuesta: "Menos Lios te permite mantener partes abiertos por fases o jornadas, registrando el avance de horas y materiales consumidos de forma progresiva hasta la finalización total de la obra."
+    respuesta: "Menos Líos te permite mantener partes abiertos por fases o jornadas, registrando el avance de horas y materiales consumidos de forma progresiva hasta la finalización total de la obra."
 ---
 
 # Gestión avanzada para empresas de instalaciones
