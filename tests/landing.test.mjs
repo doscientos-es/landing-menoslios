@@ -91,6 +91,19 @@ test('cómo funciona explica las cinco mejoras sin prometer sincronización ni c
   assert.doesNotMatch(workflow, /cualquier dispositivo|cobra automátic[ao]/i)
 })
 
+test('el detalle móvil diferencia lo que puede hacer la oficina de lo que ve el técnico', () => {
+  const workflow = home.match(/<section[^>]+id="pasos"[\s\S]*?<\/section>/)?.[0]
+  const details = workflow?.match(/<details\b[^>]*>[\s\S]*?<\/details>/)?.[0]
+  assert.ok(details)
+  assert.match(details, /<summary\b[^>]*>\s*Ver más detalles de agenda, partes y cobros\s*<\/summary>/)
+  assert.match(details, /En la agenda de oficina<\/strong> Abre «Por resolver» para localizar visitas de hoy o mañana que siguen sin asignar o coinciden con una ausencia confirmada/)
+  assert.match(details, /En el móvil del técnico<\/strong> Busca tus visitas cerradas recientes por cliente, centro o nombre de la visita/)
+  assert.match(details, /fotos pendientes en el mismo dispositivo y reintenta su envío cuando tengas conexión/)
+  assert.match(details, /En la ficha del cliente y en facturas<\/strong> Consulta qué presupuestos no tienen respuesta y cuánto queda por cobrarle al cliente/)
+  assert.match(details, /descarga en CSV solo las que coinciden con tus filtros/)
+  assert.doesNotMatch(details, /cualquier dispositivo|sincroniza automátic|cobra automátic|todas las visitas/i)
+})
+
 test('pricing preserves the live catalogue without adding commercial buttons or trial claims', () => {
   assert.match(home, /data-pricing-endpoint="https:\/\/app\.menoslios\.com\/api\/public-pricing"/)
   const pricing = home.match(/<section[^>]+id="precios"[\s\S]*?<\/section>/)?.[0]
