@@ -16,6 +16,7 @@ async function verify() {
       const workflow = page.locator('#pasos')
       for (const img of await workflow.locator('img').all()) {
         await img.scrollIntoViewIfNeeded()
+        await page.waitForFunction((node) => node.complete && node.naturalWidth > 0, await img.elementHandle(), { timeout: 7000 })
         await img.evaluate((element) => element.decode())
         assert.ok(await img.evaluate((element) => element.naturalWidth > 0 && element.alt.length > 35))
       }
@@ -38,6 +39,7 @@ async function verify() {
       assert.match(await page.locator('h1').innerText(), /fontaneros/)
       const pipePhoto = page.locator('img[src$="fontaneria.avif"]')
       await pipePhoto.scrollIntoViewIfNeeded()
+      await page.waitForFunction((node) => node.complete && node.naturalWidth > 0, await pipePhoto.elementHandle(), { timeout: 7000 })
       assert.equal(await pipePhoto.evaluate(async (e) => { await e.decode(); return e.naturalWidth }), 800)
       await context.close()
     }
