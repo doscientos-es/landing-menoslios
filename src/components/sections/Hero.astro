@@ -1,6 +1,5 @@
 ---
 import { CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
-import { brand } from '../../config/brand';
 import DemoLink from '../ui/DemoLink.astro';
 import { captures } from '../../config/product-media';
 
@@ -16,9 +15,8 @@ const steps = [
   <div class="hero-mesh pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
   <div class="site-container grid items-center gap-9 pt-12 pb-8 sm:gap-12 sm:pt-18 sm:pb-12 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1fr)] lg:gap-12 lg:pt-22">
     <div class="min-w-0">
-      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-accent uppercase">{brand.audience}</p>
       <h1 id="hero-title" class="max-w-[16ch] text-[clamp(2.2rem,5.1vw,4.6rem)] leading-[1.03] font-black tracking-[-0.055em] text-balance">Del presupuesto al cobro, <span class="text-accent">sin líos.</span></h1>
-      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/88 sm:text-lg">Envía presupuestos, organiza visitas y ve qué queda por cobrar. La oficina y el equipo, en el mismo sitio.</p>
+      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/88 sm:text-lg">Presupuestos, agenda, partes y cobros para empresas de servicios. Sin rebuscar entre el Excel, el chat y el papel para saber cómo va un trabajo.</p>
       <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 sm:mt-7">
         <DemoLink />
         <a href="#demo-producto" class="inline-flex min-h-11 items-center rounded-full px-1 text-sm font-bold text-white underline decoration-white/55 underline-offset-4 hover:decoration-white">
@@ -35,7 +33,7 @@ const steps = [
         <span class="shrink-0 rounded-full bg-accent/12 px-2 py-1 text-[0.65rem] font-bold text-accent sm:text-xs">Datos ficticios</span>
       </div>
       <img src={captures.agenda.src} alt={captures.agenda.alt} width={captures.agenda.width} height={captures.agenda.height} fetchpriority="high" decoding="async" class="block h-auto w-full rounded-[0.8rem] border border-white/10 bg-[#dce7de] sm:rounded-[1.15rem]" />
-      <figcaption class="px-1 pt-2 pb-1 text-xs text-white/80 sm:px-2 sm:pt-3">Captura real de la app. Visitas previstas y trabajo que todavía está por asignar.</figcaption>
+      <figcaption class="px-1 pt-2 pb-1 text-xs text-white/80 sm:px-2 sm:pt-3">Así se ven las visitas previstas y las que aún están por asignar.</figcaption>
     </figure>
   </div>
 

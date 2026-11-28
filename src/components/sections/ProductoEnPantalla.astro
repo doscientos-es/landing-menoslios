@@ -3,18 +3,17 @@ import { CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
 import { captures, walkthroughs } from '../../config/product-media';
 
 const views = [
-  { key: 'presupuesto', name: 'Presupuestos', copy: 'Vuelve a los presupuestos que siguen sin respuesta o cuya vigencia ya ha pasado.', icon: FileText, capture: captures.presupuesto },
-  { key: 'agenda', name: 'Agenda del equipo', copy: 'Consulta las visitas del día y localiza las que todavía están por asignar.', icon: CalendarDays, capture: captures.agenda },
-  { key: 'parte', name: 'Trabajo desde el móvil', copy: 'El técnico registra sus comprobaciones, escribe observaciones y guarda el parte desde el móvil.', icon: ClipboardCheck, capture: captures.parte },
-  { key: 'cobros', name: 'Facturas por cobrar', copy: 'Distingue lo pendiente de lo vencido y registra cada cobro cuando lo recibas.', icon: Receipt, capture: captures.cobros },
+  { key: 'presupuesto', name: 'Presupuestos', copy: 'Ve qué propuestas siguen sin respuesta y cuáles han caducado.', icon: FileText, capture: captures.presupuesto },
+  { key: 'agenda', name: 'Agenda del equipo', copy: 'Ve las visitas del día y detecta cuáles siguen sin asignar.', icon: CalendarDays, capture: captures.agenda },
+  { key: 'parte', name: 'Trabajo desde el móvil', copy: 'Marca lo que hiciste y guarda el parte sin esperar a volver a la oficina.', icon: ClipboardCheck, capture: captures.parte },
+  { key: 'cobros', name: 'Facturas por cobrar', copy: 'Consulta lo que queda por cobrar y localiza las facturas vencidas.', icon: Receipt, capture: captures.cobros },
 ];
 ---
 
 <section class="site-container py-16 sm:py-22" id="en-pantalla" aria-labelledby="pantalla-title">
   <div class="mb-7 max-w-[43rem] sm:mb-10">
-    <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">El producto por dentro</p>
     <h2 id="pantalla-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Así se ve Menos Líos.</h2>
-    <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Son pantallas reales de la aplicación con datos ficticios. Puedes abrir cada captura para verla con más detalle.</p>
+    <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Las capturas muestran pantallas reales de la aplicación con datos ficticios. Ábrelas para ver cada detalle.</p>
   </div>
 
   <div class="grid gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4">
@@ -37,9 +36,8 @@ const views = [
 
   <section class="mt-8 rounded-3xl border border-primary/10 bg-[#edf3eb] px-3 pt-5 pb-3 sm:mt-12 sm:px-6 sm:pt-7 sm:pb-6" aria-labelledby="producto-video-title">
     <div class="mb-5 px-2">
-      <p class="mb-2 text-xs font-bold tracking-widest text-primary uppercase">Dos formas de verlo</p>
       <h3 id="producto-video-title" class="text-xl font-black tracking-tight text-primary sm:text-3xl">El mismo trabajo, desde dos sitios.</h3>
-      <p class="mt-2 max-w-[56ch] text-sm leading-relaxed text-gray-700">Dos vídeos sin audio, con pantallas de ejemplo. También puedes leer lo que muestran sin reproducirlos.</p>
+      <p class="mt-2 max-w-[56ch] text-sm leading-relaxed text-gray-700">Desde la oficina se programa. Desde el móvil se hace. Elige qué quieres ver o lee la descripción de cada vídeo.</p>
     </div>
     <div class="grid min-w-0 gap-4 lg:grid-cols-2">
       {walkthroughs.map(({ title, duration, src, poster, description }) => (

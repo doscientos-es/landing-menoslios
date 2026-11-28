@@ -1,0 +1,87 @@
+---
+import { ArrowDown, CalendarDays, Check, FileSpreadsheet } from '@lucide/astro';
+
+const examples = [
+  {
+    name: 'Preparar un presupuesto',
+    prompt: 'Prepara un presupuesto para el mantenimiento trimestral de Servicios Horizonte.',
+    result: 'Busca al cliente y propone un borrador con las partidas que le indiques. Si no tiene un precio, te lo pide.',
+  },
+  {
+    name: 'Encontrar un dato',
+    prompt: '¿Qué presupuestos de Servicios Horizonte siguen pendientes de respuesta?',
+    result: 'Consulta los presupuestos del cliente dentro de la app y te muestra los que siguen en estado enviado.',
+  },
+  {
+    name: 'Actualizar el catálogo',
+    prompt: 'Propón subir un 3 % los precios de los materiales.',
+    result: 'Prepara una revisión de los precios antes y después. Tú decides si aplicas los cambios.',
+  },
+];
+---
+
+<section id="asistente" class="ai-section" aria-labelledby="ai-title">
+  <div class="site-container py-16 sm:py-22">
+    <div class="grid items-start gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+      <div>
+        <h2 id="ai-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Pídeselo a la IA.</h2>
+        <p class="mt-4 max-w-[42ch] text-base leading-relaxed text-white/88 sm:text-lg">Que busque ese presupuesto, prepare uno nuevo o te deje listos los cambios del catálogo. Trabaja con los datos de tu empresa a los que tienes acceso.</p>
+        <p class="mt-6 flex max-w-[44ch] items-start gap-2 text-sm leading-relaxed text-white/90">
+          <Check class="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+          La IA prepara la propuesta. Tú la revisas antes de guardar.
+        </p>
+        <a href="#precios" class="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-accent underline underline-offset-4">
+          Ver precio del asistente <ArrowDown class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+      <div class="examples" aria-label="Ejemplos del asistente">
+        {examples.map(({ name, prompt, result }, i) => (
+          <details name="asistente-ejemplos" open={i === 0}>
+            <summary><span aria-hidden="true">0{i + 1}</span>{name}</summary>
+            <div class="example">
+              <blockquote>«{prompt}»</blockquote>
+              <p>{result}</p>
+            </div>
+          </details>
+        ))}
+        <p class="mt-3 px-1 text-xs text-white/76">Ejemplos ilustrativos. No ejecutan acciones en la web.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="integraciones" class="site-container py-14 sm:py-18" aria-labelledby="integrations-title">
+  <h2 id="integrations-title" class="text-3xl font-black tracking-tight text-primary sm:text-4xl">Integraciones</h2>
+  <div class="mt-6 grid gap-5 sm:grid-cols-2">
+    <article class="integration">
+      <CalendarDays class="size-6 shrink-0" aria-hidden="true" />
+      <div>
+        <h3 class="text-lg font-bold">Google Calendar</h3>
+        <p>Conecta tu calendario para ver allí las visitas que te asignen en Menos Líos.</p>
+      </div>
+    </article>
+    <article class="integration">
+      <FileSpreadsheet class="size-6 shrink-0" aria-hidden="true" />
+      <div>
+        <h3 class="text-lg font-bold">Excel y CSV</h3>
+        <p>Importa contactos y lleva tus listados de facturas a una hoja de cálculo.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .ai-section{background:#1c3427;color:#fff}
+  .examples details{border-bottom:1px solid #698374}
+  .examples details:first-child{border-top:1px solid #698374}
+  .examples summary{display:flex;align-items:center;gap:.7rem;min-height:3.2rem;cursor:pointer;padding:.4rem .25rem;font-weight:700;list-style:none}
+  .examples summary::-webkit-details-marker{display:none}
+  .examples summary span{color:#c1ef9c;font-variant-numeric:tabular-nums;font-size:.75rem}
+  .examples summary::after{content:'+';margin-inline-start:auto;color:#c1ef9c;font-size:1.25rem;font-weight:400}
+  .examples details[open] summary::after{content:'−'}
+  .example{padding:0 .25rem .9rem 1.75rem}
+  .example blockquote{max-width:44ch;border-inline-start:2px solid #afdf88;margin:0;padding:.4rem .75rem;background:#2b4737;font-weight:650;color:white}
+  .example p{margin-top:.55rem;font-size:.9rem;line-height:1.5;color:#e7f0e8}
+  .integration{display:flex;gap:.8rem;padding:1.15rem 0;border-top:1px solid #c8d4c6;color:#263c2a}
+  .integration p{margin-top:.25rem;max-width:34ch;color:#37473b;font-size:.92rem;line-height:1.6}
+</style>

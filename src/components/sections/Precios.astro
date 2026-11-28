@@ -1,97 +1,166 @@
 ---
-const app = 'https://app.menoslios.com';
+import { Check } from '@lucide/astro';
+import { brand } from '../../config/brand';
+const app = new URL(brand.appLoginUrl).origin;
 ---
 
-<section class="bg-white" id="precios" aria-labelledby="pricing-title">
+<section id="precios" class="bg-[#f1f4ed]" aria-labelledby="pricing-title">
   <div class="site-container py-16 sm:py-22">
-    <header class="mb-8 max-w-[44rem] sm:mb-10">
-      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Precios</p>
-      <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="pricing-title">Empieza con lo que necesitas.</h2>
-      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Una cuota base con una persona incluida. Añade los asientos y módulos que necesite tu empresa.</p>
-    </header>
-
-    <div class="grid gap-5 lg:grid-cols-[1fr_1.15fr]" data-pricing-endpoint={`${app}/api/public-pricing`}>
-      <article class="rounded-3xl bg-primary p-6 text-white sm:p-8" aria-labelledby="base-price-title">
-        <h3 class="text-2xl font-bold" id="base-price-title">Plan base</h3>
-        <p class="mt-2 text-sm">Presupuestos, planificación, partes y facturación.</p>
-        <p class="mt-6 text-sm" data-price-status role="status" hidden></p>
-        <dl class="mt-5 space-y-3 text-sm" data-base-prices hidden>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-            <dt>Cuota mensual</dt><dd class="text-3xl font-bold" data-price="base_monthly_cents"></dd>
-          </div>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-3">
-            <dt>Cuota anual · pagas 10 meses</dt><dd class="text-right"><strong class="block text-xl" data-price="base_yearly_cents"></strong><span data-equivalent></span></dd>
-          </div>
-          <div class="flex flex-wrap items-baseline justify-between gap-x-3 border-t border-white/30 pt-3">
-            <dt>Asiento extra</dt><dd class="font-semibold" data-seat-price></dd>
-          </div>
-        </dl>
-        <p class="mt-3 text-sm">Importes sin IVA. El pago anual ahorra dos mensualidades de la cuota base.</p>
-      </article>
-
-      <article class="rounded-3xl border border-gray-200 p-6 sm:p-8" aria-labelledby="module-price-title">
-        <h3 class="text-2xl font-bold" id="module-price-title">Módulos opcionales</h3>
-        <p class="mt-2 text-sm text-gray-600">Los módulos se cobran por empresa; el asistente de IA, por usuario.</p>
-        <ul class="mt-4 divide-y divide-gray-200" data-module-prices hidden></ul>
-        <p class="mt-4 text-sm text-gray-600" data-no-modules hidden>No hay módulos publicados en este momento.</p>
-      </article>
-      <p class="text-sm text-gray-600 lg:col-span-2">
-        <a class="font-medium underline underline-offset-2" href={`${app}/precios`}>Ver el catálogo en la app</a>
-        <button type="button" class="ml-3 min-h-10 font-semibold underline underline-offset-2" data-pricing-retry hidden>Volver a cargar precios</button>
-      </p>
+    <div class="mb-7 flex flex-wrap items-end justify-between gap-5 sm:mb-9">
+      <div>
+        <h2 class="text-3xl font-black tracking-tight text-primary sm:text-5xl" id="pricing-title">Precios</h2>
+        <p class="mt-3 max-w-[54ch] leading-relaxed text-gray-700">Empieza con una persona. Añade usuarios o módulos cuando los necesites.</p>
+      </div>
+      <a class="inline-flex min-h-11 items-center text-sm font-bold text-primary underline underline-offset-4" href={`${app}/precios`}>Ver catálogo completo</a>
     </div>
+
+    <div class="pricing" data-pricing-endpoint={`${app}/api/public-pricing`}>
+      <article class="plan" aria-labelledby="base-price-title">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h3 class="text-xl font-bold" id="base-price-title">Plan base</h3>
+          <div class="period" role="group" aria-label="Periodicidad de pago" data-period hidden>
+            <button type="button" aria-pressed="true" data-billing="monthly">Mensual</button>
+            <button type="button" aria-pressed="false" data-billing="yearly">Anual</button>
+          </div>
+        </div>
+        <p class="mt-5 text-sm" data-price-status role="status">Consulta los importes en el catálogo.</p>
+        <div class="mt-5" data-base-prices hidden aria-live="polite" aria-atomic="true">
+          <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+            <span class="price" data-base-amount></span>
+            <span class="text-base text-white/80" data-base-unit></span>
+          </div>
+          <p class="mt-2 min-h-6 text-sm text-white/88" data-base-detail></p>
+        </div>
+        <ul class="inclusions">
+          {['1 persona incluida', 'Presupuestos y facturas', 'Agenda, trabajos y partes'].map((entry) => (
+            <li><Check class="size-4 shrink-0 text-accent" aria-hidden="true" /> {entry}</li>
+          ))}
+        </ul>
+        <div class="seat" data-seat-section hidden>
+          <span>Usuario adicional</span>
+          <strong data-seat-price></strong>
+        </div>
+      </article>
+
+      <article class="extras" aria-labelledby="module-price-title">
+        <h3 class="text-xl font-bold text-primary" id="module-price-title">Módulos opcionales</h3>
+        <p class="mt-2 text-sm text-gray-700">Se suman al plan base. El asistente se cobra por usuario.</p>
+        <ul class="module-list" data-module-prices hidden></ul>
+        <p class="mt-4 text-sm text-gray-600" data-no-modules hidden>No hay módulos publicados en este momento.</p>
+        <button type="button" class="mt-4 min-h-11 text-sm font-bold text-primary underline underline-offset-4" data-pricing-retry hidden>Reintentar carga</button>
+      </article>
+    </div>
+    <p class="mt-4 text-sm text-gray-700">Importes sin IVA.</p>
   </div>
 </section>
 
+<style is:global>
+  .pricing{display:grid;gap:1rem}
+  @media(min-width:64rem){.pricing{grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr)}}
+  .pricing .plan,.pricing .extras{min-width:0;border-radius:1.25rem;padding:clamp(1.1rem,3.3vw,2.1rem)}
+  .pricing .plan{color:#fff;background:#243b26}
+  .pricing .extras{background:#fff;border:1px solid #dce5d7}
+  .pricing .period{display:flex;gap:.12rem;padding:.2rem;border-radius:2rem;border:1px solid #718672;background:#142c1c}
+  .pricing [hidden]{display:none!important}
+  .pricing .period button{border-radius:2rem;padding:.25rem .66rem;min-height:2.75rem;color:#fff;font-size:.8125rem;font-weight:750}
+  .pricing .period button[aria-pressed=true]{background:#e2f1d9;color:#21371f}
+  .pricing .price{font-size:clamp(2.45rem,6vw,4.75rem);font-weight:850;line-height:1.02;letter-spacing:-.06em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .pricing .inclusions{list-style:none;padding:1rem 0 0;margin:1.15rem 0 0;border-top:1px solid #65816a;display:grid;gap:.55rem;font-size:.9rem}
+  .pricing .inclusions li{display:flex;gap:.55rem;align-items:center}
+  .pricing .seat{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.35rem .75rem;border-top:1px solid #65816a;margin-top:1.2rem;padding-top:1rem;font-size:.875rem}
+  .pricing .module-list{list-style:none;margin:1rem 0 0;padding:0}
+  .pricing .module-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.35rem .7rem;align-items:start;padding:.8rem .1rem;border-top:1px solid #e1e9dc;color:#293929}
+  .pricing .module-list li[data-ai]{background:#e9f3e2;border:1px solid #dbe8d4;border-radius:.65rem;padding:.65rem .6rem;margin-bottom:.3rem}
+  .pricing .module-list .rate{text-align:right;overflow-wrap:anywhere;font-weight:800;font-variant-numeric:tabular-nums}
+  .pricing .module-list small{font-size:.75rem;color:#465547}
+  @media (max-width:23rem){.pricing .module-list li{grid-template-columns:minmax(0,1fr)}.pricing .module-list .rate{text-align:left}}
+  @media (prefers-reduced-motion:no-preference){.pricing .period button{transition:background-color 140ms ease,color 140ms ease}}
+</style>
+
 <script>
   import { loadPricing } from '../../config/pricing.mjs';
-
+  type Period = 'monthly' | 'yearly';
   for (const root of document.querySelectorAll<HTMLElement>('[data-pricing-endpoint]')) {
     const endpoint = root.dataset.pricingEndpoint;
     const amounts = root.querySelector<HTMLElement>('[data-base-prices]');
+    const amount = root.querySelector<HTMLElement>('[data-base-amount]');
+    const unit = root.querySelector<HTMLElement>('[data-base-unit]');
+    const detail = root.querySelector<HTMLElement>('[data-base-detail]');
+    const seatSection = root.querySelector<HTMLElement>('[data-seat-section]');
+    const seat = root.querySelector<HTMLElement>('[data-seat-price]');
+    const periodGroup = root.querySelector<HTMLElement>('[data-period]');
+    const periodButtons = root.querySelectorAll<HTMLButtonElement>('[data-billing]');
     const list = root.querySelector<HTMLElement>('[data-module-prices]');
     const empty = root.querySelector<HTMLElement>('[data-no-modules]');
     const status = root.querySelector<HTMLElement>('[data-price-status]');
     const retry = root.querySelector<HTMLButtonElement>('[data-pricing-retry]');
-    if (!endpoint || !amounts || !list || !empty || !status || !retry) continue;
+    if (!endpoint || !amounts || !amount || !unit || !detail || !seatSection || !seat || !periodGroup || !list || !empty || !status || !retry) continue;
 
+    let pricing: Awaited<ReturnType<typeof loadPricing>> | undefined;
+    let period: Period = 'monthly';
     const euros = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
     const money = (cents: number) => euros.format(cents / 100);
 
-    const refresh = async () => {
-      retry.hidden = true;
-      status.hidden = false;
-      status.textContent = 'Cargando precios…';
-      try {
-        const pricing = await loadPricing(endpoint);
-        for (const field of ['base_monthly_cents', 'base_yearly_cents'] as const) {
-          const value = amounts.querySelector(`[data-price="${field}"]`);
-          if (value) value.textContent = money(pricing[field]);
-        }
-        const equivalent = amounts.querySelector('[data-equivalent]');
-        if (equivalent) equivalent.textContent = `Equivale a ${money(Math.round(pricing.base_yearly_cents / 12))}/mes`;
-        const seat = amounts.querySelector('[data-seat-price]');
-        if (seat) seat.textContent = `${money(pricing.seat_monthly_cents)}/mes o ${money(pricing.seat_yearly_cents)}/año`;
-        list.replaceChildren(...pricing.modules.map((module) => {
+    function render() {
+      if (!pricing) return;
+      const monthly = period === 'monthly';
+      const term = monthly ? 'mes' : 'año';
+      const saving = pricing.base_monthly_cents * 12 - pricing.base_yearly_cents;
+      amount!.textContent = money(monthly ? pricing.base_monthly_cents : pricing.base_yearly_cents);
+      unit!.textContent = `/ ${term}`;
+      detail!.textContent = monthly
+        ? 'Un pago cada mes.'
+        : [`Equivale a ${money(Math.round(pricing.base_yearly_cents / 12))}/mes.`, saving > 0 ? `Ahorras ${money(saving)} al año en el plan base.` : ''].filter(Boolean).join(' ');
+      seat!.textContent = `${money(monthly ? pricing.seat_monthly_cents : pricing.seat_yearly_cents)}/${term}`;
+      for (const button of periodButtons) button.setAttribute('aria-pressed', String(button.dataset.billing === period));
+      list!.replaceChildren(...pricing.modules
+        .slice()
+        .sort((a, b) => Number(b.code === 'ai') - Number(a.code === 'ai'))
+        .map((module) => {
           const item = document.createElement('li');
-          item.className = 'flex flex-wrap justify-between gap-x-3 gap-y-1 py-3 text-sm';
+          if (module.code === 'ai') item.dataset.ai = '';
+          const info = document.createElement('div');
           const name = document.createElement('strong');
           name.textContent = module.name;
+          info.append(name);
+          const cadence = document.createElement('small');
+          cadence.className = 'block';
+          cadence.textContent = module.unit === 'person' ? 'Por usuario' : 'Por empresa';
+          info.append(cadence);
           const rate = document.createElement('span');
-          rate.className = 'text-gray-600';
-          rate.textContent = `${money(module.monthly_cents)}/mes o ${money(module.yearly_cents)}/año · ${module.unit === 'person' ? 'por usuario' : 'por empresa'}`;
-          item.append(name, rate);
+          rate.className = 'rate';
+          rate.textContent = `${money(monthly ? module.monthly_cents : module.yearly_cents)}/${term}`;
+          item.append(info, rate);
           return item;
         }));
-        amounts.hidden = false;
-        list.hidden = !pricing.modules.length;
-        empty.hidden = Boolean(pricing.modules.length);
+      amounts!.hidden = false;
+      seatSection!.hidden = false;
+      periodGroup!.hidden = false;
+      list!.hidden = !pricing.modules.length;
+      empty!.hidden = Boolean(pricing.modules.length);
+    }
+    for (const button of periodButtons) button.addEventListener('click', () => {
+      period = button.dataset.billing === 'yearly' ? 'yearly' : 'monthly';
+      render();
+    });
+
+    const refresh = async () => {
+      const fromRetry = document.activeElement === retry;
+      retry.disabled = true;
+      status.classList.remove('sr-only');
+      status.textContent = 'Cargando precios…';
+      try {
+        pricing = await loadPricing(endpoint);
+        render();
         status.textContent = 'Precios actualizados.';
         status.classList.add('sr-only');
+        if (fromRetry) periodButtons[0]?.focus();
+        retry.hidden = true;
       } catch {
-        status.textContent = 'No se pudieron cargar los precios. Puedes reintentar o consultar el catálogo en la app.';
-        status.classList.remove('sr-only');
+        status.textContent = 'No se pudieron cargar los precios. Reintenta o consulta el catálogo completo.';
         retry.hidden = false;
+      } finally {
+        retry.disabled = false;
       }
     };
     retry.addEventListener('click', () => void refresh());

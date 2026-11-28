@@ -1,7 +1,7 @@
 ---
 import { Plus } from '@lucide/astro';
 interface Props {
-  numero: number;
+  numero?: number;
   pregunta: string;
   respuesta: string;
   abierta?: boolean;
@@ -11,9 +11,9 @@ const { numero, pregunta, respuesta, abierta = false } = Astro.props;
 
 <details name="faq" class="group rounded-xl border border-primary/10 bg-white px-4 py-3 open:border-primary/30 sm:px-5" open={abierta}>
   <summary class="flex min-h-10 cursor-pointer list-none items-center gap-3 rounded text-primary [&::-webkit-details-marker]:hidden">
-    <span class="text-xs font-bold tracking-wider" aria-hidden="true">0{numero}</span>
+    {numero !== undefined && <span class="text-xs font-bold tracking-wider" aria-hidden="true">0{numero}</span>}
     <span class="flex-1 font-bold">{pregunta}</span>
     <Plus class="size-4 shrink-0 motion-safe:transition-transform group-open:rotate-45" aria-hidden="true" />
   </summary>
-  <p class="mt-2 mb-1 pl-7 text-sm leading-relaxed text-gray-700">{respuesta}</p>
+  <p class:list={['mt-2 mb-1 text-sm leading-relaxed text-gray-700', numero !== undefined && 'pl-7']}>{respuesta}</p>
 </details>

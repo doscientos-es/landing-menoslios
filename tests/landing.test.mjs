@@ -63,16 +63,16 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   assert.doesNotMatch(home, /\/fondo\.mp4/)
   assert.match(home, /<h1[^>]*>Del presupuesto al cobro, <span[^>]*>sin líos\.<\/span><\/h1>/)
   assert.equal((home.match(/<h1\b/g) ?? []).length, 1)
-  assert.match(home, /La oficina y el equipo, en la misma página\./)
+  assert.match(home, /Presupuestos, agenda, partes y cobros para empresas de servicios/)
   assert.match(home, /Cada oficio tiene su ritmo\./)
-  assert.match(home, /Empieza con lo que necesitas\./)
+  assert.match(home, /id="pricing-title"[^>]*>Precios<\/h2>/)
   assert.doesNotMatch(home, /<video\b[^>]*autoplay/)
   assert.match(home, /href="#contenido"[^>]*>Saltar al contenido/)
   assert.match(home, /<details\b[^>]*data-header-menu/)
   for (const step of ['Presupuesta y envía', 'Organiza las visitas', 'Deja el parte hecho', 'Factura y sigue los cobros']) {
     assert.ok(home.includes(step), step)
   }
-  for (const id of ['en-pantalla', 'demo-producto', 'ejemplos', 'pasos', 'sectores', 'precios', 'preguntas']) {
+  for (const id of ['en-pantalla', 'demo-producto', 'ejemplos', 'pasos', 'sectores', 'asistente', 'integraciones', 'precios', 'preguntas']) {
     assert.match(home, new RegExp(`id="${id}"`))
   }
   assert.doesNotMatch(home, /Más piscinas/)
@@ -129,7 +129,7 @@ test('los casos ficticios apuntan al oficio correspondiente sin añadir producto
   ]) {
     assert.match(home, new RegExp(`href="/sectores/${slug}"[^>]*>Ver ejemplo de ${label}<\/a>`))
   }
-  assert.match(home, /Tres situaciones ficticias para ver cómo encaja el programa/)
+  assert.match(home, /Tres ejemplos ficticios: limpieza, mantenimiento e instalaciones\./)
 })
 
 test('cómo funciona explica las cinco mejoras sin prometer sincronización ni cobro automático', () => {
@@ -194,4 +194,22 @@ test('los siete sectores conservan sus rutas y no ofrecen firmas legales ni cobr
     assert.ok(html.includes(`https://menoslios.com/sectores/${slug}/`), slug)
     assert.doesNotMatch(html, /firma digital|parte certificado|certificación instantánea|cobro[s]? inmediato[s]?|cobro[s]? automátic[oa][s]?|14 días gratis/i, slug)
   }
+})
+
+test('el asistente explica propuestas con revisión e integraciones sin cobro automático', () => {
+  assert.match(home, /id="ai-title"[^>]*>Pídeselo a la IA\./)
+  assert.equal((home.match(/name="asistente-ejemplos"/g) ?? []).length, 3)
+  assert.match(home, /Tú la revisas antes de guardar/)
+  assert.match(home, /Ejemplos ilustrativos\. No ejecutan acciones en la web/)
+  assert.match(home, /id="integraciones"/)
+  assert.match(home, /Google Calendar/)
+  assert.match(home, /Excel y CSV/)
+})
+
+test('los precios tienen periodicidad accesible y no llevan importes estáticos', () => {
+  for (const [key, label] of [['monthly', 'Mensual'], ['yearly', 'Anual']]) {
+    assert.match(home, new RegExp(`data-billing="${key}"[^>]*>${label}<`))
+  }
+  assert.match(home, /data-base-amount><\/span>/)
+  assert.match(home, /Consulta los importes en el catálogo/)
 })

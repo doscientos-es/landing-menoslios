@@ -27,14 +27,13 @@ const preguntas = [
 
 <section class="site-container grid gap-8 py-16 sm:py-22 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]" id="preguntas" aria-labelledby="preguntas-title">
   <header>
-    <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Preguntas frecuentes</p>
     <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="preguntas-title">Antes de empezar.</h2>
-    <p class="mt-4 max-w-[37ch] text-base leading-relaxed text-gray-700">¿Te queda alguna pregunta sobre tu equipo o tu forma de trabajar?</p>
+    <p class="mt-4 max-w-[37ch] text-base leading-relaxed text-gray-700">Si tu caso no está aquí, cuéntanos cómo trabajáis.</p>
     <a href="mailto:hola@doscientos.es" class="mt-4 inline-flex min-h-11 items-center rounded-full font-bold text-primary underline underline-offset-4">Escríbenos</a>
   </header>
   <div class="grid gap-3">
     {preguntas.map(({ pregunta, respuesta }, i) => (
-      <PreguntaFrecuente abierta={i === 0} numero={i + 1} pregunta={pregunta} respuesta={respuesta} />
+      <PreguntaFrecuente abierta={i === 0} pregunta={pregunta} respuesta={respuesta} />
     ))}
   </div>
 </section>
