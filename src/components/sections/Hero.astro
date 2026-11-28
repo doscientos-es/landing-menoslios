@@ -1,76 +1,68 @@
 ---
-import { ArrowDown, CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
+import { CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
 import { brand } from '../../config/brand';
 import DemoLink from '../ui/DemoLink.astro';
+import { captures } from '../../config/product-media';
 
 const steps = [
-  { label: 'Presupuestos', action: 'Envía y recibe la aprobación', icon: FileText },
-  { label: 'Agenda', action: 'Asigna el trabajo al equipo', icon: CalendarDays },
-  { label: 'Partes', action: 'Deja constancia de la visita', icon: ClipboardCheck },
-  { label: 'Facturas', action: 'Controla lo que falta por cobrar', icon: Receipt },
+  { label: 'Presupuesta', icon: FileText },
+  { label: 'Organiza', icon: CalendarDays },
+  { label: 'Registra el trabajo', icon: ClipboardCheck },
+  { label: 'Factura', icon: Receipt },
 ];
 ---
 
-<section class="hero relative isolate overflow-hidden bg-primary text-primary-foreground" aria-labelledby="hero-title">
-  <video id="hero-background" class="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-30" src="/fondo.mp4" preload="none" muted loop playsinline aria-hidden="true"></video>
-  <div class="absolute inset-0 -z-10 bg-linear-to-br from-primary via-primary/75 to-black/75" aria-hidden="true"></div>
-
-  <div class="site-container grid items-center gap-10 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)] lg:gap-16 lg:py-28">
-    <div>
-      <p class="mb-4 text-xs font-bold tracking-[0.18em] text-accent uppercase">{brand.audience}</p>
-      <h1 id="hero-title" class="max-w-[15ch] text-4xl leading-[1.03] font-black tracking-[-0.055em] text-balance sm:text-6xl lg:text-7xl">Del presupuesto al cobro, <span class="text-accent">sin líos.</span></h1>
-      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/90 sm:text-lg">Envía presupuestos, organiza tus visitas y controla lo que queda por cobrar. Todo sin tener el trabajo repartido entre hojas de cálculo, mensajes y papel.</p>
-      <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+<section class="hero relative isolate overflow-hidden bg-[#192f23] text-white" aria-labelledby="hero-title">
+  <div class="hero-mesh pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="site-container grid items-center gap-9 pt-12 pb-8 sm:gap-12 sm:pt-18 sm:pb-12 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1fr)] lg:gap-12 lg:pt-22">
+    <div class="min-w-0">
+      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-accent uppercase">{brand.audience}</p>
+      <h1 id="hero-title" class="max-w-[16ch] text-[clamp(2.2rem,5.1vw,4.6rem)] leading-[1.03] font-black tracking-[-0.055em] text-balance">Del presupuesto al cobro, <span class="text-accent">sin líos.</span></h1>
+      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/88 sm:text-lg">Envía presupuestos, organiza visitas y ve qué queda por cobrar. La oficina y el equipo, en el mismo sitio.</p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 sm:mt-7">
         <DemoLink />
-        <a href="#demo-producto" class="inline-flex min-h-12 items-center gap-2 rounded-full px-2 font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
-          Probar el recorrido <ArrowDown class="size-4" aria-hidden="true" />
+        <a href="#demo-producto" class="inline-flex min-h-11 items-center rounded-full px-1 text-sm font-bold text-white underline decoration-white/55 underline-offset-4 hover:decoration-white">
+          Probar el recorrido
         </a>
       </div>
     </div>
 
-    <div class="hidden rounded-3xl border border-white/20 bg-black/30 p-5 sm:block sm:p-7">
-      <p class="mb-3 text-xs font-bold tracking-widest text-accent uppercase">Un solo recorrido</p>
-      <ol class="divide-y divide-white/15" aria-label="Del presupuesto al cobro">
-        {steps.map(({ label, action, icon: Icon }) => (
-          <li class="flex items-center gap-3 py-3.5">
-            <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-white/10 text-accent"><Icon class="size-5" aria-hidden="true" /></span>
-            <div>
-              <p class="font-semibold">{label}</p>
-              <p class="text-sm text-white/80">{action}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <figure class="min-w-0 rounded-[1.2rem] border border-white/18 bg-white/7 p-2 shadow-[0_28px_90px_-40px_#080f0b] sm:rounded-[1.6rem] sm:p-3">
+      <div class="flex min-h-9 items-center justify-between gap-2 px-1 pb-2 sm:min-h-11 sm:px-2">
+        <span class="flex min-w-0 items-center gap-1.5 text-xs font-bold text-white/90 sm:text-sm">
+          <CalendarDays class="size-4 shrink-0 text-accent" aria-hidden="true" /> Planificación de Menos Líos
+        </span>
+        <span class="shrink-0 rounded-full bg-accent/12 px-2 py-1 text-[0.65rem] font-bold text-accent sm:text-xs">Datos ficticios</span>
+      </div>
+      <img src={captures.agenda.src} alt={captures.agenda.alt} width={captures.agenda.width} height={captures.agenda.height} fetchpriority="high" decoding="async" class="block h-auto w-full rounded-[0.8rem] border border-white/10 bg-[#dce7de] sm:rounded-[1.15rem]" />
+      <figcaption class="px-1 pt-2 pb-1 text-xs text-white/80 sm:px-2 sm:pt-3">Captura real de la app. Visitas previstas y trabajo que todavía está por asignar.</figcaption>
+    </figure>
   </div>
 
-  <button type="button" data-video-toggle aria-controls="hero-background" class="absolute right-3 bottom-2 min-h-11 rounded-full px-3 text-xs font-semibold text-white underline underline-offset-4" hidden>Pausar vídeo de fondo</button>
+  <div class="site-container pb-7 sm:pb-9">
+    <ol class="grid grid-cols-2 gap-x-3 gap-y-2 border-t border-white/16 pt-4 sm:grid-cols-4 sm:gap-5" aria-label="Un único recorrido de trabajo">
+      {steps.map(({ label, icon: Icon }) => (
+        <li class="flex min-w-0 items-center gap-2 text-xs font-semibold text-white/86 sm:text-sm">
+          <Icon class="size-4 shrink-0 text-accent" aria-hidden="true" /> {label}
+        </li>
+      ))}
+    </ol>
+  </div>
 </section>
 
-<script>
-  const video = document.querySelector<HTMLVideoElement>('#hero-background');
-  const toggle = document.querySelector<HTMLButtonElement>('[data-video-toggle]');
-
-  if (video && toggle) {
-    const motion = matchMedia('(prefers-reduced-motion: no-preference)');
-    const desktop = matchMedia('(min-width: 1024px)');
-    const syncPlayback = () => {
-      if (motion.matches && desktop.matches) {
-        void video.play().then(() => { toggle.hidden = false; }).catch(() => {});
-      } else {
-        video.pause();
-        toggle.hidden = true;
-      }
-    };
-
-    video.addEventListener('pause', () => { toggle.textContent = 'Reproducir vídeo de fondo'; });
-    video.addEventListener('play', () => { toggle.textContent = 'Pausar vídeo de fondo'; });
-    toggle.addEventListener('click', () => {
-      if (video.paused) void video.play().catch(() => {});
-      else video.pause();
-    });
-    motion.addEventListener('change', syncPlayback);
-    desktop.addEventListener('change', syncPlayback);
-    syncPlayback();
+<style>
+  .hero-mesh {
+    background: radial-gradient(ellipse at 88% 24%, #3e683e 0%, transparent 54%),
+      radial-gradient(ellipse at 2% 90%, #20392a 0%, transparent 56%),
+      linear-gradient(132deg, #203a2c, #14261b 78%);
   }
-</script>
+  .hero-mesh::after {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, #d9f7c2 1px, transparent 1px), linear-gradient(to bottom, #d9f7c2 1px, transparent 1px);
+    background-size: 2.75rem 2.75rem;
+    opacity: 0.08;
+    mask-image: radial-gradient(ellipse at 86% 37%, black 6%, transparent 67%);
+    content: "";
+  }
+</style>

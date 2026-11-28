@@ -1,0 +1,64 @@
+---
+import { ClipboardList, Drill, Sparkles } from '@lucide/astro';
+
+const examples = [
+  {
+    sector: 'Limpieza',
+    tag: 'Servicio recurrente',
+    title: 'Tres centros, una semana por organizar.',
+    story: 'Programa las visitas del contrato, reparte los centros y consulta qué servicios siguen por hacer.',
+    result: 'Por ejemplo: al cerrar el mes, revisa los partes y registra el cobro de la factura cuando lo recibas.',
+    path: '/sectores/limpieza',
+    icon: Sparkles,
+    visual: 'bg-[#e3f0d8] text-[#285339]',
+  },
+  {
+    sector: 'Mantenimiento',
+    tag: 'Intervención técnica',
+    title: 'Que el parte no se pierda al salir del centro.',
+    story: 'Asigna la visita y deja que el técnico registre las comprobaciones desde el móvil.',
+    result: 'Por ejemplo: si interrumpe el parte, puede volver al borrador en ese mismo dispositivo.',
+    path: '/sectores/mantenimiento',
+    icon: ClipboardList,
+    visual: 'bg-[#e3eee8] text-[#2d5546]',
+  },
+  {
+    sector: 'Instalaciones',
+    tag: 'Trabajo por presupuesto',
+    title: 'Del presupuesto aceptado al montaje.',
+    story: 'Comparte la propuesta, convierte la aceptada en un trabajo y planifica las visitas del equipo.',
+    result: 'Por ejemplo: cuando terminan las visitas, la oficina consulta los partes antes de preparar la factura.',
+    path: '/sectores/instalaciones',
+    icon: Drill,
+    visual: 'bg-[#eef1d9] text-[#4d5626]',
+  },
+];
+---
+
+<section id="ejemplos" class="border-y border-primary/10 bg-[#eff4ec] py-16 sm:py-22" aria-labelledby="ejemplos-title">
+  <div class="site-container">
+    <header class="mb-8 max-w-[45rem] sm:mb-10">
+      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Situaciones de ejemplo</p>
+      <h2 id="ejemplos-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Menos líos en un día de trabajo.</h2>
+      <p class="mt-4 max-w-[56ch] text-base leading-relaxed text-gray-700">Tres situaciones ficticias para ver cómo encaja el programa en tareas que ya haces.</p>
+    </header>
+    <div class="grid gap-4 lg:grid-cols-3">
+      {examples.map(({ sector, tag, title, story, result, path, icon: Icon, visual }) => (
+        <article class="flex min-w-0 flex-col rounded-2xl border border-primary/10 bg-white p-5 sm:p-6">
+          <div class:list={['relative mb-5 flex min-h-18 items-center justify-between gap-3 overflow-hidden rounded-xl px-4', visual]}>
+            <span class="relative z-10 text-xs font-black tracking-[0.12em] uppercase">{tag}</span>
+            <div class="relative flex size-12 shrink-0 items-center justify-center rounded-full border border-current/18 bg-white/45" aria-hidden="true">
+              <Icon class="size-6" stroke-width="1.7" />
+            </div>
+            <span class="pointer-events-none absolute right-2 -bottom-10 size-25 rounded-full border border-current/12" aria-hidden="true"></span>
+          </div>
+          <p class="text-xs font-bold tracking-widest text-primary uppercase">{sector}</p>
+          <h3 class="mt-2 max-w-[23ch] text-xl font-black tracking-tight text-primary">{title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-gray-700">{story}</p>
+          <p class="mt-3 border-l-2 border-primary/20 pl-3 text-sm leading-relaxed text-gray-700">{result}</p>
+          <a href={path} class="mt-4 inline-flex min-h-11 w-fit items-center rounded text-sm font-bold text-primary underline underline-offset-4">Ver ejemplo de {sector.toLowerCase()}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -59,24 +59,77 @@ test('los CTA comerciales enlazan a la inscripción de la demo semanal', () => {
 
 test('la portada conserva el hero activo y sus secciones principales', () => {
   assert.match(home, /<main\b[^>]*id="contenido"/)
-  assert.match(home, /<video\b[^>]*src="\/fondo\.mp4"/)
+  assert.match(home, /<img\b[^>]*src="\/producto\/agenda\.webp"[^>]*fetchpriority="high"/)
+  assert.doesNotMatch(home, /\/fondo\.mp4/)
   assert.match(home, /<h1[^>]*>Del presupuesto al cobro, <span[^>]*>sin líos\.<\/span><\/h1>/)
   assert.equal((home.match(/<h1\b/g) ?? []).length, 1)
   assert.match(home, /La oficina y el equipo, en la misma página\./)
   assert.match(home, /Cada oficio tiene su ritmo\./)
   assert.match(home, /Empieza con lo que necesitas\./)
-  assert.match(home, /aria-controls="hero-background"/)
   assert.doesNotMatch(home, /<video\b[^>]*autoplay/)
   assert.match(home, /href="#contenido"[^>]*>Saltar al contenido/)
   assert.match(home, /<details\b[^>]*data-header-menu/)
   for (const step of ['Presupuesta y envía', 'Organiza las visitas', 'Deja el parte hecho', 'Factura y sigue los cobros']) {
     assert.ok(home.includes(step), step)
   }
-  for (const id of ['demo-producto', 'pasos', 'sectores', 'precios', 'preguntas']) {
+  for (const id of ['en-pantalla', 'demo-producto', 'ejemplos', 'pasos', 'sectores', 'precios', 'preguntas']) {
     assert.match(home, new RegExp(`id="${id}"`))
   }
   assert.doesNotMatch(home, /Más piscinas/)
   assert.match(home, /<footer\b/)
+})
+
+test('Ir a mi panel enlaza al login normal en portada y sectores', () => {
+  for (const page of [home, sector]) {
+    const links = [...page.matchAll(/<a\b[^>]*href="https:\/\/app\.menoslios\.com\/entrar"[^>]*>Ir a mi panel<\/a>/g)]
+    assert.ok(links.length >= 2)
+    assert.doesNotMatch(page, /href="[^"]*superadmin/i)
+  }
+})
+
+test('las capturas reales tienen un texto alternativo y un presupuesto de transferencia pequeño', async () => {
+  assert.match(home, /pantallas reales de la aplicación con datos ficticios/)
+  for (const [file, width, height] of [
+    ['agenda.webp', 1080, 760], ['presupuesto.webp', 1080, 760], ['parte-movil.webp', 390, 850], ['cobros.webp', 1080, 760],
+  ]) {
+    const img = [...home.matchAll(/<img\b[^>]+>/g)].map(([tag]) => tag).find((tag) => tag.includes(`/producto/${file}`))
+    assert.ok(img, file)
+    assert.match(img, /alt="[^"]{24,}"/)
+    assert.match(img, new RegExp(`width="${width}" height="${height}"`))
+    const content = await readFile(new URL(`../dist/producto/${file}`, import.meta.url))
+    assert.equal(content.toString('ascii', 8, 12), 'WEBP')
+    assert.ok(content.length > 10_000 && content.length < 75_000, file)
+  }
+})
+
+test('dos vídeos locales solo bajo demanda con alternativa textual por rol', async () => {
+  const video = [...home.matchAll(/<video\b[^>]+>/g)].map(([tag]) => tag)
+  assert.equal(video.length, 2)
+  for (const role of ['oficina', 'tecnico']) {
+    const id = `recorrido-${role}`
+    const tag = video.find((element) => element.includes(`/producto/${id}-poster.webp`))
+    assert.ok(tag, id)
+    assert.match(tag, /\bcontrols\b/)
+    assert.match(tag, /\bplaysinline\b/)
+    assert.match(tag, /preload="none"/)
+    assert.doesNotMatch(tag, /autoplay|\bloop\b/)
+    assert.ok(home.includes(`<source src="/producto/${id}.mp4" type="video/mp4">`))
+    const clip = await readFile(new URL(`../dist/producto/${id}.mp4`, import.meta.url))
+    assert.equal(clip.toString('ascii', 4, 8), 'ftyp')
+    assert.ok(clip.length < 110_000)
+  }
+  assert.equal((home.match(/Leer la descripción del vídeo/g) ?? []).length, 2)
+  assert.match(home, /Registra(?:r)? cobro cuando ya hayas recibido el dinero/)
+  assert.match(home, /En el parte, marca las comprobaciones realizadas/)
+})
+
+test('los casos ficticios apuntan al oficio correspondiente sin añadir productos inexistentes', () => {
+  for (const [slug, label] of [
+    ['limpieza', 'limpieza'], ['mantenimiento', 'mantenimiento'], ['instalaciones', 'instalaciones'],
+  ]) {
+    assert.match(home, new RegExp(`href="/sectores/${slug}"[^>]*>Ver ejemplo de ${label}<\/a>`))
+  }
+  assert.match(home, /Tres situaciones ficticias para ver cómo encaja el programa/)
 })
 
 test('cómo funciona explica las cinco mejoras sin prometer sincronización ni cobro automático', () => {
