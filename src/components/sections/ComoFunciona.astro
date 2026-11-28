@@ -28,4 +28,15 @@ const steps = [
       </li>
     ))}
   </ol>
+
+  <details class="mt-4 rounded-2xl border border-primary/10 bg-white">
+    <summary class="min-h-11 cursor-pointer rounded-xl px-5 py-3 text-sm font-bold leading-snug text-primary hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-6">
+      Ver más detalles de agenda, partes y cobros
+    </summary>
+    <ul class="grid gap-4 border-t border-primary/10 px-5 py-5 text-sm leading-relaxed text-gray-700 sm:px-6 lg:grid-cols-3 lg:gap-6">
+      <li><strong class="block text-primary">En la agenda de oficina</strong> Abre «Por resolver» para localizar visitas de hoy o mañana que siguen sin asignar o coinciden con una ausencia confirmada.</li>
+      <li><strong class="block text-primary">En el móvil del técnico</strong> Busca tus visitas cerradas recientes por cliente, centro o nombre de la visita. Consulta las fotos pendientes en el mismo dispositivo y reintenta su envío cuando tengas conexión.</li>
+      <li><strong class="block text-primary">En la ficha del cliente y en facturas</strong> Consulta qué presupuestos no tienen respuesta y cuánto queda por cobrarle al cliente. En Facturas, descarga en CSV solo las que coinciden con tus filtros.</li>
+    </ul>
+  </details>
 </section>
