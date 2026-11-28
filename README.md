@@ -48,3 +48,19 @@ en la app. `node --test tests/pricing.test.mjs` comprueba ese contrato.
 - **Tarifas:** «Empieza con lo que necesitas». La cuota y los módulos vienen del catálogo, no de textos de campaña.
 
 En `src/config/brand.ts` se comparte el nombre, la promesa de portada y la descripción social. Conservamos el verde, la lima y los fondos aprobados, asignados a tokens de texto y superficie en `src/styles/global.css`, junto con los activos existentes. El vídeo decorativo no arranca en móvil ni con movimiento reducido y puede pausarse.
+
+
+## Recorrido interactivo y alcance
+
+La portada muestra una simulación con datos ficticios de cuatro pasos: respuesta al presupuesto,
+agenda, borrador del parte y registro de un cobro recibido. No conecta con la app, no pide datos
+y no envía documentos ni pagos. Sin JavaScript se ven los cuatro ejemplos como contenido de
+lectura. Con JavaScript pueden abrirse con flechas, Inicio y Fin, y la animación respeta la
+preferencia de movimiento reducido.
+
+El texto se contrasta con los flujos `public-estimate-page`, `visit-report-editor`, `worker-paper-report`
+e `invoice-detail-page` de la app. En sectores, se distingue la emisión programada de facturas
+de los cobros registrados y la aceptación online de un presupuesto de la conformidad
+documentada mediante una copia firmada a mano.
+
+Para repetir el smoke en Chromium, sirve `dist/` y ejecuta `tests/recorrido.browser.cjs` con Playwright y Chromium ya instalados.

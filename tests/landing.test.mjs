@@ -26,7 +26,7 @@ test('las páginas de sectores tienen metadatos propios', () => {
   assert.match(sector, /Presupuesta instalaciones, gestiona avisos urgentes y factura al terminar el trabajo\./)
   assert.match(sector, /href="\/#precios"/)
   assert.match(sector, /<footer\b/)
-  assert.match(sector, /Gestión de apagones urgentes y boletines en el acto/)
+  assert.match(sector, /Del aviso eléctrico al parte de intervención/)
   assert.match(sector, /Materiales y cableado/)
   assert.match(sector, /¿Puedo detallar los materiales eléctricos específicos utilizados en una avería\?/)
   assert.doesNotMatch(sector, /14 días gratis|prueba gratuita/i)
@@ -72,7 +72,7 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   for (const step of ['Presupuesta y envía', 'Organiza las visitas', 'Deja el parte hecho', 'Factura y sigue los cobros']) {
     assert.ok(home.includes(step), step)
   }
-  for (const id of ['pasos', 'sectores', 'precios', 'preguntas']) {
+  for (const id of ['demo-producto', 'pasos', 'sectores', 'precios', 'preguntas']) {
     assert.match(home, new RegExp(`id="${id}"`))
   }
   assert.doesNotMatch(home, /Más piscinas/)
@@ -86,4 +86,34 @@ test('pricing preserves the live catalogue without adding commercial buttons or 
   assert.match(pricing, /href="https:\/\/app\.menoslios\.com\/precios"/)
   assert.doesNotMatch(pricing, /\/registro|cal\.com|Crear mi empresa/)
   assert.doesNotMatch(home, /Prueba Gratuita|14 días gratis|>20€</i)
+})
+
+
+test('el recorrido se identifica como simulación y conserva los pasos sin JavaScript', () => {
+  assert.match(home, /href="#demo-producto"/)
+  assert.match(home, /simulación de Menos Líos con datos ficticios/)
+  assert.match(home, /no guarda datos ni envía documentos o pagos/)
+  assert.equal((home.match(/data-recorrido-panel[\s>]/g) ?? []).length, 4)
+  assert.match(home, /Aceptar presupuesto/)
+  assert.match(home, /data-recorrido-comprobacion/)
+  assert.match(home, /Guardar borrador/)
+  assert.match(home, /Registra un cobro recibido/)
+})
+
+test('los siete sectores conservan sus rutas y no ofrecen firmas legales ni cobros automáticos', async () => {
+  const sectores = new Map([
+    ['instalaciones', 'copia firmada a mano'],
+    ['climatizacion', 'no sustituye la documentación reglamentaria'],
+    ['electricidad', 'Del aviso eléctrico al parte de intervención'],
+    ['fontaneria', 'si el cliente firma en papel'],
+    ['reformas', 'facturación por hitos'],
+    ['mantenimiento', 'no es un certificado oficial'],
+    ['limpieza', 'registra cada cobro cuando lo recibas'],
+  ])
+  for (const [slug, texto] of sectores) {
+    const html = await readFile(new URL(`../dist/sectores/${slug}/index.html`, import.meta.url), 'utf8')
+    assert.ok(html.toLowerCase().includes(texto.toLowerCase()), slug)
+    assert.ok(html.includes(`https://menoslios.com/sectores/${slug}/`), slug)
+    assert.doesNotMatch(html, /firma digital|parte certificado|certificación instantánea|cobro[s]? inmediato[s]?|cobro[s]? automátic[oa][s]?|14 días gratis/i, slug)
+  }
 })
