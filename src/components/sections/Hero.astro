@@ -19,16 +19,16 @@ const steps = [
     <div>
       <p class="mb-4 text-xs font-bold tracking-[0.18em] text-accent uppercase">{brand.audience}</p>
       <h1 id="hero-title" class="max-w-[15ch] text-4xl leading-[1.03] font-black tracking-[-0.055em] text-balance sm:text-6xl lg:text-7xl">Del presupuesto al cobro, <span class="text-accent">sin líos.</span></h1>
-      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/90 sm:text-lg">Envía presupuestos, organiza las visitas del equipo y controla lo que queda por cobrar. Todo sin tener el trabajo repartido entre hojas de cálculo, mensajes y papel.</p>
+      <p class="mt-5 max-w-[43ch] text-base leading-relaxed text-white/90 sm:text-lg">Envía presupuestos, organiza tus visitas y controla lo que queda por cobrar. Todo sin tener el trabajo repartido entre hojas de cálculo, mensajes y papel.</p>
       <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
         <DemoLink />
-        <a href="#pasos" class="inline-flex min-h-12 items-center gap-2 rounded-full px-2 font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
-          Ver cómo funciona <ArrowDown class="size-4" aria-hidden="true" />
+        <a href="#demo-producto" class="inline-flex min-h-12 items-center gap-2 rounded-full px-2 font-semibold text-white underline decoration-white/50 underline-offset-4 hover:decoration-white">
+          Probar el recorrido <ArrowDown class="size-4" aria-hidden="true" />
         </a>
       </div>
     </div>
 
-    <div class="rounded-3xl border border-white/20 bg-black/30 p-5 sm:p-7">
+    <div class="hidden rounded-3xl border border-white/20 bg-black/30 p-5 sm:block sm:p-7">
       <p class="mb-3 text-xs font-bold tracking-widest text-accent uppercase">Un solo recorrido</p>
       <ol class="divide-y divide-white/15" aria-label="Del presupuesto al cobro">
         {steps.map(({ label, action, icon: Icon }) => (

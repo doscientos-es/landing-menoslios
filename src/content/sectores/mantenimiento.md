@@ -1,43 +1,33 @@
 ---
 titulo: "Mantenimiento"
-descripcion: "Planifica rutas y revisiones periódicas, y deja constancia de cada intervención."
+descripcion: "Planifica revisiones periódicas y deja constancia de cada intervención."
 imagen: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80"
 orden: 6
 
 caso_uso:
-  titulo: "De la revisión preventiva programada al parte certificado"
-  descripcion: "Llega la fecha de la inspección técnica o mantenimiento preventivo de una instalación. Planificas la visita en la ruta del técnico, este revisa los puntos críticos, anota el estado de los componentes y entrega el parte firmado al instante."
+  titulo: "De la revisión preventiva al parte de intervención"
+  descripcion: "Planificas la visita de mantenimiento. El técnico marca las comprobaciones, anota el estado de los componentes y deja preparado el parte de trabajo para compartirlo."
   resultados:
-    - "Cero revisiones periódicas olvidadas o retrasadas"
-    - "Historial de intervenciones accesible en segundos para cualquier operario"
-    - "Trazabilidad completa y profesional ante el cliente"
+    - "Visitas periódicas visibles en el calendario"
+    - "Comprobaciones y observaciones en cada parte"
+    - "Un PDF que puedes compartir con el cliente"
 
 beneficios_sector:
   - paso: "1"
-    titulo: "Planes preventivos"
-    texto: "Configura calendarios de revisiones periódicas que avisan automáticamente cuando toca intervenir."
+    titulo: "Visitas preventivas"
+    texto: "Organiza las revisiones recurrentes y asigna a la persona que las hará."
   - paso: "2"
-    titulo: "Checklists de revisión"
-    texto: "Tus técnicos comprueban paso a paso cada elemento crítico de la instalación desde el móvil."
+    titulo: "Listas de comprobación"
+    texto: "Los técnicos marcan los puntos revisados y anotan mediciones y observaciones desde el móvil."
   - paso: "3"
-    titulo: "Informes y firmas"
-    texto: "Genera un parte detallado con los resultados de la revisión y obtén la conformidad del cliente en el acto."
+    titulo: "Parte y conformidad"
+    texto: "Comparte el parte en PDF. Si necesitas documentar la conformidad del cliente, puedes adjuntar una copia firmada a mano."
 
 faq_sector:
-  - pregunta: "¿Cómo puedo automatizar los avisos de mantenimiento periódico de mis clientes?"
-    respuesta: "Menos Líos te permite programar calendarios recurrentes (mensuales, trimestrales o anuales) para que el sistema te avise con antelación de qué revisiones tocan cada semana."
-  - pregunta: "¿Los técnicos pueden rellenar listas de comprobación o checklists durante la revisión?"
-    respuesta: "Sí. Desde la aplicación móvil pueden marcar los puntos revisados, anotar mediciones o dejar observaciones técnicas para garantizar un trabajo metódico."
-  - pregunta: "¿Se puede adjuntar el informe de mantenimiento al cliente de forma inmediata?"
-    respuesta: "Exactamente. Una vez finalizada la revisión y obtenida la firma digital, el informe en PDF se puede enviar directamente por correo electrónico o WhatsApp sin pasar por la oficina."
+  - pregunta: "¿Puedo organizar las revisiones periódicas de mis clientes?"
+    respuesta: "Sí. Programa las visitas del contrato y consulta en el calendario cuáles están previstas."
+  - pregunta: "¿Los técnicos pueden completar listas de comprobación durante la revisión?"
+    respuesta: "Sí. En el parte pueden marcar las tareas y anotar mediciones u observaciones."
+  - pregunta: "¿Puedo entregar un informe al cliente?"
+    respuesta: "Puedes compartir el PDF del parte cerrado o adjuntar una copia firmada a mano. El parte describe el trabajo realizado; no es un certificado oficial."
 ---
-
-# Gestión avanzada para empresas de mantenimiento técnico
-
-Garantizar el correcto funcionamiento de las instalaciones de tus clientes requiere anticipación, rigor en las revisiones periódicas y una agilidad total a la hora de certificar los trabajos realizados.
-
-### Control y tranquilidad para tu servicio técnico
-
-* **Planificación inteligente de rutas:** Organiza las visitas de tus mantenedores optimizando desplazamientos y evitando descuidos en las fechas clave.
-* **Estandarización de procesos:** Asegúrate de que tu equipo cumple con todos los controles técnicos obligatorios gracias a los registros digitales desde el móvil.
-* **Cierre y certificación instantáneos:** Demuestra la calidad de tu servicio entregando informes claros y firmados digitalmente en el mismo momento de la intervención.

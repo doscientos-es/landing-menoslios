@@ -1,43 +1,33 @@
 ---
 titulo: "Limpieza"
-descripcion: "Organiza equipos, turnos y contratos recurrentes con facturación automática."
+descripcion: "Organiza las visitas de tus equipos y prepara la facturación periódica de cada centro."
 imagen: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
 orden: 7
 
 caso_uso:
-  titulo: "Del mantenimiento periódico de oficinas a la facturación recurrente"
-  descripcion: "Gestionas la limpieza periódica de varias comunidades y oficinas. Asignas las rutas a los equipos de operarios, controlas las horas de entrada y salida, y generas los partes y cobros mensuales de forma automatizada."
+  titulo: "De la limpieza periódica al cierre de mes"
+  descripcion: "Atiendes varias comunidades y oficinas. Planificas las visitas de cada centro, el equipo registra el servicio en el móvil y la oficina prepara la factura y consulta qué queda por cobrar."
   resultados:
-    - "Control absoluto de cuadrantes, turnos y rutas de limpieza"
-    - "Cero despistes en servicios recurrentes o limpiezas de obra"
-    - "Facturación periódica automatizada sin acumular papeleo"
+    - "Visitas y personas asignadas por centro"
+    - "Partes de servicio con tareas e incidencias"
+    - "Facturas periódicas separadas de los cobros recibidos"
 
 beneficios_sector:
   - paso: "1"
-    titulo: "Cuadrantes y rutas"
-    texto: "Organiza qué operario o equipo acude a cada inmueble en función de los días y horarios acordados."
+    titulo: "Visitas periódicas"
+    texto: "Organiza quién acude a cada inmueble y cuándo se realiza el servicio."
   - paso: "2"
     titulo: "Partes de servicio"
-    texto: "Los equipos registran las horas de inicio, fin y incidencias del centro de limpieza desde el móvil."
+    texto: "El equipo deja constancia de las tareas e incidencias del centro desde el móvil."
   - paso: "3"
-    titulo: "Contratos recurrentes"
-    texto: "Automatiza la emisión de facturas mensuales o periódicas para tus clientes fijos sin esfuerzo."
+    titulo: "Facturación periódica"
+    texto: "Configura la emisión programada en los contratos activos que lo necesiten."
 
 faq_sector:
-  - pregunta: "¿Cómo puedo gestionar los servicios recurrentes o de limpieza periódica?"
-    respuesta: "Menos Líos te permite programar servicios periódicos (semanales, quincenales o mensuales) para que aparezcan automáticamente en el calendario de tus operarios sin necesidad de recrearlos cada vez."
-  - pregunta: "¿Los operarios pueden fichar o registrar el tiempo en cada centro de trabajo?"
-    respuesta: "Sí. Desde la aplicación móvil, el equipo puede indicar cuándo llega y cuándo termina el servicio en cada inmueble, dejando constancia de las horas reales trabajadas."
-  - pregunta: "¿Se pueden emitir facturas mensuales automáticas a los clientes de comunidades u oficinas?"
-    respuesta: "Exactamente. Puedes agrupar los servicios recurrentes y emitir la facturación de forma ágil y periódica, ahorrando horas de administración a final de mes."
+  - pregunta: "¿Cómo puedo gestionar la limpieza periódica?"
+    respuesta: "Configura los servicios y sus visitas en el contrato para consultar en la agenda qué toca en cada centro."
+  - pregunta: "¿El equipo puede registrar el tiempo de una visita?"
+    respuesta: "Puede iniciar y finalizar su visita asignada y dejar el detalle del trabajo en el parte."
+  - pregunta: "¿Puedo separar la facturación mensual de los pagos recibidos?"
+    respuesta: "Sí. Programa la emisión en los contratos activos y registra cada cobro cuando lo recibas por el medio acordado con tu cliente."
 ---
-
-# Gestión profesional para empresas de servicios de limpieza
-
-Coordinar a un equipo de limpieza repartido por diferentes puntos geográficos exige orden, puntualidad y un control exhaustivo de los cuadrantes y las horas invertidas en cada inmueble.
-
-### Todo bajo control en tu día a día
-
-* **Planificación visual de rutas:** Asigna turnos y zonas de actuación de manera limpia y evita solapes o ausencias imprevistas en los centros de tus clientes.
-* **Comunicación oficina-calle:** Tus operarios tienen claros los requerimientos específicos de cada limpieza (llaves, productos especiales o zonas prioritarias) directamente en su móvil.
-* **Cierre administrativo sin errores:** Olvídate de calcular a mano las horas acumuladas a fin de mes para pasar al cobro tus contratos de mantenimiento.

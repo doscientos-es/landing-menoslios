@@ -1,33 +1,33 @@
 ---
 titulo: "Fontanería"
-descripcion: "Agenda visitas, registra materiales usados y cobra sin perseguir pagos."
+descripcion: "Agenda avisos, registra el trabajo de cada reparación y revisa lo que queda por cobrar."
 imagen: "/sectores/fontaneria.avif"
 orden: 4
 
 caso_uso:
-  titulo: "De la fuga urgente de agua a parte firmado y cobrado"
-  descripcion: "Un cliente sufre una rotura de tubería y llama alarmado. Asignas el aviso al fontanero más cercano, este localiza la avería, anota los codos y metros de tubo de cobre empleados, y genera el parte con firma digital en el acto."
+  titulo: "Del aviso de una fuga al parte de reparación"
+  descripcion: "Una comunidad llama por una tubería rota. Asignas la visita al fontanero disponible, que anota el tramo sustituido, el material empleado y las comprobaciones finales en el parte."
   resultados:
-    - "Cero partes en papel perdidos o ilegibles"
-    - "Control absoluto del material de fontanería utilizado en cada obra"
-    - "Emisión y envío de la factura al momento sin pasar por la oficina"
+    - "Avisos y visitas asignadas en la agenda"
+    - "Detalle de la reparación en un parte"
+    - "Datos a mano para preparar la factura y seguir el cobro"
 
 beneficios_sector:
   - paso: "1"
     titulo: "Agenda de avisos"
-    texto: "Organiza las urgencias de desatascos y fugas sin solapar citas entre tus operarios."
+    texto: "Organiza las visitas de desatascos, fugas y reparaciones y asigna a la persona disponible."
   - paso: "2"
-    titulo: "Registro de repuestos"
-    texto: "Anota codos, llaves de paso, soldaduras y sanitarios instalados con un par de clics."
+    titulo: "Registro de la reparación"
+    texto: "Anota el material utilizado, las tareas realizadas y cualquier incidencia."
   - paso: "3"
-    titulo: "Cierre y firma"
-    texto: "Obtén la conformidad del cliente en la pantalla del móvil al terminar la reparación."
+    titulo: "Parte listo para compartir"
+    texto: "Consulta el parte de trabajo y adjunta una copia firmada a mano si necesitas dejar constancia de la conformidad."
 
 faq_sector:
-  - pregunta: "¿Puedo registrar tuberías y accesorios específicos de fontanería en el parte?"
-    respuesta: "Sí. Puedes añadir cualquier tipo de repuesto, diámetro de tubería o accesorio directamente desde la app móvil para que quede reflejado en el parte de trabajo y la factura."
-  - pregunta: "¿Cómo evito que se pierdan los partes de trabajo de las reparaciones urgentes?"
-    respuesta: "Todo se digitaliza en el momento. El técnico anota los materiales y obtiene la firma digital del cliente en su móvil, guardándose de forma automática en la nube de la empresa."
-  - pregunta: "¿Puedo enviar la factura al cliente recién terminada la reparación?"
-    respuesta: "Exactamente. Una vez finalizada la intervención, puedes generar la factura en PDF y enviarla por correo electrónico o WhatsApp antes de marcharte del domicilio."
+  - pregunta: "¿Puedo anotar tuberías y accesorios usados en la visita?"
+    respuesta: "Sí. Anota en el parte qué materiales utilizaste para que la oficina pueda consultarlos."
+  - pregunta: "¿Cómo conservo el parte de una reparación urgente?"
+    respuesta: "El técnico puede guardar el parte con sus observaciones y fotos. Si el cliente firma en papel, puedes adjuntar una foto o PDF de esa copia."
+  - pregunta: "¿Cómo sigo el cobro de una reparación?"
+    respuesta: "Consulta el saldo de la factura y registra el cobro cuando lo recibas."
 ---
