@@ -79,6 +79,18 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   assert.match(home, /<footer\b/)
 })
 
+test('cómo funciona explica las cinco mejoras sin prometer sincronización ni cobro automático', () => {
+  const workflow = home.match(/<section[^>]+id="pasos"[\s\S]*?<\/section>/)?.[0]
+  assert.ok(workflow)
+  assert.match(workflow, /presupuestos sin respuesta o con la fecha de validez pasada/)
+  assert.match(workflow, /quién tiene turno y quién está ausente ese día/)
+  assert.match(workflow, /próxima visita y puede abrir el mapa si hay dirección/)
+  assert.match(workflow, /retoma el borrador en el mismo dispositivo/)
+  assert.match(workflow, /facturas por cobrar o vencidas y consulta cuánto queda pendiente/)
+  assert.match(workflow, /después de un cobro parcial/)
+  assert.doesNotMatch(workflow, /cualquier dispositivo|cobra automátic[ao]/i)
+})
+
 test('pricing preserves the live catalogue without adding commercial buttons or trial claims', () => {
   assert.match(home, /data-pricing-endpoint="https:\/\/app\.menoslios\.com\/api\/public-pricing"/)
   const pricing = home.match(/<section[^>]+id="precios"[\s\S]*?<\/section>/)?.[0]
