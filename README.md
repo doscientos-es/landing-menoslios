@@ -47,7 +47,7 @@ en la app. `node --test tests/pricing.test.mjs` comprueba ese contrato.
 - **Por sector:** «Cada oficio tiene su ritmo».
 - **Tarifas:** «Empieza con lo que necesitas». La cuota y los módulos vienen del catálogo, no de textos de campaña.
 
-En `src/config/brand.ts` se comparte el nombre, la promesa de portada y la descripción social. Conservamos el verde, la lima y los fondos aprobados, asignados a tokens de texto y superficie en `src/styles/global.css`, junto con los activos existentes. El vídeo decorativo no arranca en móvil ni con movimiento reducido y puede pausarse.
+En `src/config/brand.ts` se comparte el nombre, la promesa de portada y la descripción social. Conservamos el verde, la lima y los fondos aprobados, asignados a tokens de texto y superficie en `src/styles/global.css`, junto con los activos existentes. La portada no reproduce vídeos de fondo.
 
 
 ## Recorrido interactivo y alcance
@@ -63,4 +63,8 @@ e `invoice-detail-page` de la app. En sectores, se distingue la emisión program
 de los cobros registrados y la aceptación online de un presupuesto de la conformidad
 documentada mediante una copia firmada a mano.
 
-Para repetir el smoke en Chromium, sirve `dist/` y ejecuta `tests/recorrido.browser.cjs` con Playwright y Chromium ya instalados.
+### Medios de producto
+
+En `public/producto/` hay capturas de la aplicación y dos vídeos cortos sin audio obtenidos con datos ficticios. No uses cuentas, nombres, direcciones ni documentos reales al reemplazarlos. Los textos alternativos, dimensiones y descripciones están en `src/config/product-media.ts`. Los vídeos deben seguir siendo locales, de inicio manual y con alternativa textual que describa sus escenas en orden. «Ir a mi panel» utiliza el acceso normal de la aplicación (`/entrar`), no el área de plataforma.
+
+Para repetir el smoke en Chromium, sirve `dist/` y ejecuta `tests/recorrido.browser.cjs` y `tests/premium.browser.cjs` con Playwright y Chromium ya instalados. El segundo verifica que la portada no descarga ningún MP4 hasta que se reproduce un vídeo.

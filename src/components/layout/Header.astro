@@ -5,7 +5,7 @@ import DemoLink from '../ui/DemoLink.astro';
 
 const home = Astro.url.pathname === '/' ? '' : '/';
 const links = [
-  { id: 'pasos', label: 'Cómo funciona' },
+  { id: 'en-pantalla', label: 'Producto' },
   { id: 'sectores', label: 'Sectores' },
   { id: 'precios', label: 'Precios' },
   { id: 'preguntas', label: 'Preguntas frecuentes' },
@@ -14,19 +14,25 @@ const links = [
 
 <header class="sticky top-0 z-20 border-b border-primary/10 bg-background shadow-sm">
   <a href="#contenido" class="skip-link">Saltar al contenido</a>
-  <div class="site-container flex min-h-17 items-center justify-between gap-4">
-    <a href="/" class="shrink-0 rounded text-2xl font-black tracking-tight text-primary" aria-label={`${brand.name}, inicio`}>{brand.name}</a>
+  <div class="site-container flex min-h-17 items-center justify-between gap-2 sm:gap-4">
+    <a href="/" class="inline-flex shrink-0 items-center gap-2 rounded text-xl font-black tracking-tight text-primary sm:text-2xl" aria-label={`${brand.name}, inicio`}>
+      <img alt="" src="/favicon.svg" width="28" height="28" class="hidden size-7 sm:block" />
+      {brand.name}
+    </a>
 
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">
       {links.map(({ id, label }) => (
         <a href={`${home}#${id}`} class="rounded-lg px-3 py-2 text-sm font-semibold text-primary hover:bg-primary-light">{label}</a>
       ))}
     </nav>
-    <div class="hidden lg:block"><DemoLink variant="primary" /></div>
+    <div class="ml-auto flex shrink-0 items-center gap-3 lg:ml-0">
+      <a href={brand.appLoginUrl} class="inline-flex min-h-11 items-center justify-center rounded-full border border-primary/20 px-3 text-center text-xs font-bold text-primary hover:bg-primary-light sm:px-4 sm:text-sm">Ir a mi panel</a>
+      <div class="hidden lg:block"><DemoLink variant="primary" /></div>
+    </div>
 
     <details class="lg:hidden" data-header-menu>
-      <summary class="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-lg px-2.5 text-sm font-bold text-primary hover:bg-primary-light [&::-webkit-details-marker]:hidden">
-        <Menu class="size-5" aria-hidden="true" /> Menú
+      <summary class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center gap-2 rounded-lg px-2.5 text-sm font-bold text-primary hover:bg-primary-light [&::-webkit-details-marker]:hidden">
+        <Menu class="size-5 shrink-0" aria-hidden="true" /> <span class="sr-only sm:not-sr-only">Menú</span>
       </summary>
       <nav class="absolute inset-x-0 top-full border-b border-primary/15 bg-background px-5 pt-2 pb-5 shadow-lg" aria-label="Menú móvil">
         {links.map(({ id, label }) => (
