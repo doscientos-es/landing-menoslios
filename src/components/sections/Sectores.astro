@@ -9,9 +9,8 @@ const sectores = (await getCollection('sectores')).sort((a, b) => a.data.orden -
 <section class="border-y border-primary/10 bg-primary-light" id="sectores" aria-labelledby="sectores-title">
   <div class="site-container py-16 sm:py-22">
     <header class="mb-8 max-w-[44rem] sm:mb-10">
-      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Sectores</p>
       <h2 id="sectores-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Cada oficio tiene su ritmo.</h2>
-      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Da igual si haces instalaciones, atiendes avisos o llevas mantenimientos. Mira cómo encaja Menos Líos en tu forma de trabajar.</p>
+      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Una avería urgente no se organiza como una ronda de mantenimiento. Mira cómo encaja Menos Líos en tu oficio.</p>
     </header>
 
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -30,7 +29,7 @@ const sectores = (await getCollection('sectores')).sort((a, b) => a.data.orden -
       <li class="flex flex-col justify-between gap-5 rounded-2xl bg-primary p-5 text-primary-foreground">
         <div>
           <h3 class="text-xl font-bold">¿No ves tu sector?</h3>
-          <p class="mt-2 text-sm leading-relaxed text-white/85">Cuéntanos cómo organizas tus trabajos y vemos si Menos Líos encaja.</p>
+          <p class="mt-2 text-sm leading-relaxed text-white/85">Trae un trabajo típico a la demo y vemos cómo lo organizarías.</p>
         </div>
         <DemoLink class="text-xs" />
       </li>

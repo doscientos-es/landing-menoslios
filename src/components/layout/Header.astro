@@ -1,5 +1,5 @@
 ---
-import { Menu } from '@lucide/astro';
+import { Menu, X } from '@lucide/astro';
 import { brand } from '../../config/brand';
 import DemoLink from '../ui/DemoLink.astro';
 
@@ -8,8 +8,9 @@ const links = [
   { id: 'en-pantalla', label: 'Producto' },
   { id: 'sectores', label: 'Sectores' },
   { id: 'precios', label: 'Precios' },
-  { id: 'preguntas', label: 'Preguntas frecuentes' },
+  { id: 'asistente', label: 'IA e integraciones' },
 ];
+const mobileLinks = [...links, { id: 'preguntas', label: 'Preguntas frecuentes' }];
 ---
 
 <header class="sticky top-0 z-20 border-b border-primary/10 bg-background shadow-sm">
@@ -31,11 +32,13 @@ const links = [
     </div>
 
     <details class="lg:hidden" data-header-menu>
-      <summary class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center gap-2 rounded-lg px-2.5 text-sm font-bold text-primary hover:bg-primary-light [&::-webkit-details-marker]:hidden">
-        <Menu class="size-5 shrink-0" aria-hidden="true" /> <span class="sr-only sm:not-sr-only">Menú</span>
+      <summary aria-controls="mobile-menu-links" class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center gap-2 rounded-lg px-2.5 text-sm font-bold text-primary hover:bg-primary-light [&::-webkit-details-marker]:hidden">
+        <Menu class="menu-hamburger size-5 shrink-0" aria-hidden="true" />
+        <X class="menu-close size-5 shrink-0" aria-hidden="true" />
+        <span class="sr-only sm:not-sr-only">Menú</span>
       </summary>
-      <nav class="absolute inset-x-0 top-full border-b border-primary/15 bg-background px-5 pt-2 pb-5 shadow-lg" aria-label="Menú móvil">
-        {links.map(({ id, label }) => (
+      <nav id="mobile-menu-links" class="mobile-menu-panel absolute inset-x-0 top-full max-h-[calc(100dvh-4.25rem)] overflow-y-auto border-b border-primary/15 bg-background px-5 pt-2 pb-5 shadow-lg" aria-label="Menú móvil">
+        {mobileLinks.map(({ id, label }) => (
           <a href={`${home}#${id}`} class="block rounded-lg px-3 py-3 text-sm font-semibold text-primary hover:bg-primary-light">{label}</a>
         ))}
         <DemoLink variant="primary" class="mt-2" />
@@ -44,18 +47,78 @@ const links = [
   </div>
 </header>
 
+<style>
+  .menu-close,
+  details[open] .menu-hamburger {
+    display: none;
+  }
+
+  details[open] .menu-close {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports selector(details::details-content) and (transition-behavior: allow-discrete) {
+      details::details-content {
+        transition: content-visibility 160ms allow-discrete;
+      }
+
+      .mobile-menu-panel {
+        opacity: 0;
+        translate: 0 -0.25rem;
+        pointer-events: none;
+        transition: opacity 160ms ease-out, translate 160ms ease-out;
+      }
+
+      details[open] .mobile-menu-panel {
+        opacity: 1;
+        translate: 0 0;
+        pointer-events: auto;
+      }
+    }
+  }
+</style>
+
 <script>
   const menu = document.querySelector<HTMLDetailsElement>('[data-header-menu]');
-  menu?.addEventListener('click', (event) => {
-    if (event.target instanceof Element && event.target.closest('a')?.getAttribute('href')?.startsWith('#')) menu.open = false;
-  });
-  menu?.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menu.open) {
+  const trigger = menu?.querySelector('summary');
+  const panel = menu?.querySelector('nav');
+
+  if (menu && trigger && panel) {
+    const collapse = (restoreFocus = false) => {
+      if (!menu.open) return;
       menu.open = false;
-      menu.querySelector('summary')?.focus();
-    }
-  });
-  matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
-    if (event.matches && menu) menu.open = false;
-  });
+      if (restoreFocus) trigger.focus();
+    };
+
+    panel.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const link = event.target.closest('a[href]');
+      if (!link || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const href = link.getAttribute('href');
+      collapse();
+
+      if (href?.startsWith('#')) {
+        const destination = document.getElementById(href.slice(1));
+        if (destination) {
+          if (!destination.hasAttribute('tabindex')) destination.setAttribute('tabindex', '-1');
+          requestAnimationFrame(() => destination.focus({ preventScroll: true }));
+        }
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !menu.open || event.defaultPrevented) return;
+      event.preventDefault();
+      collapse(menu.contains(document.activeElement));
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (event.target instanceof Node && !menu.contains(event.target)) collapse();
+    });
+
+    matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
+      if (event.matches) collapse();
+    });
+  }
 </script>
