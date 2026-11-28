@@ -1,119 +1,198 @@
 ---
-import { ArrowRight, CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
+import { CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
+import { demoCases, demoEuros } from '../../config/product-demo';
 import DemoLink from '../ui/DemoLink.astro';
 
-const pasos = [
-  {
-    id: 'presupuesto', nombre: 'Presupuesto', icono: FileText,
-    etiqueta: 'Vista del cliente', titulo: 'Revisión de la instalación', referencia: 'Presupuesto de ejemplo · PRE-024',
-    detalle: 'Comparte el enlace de un presupuesto. El cliente puede responder desde ahí, sin crear una cuenta.',
-    datos: [{ titulo: 'Cliente', valor: 'Taller Ejemplo' }, { titulo: 'Importe', valor: '145,00 €' }],
-    estado: 'Enviado', resultado: 'Aceptado', accion: 'Aceptar presupuesto',
-    aviso: 'Presupuesto de ejemplo aceptado. En la app se registra el nombre y la fecha de la respuesta.',
-  },
-  {
-    id: 'agenda', nombre: 'Agenda', icono: CalendarDays,
-    etiqueta: 'Agenda de visitas', titulo: 'Planifica la intervención', referencia: 'Martes, 09:00–10:00 · Taller Ejemplo',
-    detalle: 'Pon fecha al trabajo y asigna la visita. La persona asignada la consulta desde su jornada.',
-    datos: [{ titulo: 'Ubicación', valor: 'Centro de ejemplo' }, { titulo: 'Persona asignada', valor: 'Sin asignar', final: 'Vera (ejemplo)' }],
-    estado: 'Por asignar', resultado: 'Programada', accion: 'Asignar a Vera',
-    aviso: 'Visita de ejemplo asignada. No se ha reservado una visita real.',
-  },
-  {
-    id: 'parte', nombre: 'Parte de trabajo', icono: ClipboardCheck,
-    etiqueta: 'Mi jornada', titulo: 'Deja constancia de la visita', referencia: 'Parte de ejemplo · Taller Ejemplo',
-    detalle: 'Marca las tareas realizadas y guarda un borrador. Un parte cerrado puede compartirse en PDF.',
-    datos: [{ titulo: 'Resultado', valor: 'Funcionamiento correcto' }],
-    estado: 'Sin guardar', resultado: 'Borrador guardado', accion: 'Guardar borrador',
-    aviso: 'Borrador de ejemplo guardado en esta pantalla. No se ha enviado ni firmado ningún documento.',
-  },
-  {
-    id: 'factura', nombre: 'Factura y cobro', icono: Receipt,
-    etiqueta: 'Detalle de factura', titulo: 'Registra un cobro recibido', referencia: 'Factura de ejemplo · FAC-024',
-    detalle: 'Si el cliente ya ha pagado, registra el cobro y consulta el saldo pendiente. No se procesa el pago desde aquí.',
-    datos: [{ titulo: 'Importe de factura', valor: '145,00 €' }, { titulo: 'Pendiente', valor: '145,00 €', final: '0,00 €' }],
-    estado: 'Pendiente', resultado: 'Cobrada', accion: 'Registrar cobro recibido',
-    aviso: 'Cobro ficticio registrado. No se ha movido dinero.',
-  },
-];
+const stages = [
+  { id: 'presupuesto', label: 'Presupuesto', action: 'Revisa la propuesta', Icon: FileText },
+  { id: 'agenda', label: 'Agenda', action: 'Encuentra un hueco', Icon: CalendarDays },
+  { id: 'parte', label: 'Parte de trabajo', action: 'Deja constancia del trabajo', Icon: ClipboardCheck },
+  { id: 'factura', label: 'Factura y cobro', action: 'Registra un cobro recibido', Icon: Receipt },
+] as const;
+const primary = 'min-h-11 max-w-full rounded-full bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/85 disabled:bg-primary-light disabled:text-primary/65';
+const outline = 'min-h-11 max-w-full rounded-full border border-primary/20 px-4 py-2 text-sm font-bold text-primary hover:bg-primary-light disabled:opacity-65';
+const [first] = demoCases;
 ---
 
 <section id="demo-producto" class="border-y border-primary/10 bg-white" aria-labelledby="demo-producto-title">
   <div class="site-container py-13 sm:py-20">
-    <header class="mb-6 max-w-[52ch] sm:mb-8">
+    <header class="mb-6 max-w-[60ch] sm:mb-8">
       <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="demo-producto-title">Así se resuelve un trabajo.</h2>
-      <p class="mt-3 leading-relaxed text-gray-700">Acepta un presupuesto, asigna la visita, guarda el parte y registra un cobro de muestra. Es una <strong>simulación de Menos Líos con datos ficticios</strong>; no guarda datos ni envía documentos o pagos.</p>
+      <p class="mt-3 leading-relaxed text-gray-700">Elige un oficio y sigue un trabajo hasta ver cuánto queda por cobrar. Es una <strong>simulación de Menos Líos con datos ficticios</strong>: no guarda datos ni envía documentos o pagos.</p>
     </header>
 
     <div data-recorrido class="rounded-2xl border border-primary/15 bg-background sm:rounded-3xl">
-      <div data-recorrido-tabs hidden>
-        <div class="grid grid-cols-2 gap-2 border-b border-primary/12 p-2 sm:grid-cols-4 sm:gap-3 sm:p-3" role="tablist" aria-label="Pasos del trabajo">
-          {pasos.map(({ id, nombre, icono: Icono }, i) => (
-            <button
-              type="button"
-              id={`recorrido-tab-${id}`}
-              aria-controls={`recorrido-panel-${id}`}
-              aria-selected={i === 0}
-              role="tab"
-              tabindex={i === 0 ? 0 : -1}
-              class="flex min-h-12 min-w-0 items-center gap-2 rounded-xl px-2 py-2 text-left text-xs font-bold text-primary hover:bg-primary-light aria-selected:bg-primary aria-selected:text-primary-foreground sm:px-3 sm:text-sm"
-            >
-              <Icono class="hidden size-4 shrink-0 min-[375px]:block" aria-hidden="true" />{nombre}
+      <div data-recorrido-interactive hidden>
+        <div class="space-y-4 p-3 sm:p-5">
+          <fieldset class="min-w-0">
+            <legend class="mb-2 text-sm font-bold text-primary">Elige un trabajo</legend>
+            <div class="grid grid-cols-1 gap-2 min-[385px]:grid-cols-3">
+              {demoCases.map((item, i) => (
+                <label class="flex min-h-11 min-w-0 cursor-pointer items-center gap-2 rounded-xl border border-primary/15 bg-white px-3 py-2 text-sm font-bold text-primary has-checked:border-primary has-checked:bg-primary-light">
+                  <input type="radio" name="recorrido-case" value={item.id} checked={i === 0} class="size-4 shrink-0 accent-primary" />
+                  {item.name}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <div class="flex min-w-0 flex-wrap items-start justify-between gap-2">
+            <div class="min-w-0">
+              <p data-demo-value="title" class="text-lg font-black text-primary">{first.title}</p>
+              <p data-demo-value="context" class="mt-1 max-w-[64ch] text-sm leading-relaxed text-gray-700">{first.context}</p>
+            </div>
+            <button type="button" data-demo-action="reset" class="inline-flex min-h-11 items-center rounded px-1 text-sm font-semibold text-primary underline underline-offset-4">Reiniciar ejemplo</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 border-y border-primary/12 p-2 sm:grid-cols-4 sm:gap-3 sm:p-3" role="tablist" aria-label="Pasos del trabajo">
+          {stages.map(({ id, label, Icon }, i) => (
+            <button type="button" id={'recorrido-tab-' + id} aria-controls={'recorrido-panel-' + id} aria-selected={i === 0} data-demo-tab={i} role="tab" tabindex={i === 0 ? 0 : -1} class="flex min-h-12 min-w-0 items-center gap-2 rounded-xl px-2 py-2 text-left text-xs font-bold text-primary hover:bg-primary-light aria-selected:bg-primary aria-selected:text-white sm:px-3 sm:text-sm">
+              <Icon class="hidden size-4 shrink-0 min-[375px]:block" aria-hidden="true" />{label}
             </button>
           ))}
         </div>
-      </div>
 
-      {pasos.map(({ id, nombre, icono: Icono, etiqueta, titulo, referencia, detalle, datos, estado, resultado, accion, aviso }, i) => (
-        <article id={`recorrido-panel-${id}`} data-recorrido-panel aria-labelledby={`recorrido-titulo-${id}`} class="border-b border-primary/10 p-3 last:border-0 sm:p-5">
-          <div class="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-6">
-            <div class="min-w-0 overflow-hidden rounded-xl border border-primary/12 bg-white sm:rounded-2xl">
-              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-primary/12 bg-primary-light px-4 py-3 text-xs text-primary">
-                <span class="flex items-center gap-2 font-bold"><Icono class="size-4" aria-hidden="true" />{etiqueta}</span>
-                <span class="rounded-full border border-primary/20 px-2 py-0.5 font-semibold">Simulación</span>
-              </div>
-              <div class="p-4 sm:p-6">
-                <div class="mb-4 flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <p class="text-xs font-semibold text-gray-600">{referencia}</p>
-                    <h3 class="mt-1 text-xl font-black tracking-tight text-primary sm:text-2xl" id={`recorrido-titulo-${id}`}>{titulo}</h3>
-                  </div>
-                  <span data-estado data-inicial={estado} data-final={resultado} class="rounded-full bg-primary-light px-2.5 py-1 text-xs font-bold text-primary data-[completado]:bg-accent data-[completado]:text-accent-foreground">{estado}</span>
+        {stages.map(({ id, action }, stage) => (
+          <article
+            id={'recorrido-panel-' + id}
+            data-recorrido-panel
+            role="tabpanel"
+            aria-labelledby={'recorrido-tab-' + id}
+            tabindex="0"
+            hidden={stage !== 0}
+            class="grid min-w-0 gap-4 p-3 sm:p-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.62fr)]"
+          >
+            <div class="min-w-0 space-y-4 rounded-xl border border-primary/12 bg-white p-4 sm:rounded-2xl sm:p-6">
+              <div class="flex min-w-0 flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p data-demo-value={id === 'factura' ? 'invoiceNumber' : id === 'presupuesto' ? 'quoteNumber' : 'customer'} class="mb-1 text-sm text-gray-600"></p>
+                  <h3 class="text-xl font-black tracking-tight text-primary sm:text-2xl">{action}</h3>
                 </div>
-                <dl class="grid gap-2 sm:grid-cols-2">
-                  {datos.map(({ titulo: label, valor, final }) => (
-                    <div class="rounded-lg border border-primary/10 px-3 py-2">
-                      <dt class="mb-1 text-xs font-medium text-gray-600">{label}</dt>
-                      <dd class="text-sm font-bold text-primary" data-valor-final={final}>{valor}</dd>
-                    </div>
-                  ))}
-                </dl>
-                {id === 'parte' && (
-                  <label class="mt-3 flex min-h-11 items-center gap-2 rounded-lg border border-primary/10 px-3 py-2 text-sm font-medium">
-                    <input type="checkbox" data-recorrido-comprobacion disabled class="size-4 shrink-0 accent-primary" />
-                    Comprobar el funcionamiento
-                  </label>
-                )}
-                <button type="button" data-recorrido-accion data-aviso={aviso} hidden class="mt-4 min-h-11 max-w-full rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/85 disabled:cursor-default disabled:bg-primary-light disabled:text-primary">{accion}</button>
-                <p class="mt-2 text-sm text-gray-700 empty:hidden" data-mensaje aria-hidden="true"></p>
+                <span data-demo-value={'status-' + id} class="rounded-lg bg-primary-light px-2.5 py-1 text-sm font-bold text-primary"></span>
               </div>
+
+              {id === 'presupuesto' && (
+                <>
+                  <dl class="grid gap-2 sm:grid-cols-2">
+                    <div class="rounded-lg border border-primary/10 px-3 py-2"><dt class="text-sm text-gray-600">Cliente</dt><dd data-demo-value="customer" class="font-bold text-primary"></dd></div>
+                    <div class="rounded-lg border border-primary/10 px-3 py-2"><dt class="text-sm text-gray-600">Importe</dt><dd data-demo-value="amount" class="font-bold text-primary"></dd></div>
+                  </dl>
+                  <div data-demo-if="question" hidden class="rounded-lg border border-primary/15 bg-background p-3 text-sm leading-relaxed">
+                    <p data-demo-value="question" class="mb-1 font-bold text-primary"></p>
+                    <p data-demo-value="clarification"></p>
+                    <p class="mt-2 text-gray-600">Aclaración del ejemplo. Aquí no se envía ningún mensaje.</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2" data-demo-if="quote-open">
+                    <button type="button" data-demo-action="accept" class={primary}>Aceptar presupuesto</button>
+                    <button type="button" data-demo-action="question" class={outline}>Plantear una duda</button>
+                  </div>
+                </>
+              )}
+
+              {id === 'agenda' && (
+                <>
+                  <p data-demo-if="needs-quote" class="rounded-lg border border-primary/15 bg-background p-3 text-sm">Acepta el presupuesto para poder asignar la visita de este ejemplo.</p>
+                  <div data-demo-if="can-assign" hidden class="space-y-3">
+                    <div class="grid min-w-0 gap-3 sm:grid-cols-2">
+                      <label class="grid min-w-0 gap-1 text-sm font-semibold text-primary">Persona
+                        <select data-demo-select="person" class="min-h-11 min-w-0 rounded-lg border border-primary/25 bg-white px-2 text-sm"></select>
+                      </label>
+                      <label class="grid min-w-0 gap-1 text-sm font-semibold text-primary">Franja disponible
+                        <select data-demo-select="slot" class="min-h-11 min-w-0 rounded-lg border border-primary/25 bg-white px-2 text-sm"></select>
+                      </label>
+                    </div>
+                    <button type="button" data-demo-action="assign" class={primary}>Asignar visita</button>
+                  </div>
+                  <div data-demo-if="assigned" hidden class="space-y-3">
+                    <p class="rounded-lg border border-primary/15 bg-background p-3 text-sm"><strong data-demo-value="person"></strong> · <span data-demo-value="slot"></span> · <span data-demo-value="location"></span></p>
+                    <button type="button" data-demo-action="unassign" class={outline}>Cambiar asignación</button>
+                    <p class="text-sm text-gray-700">Cambiarla reinicia el parte y los cobros de este ejemplo.</p>
+                  </div>
+                </>
+              )}
+
+              {id === 'parte' && (
+                <>
+                  <p data-demo-if="needs-visit" class="rounded-lg border border-primary/15 bg-background p-3 text-sm">Asigna primero la visita en Agenda.</p>
+                  <div data-demo-if="has-visit" hidden class="space-y-3">
+                    <p class="text-sm"><strong data-demo-value="person"></strong> · <span data-demo-value="slot"></span></p>
+                    <fieldset class="grid gap-2" data-demo-checks>
+                      <legend class="mb-2 text-sm font-bold text-primary">Trabajo realizado</legend>
+                      {[0, 1].map((i) => (
+                        <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-primary/10 px-3 py-2 text-sm">
+                          <input type="checkbox" data-recorrido-comprobacion={i} class="size-4 shrink-0 accent-primary" />
+                          <span data-demo-value={'task-' + i}></span>
+                        </label>
+                      ))}
+                    </fieldset>
+                    <p data-demo-if="part-closed" hidden data-demo-value="note" class="rounded-lg border border-primary/15 bg-background p-3 text-sm leading-relaxed"></p>
+                    <div data-demo-if="part-open" class="flex flex-wrap gap-2">
+                      <button type="button" data-demo-action="save-part" class={outline} disabled>Guardar borrador</button>
+                      <button type="button" data-demo-action="close-part" class={primary} disabled>Cerrar parte</button>
+                    </div>
+                    <p data-demo-if="part-open" class="text-sm text-gray-700">Marca las dos tareas y guarda el borrador antes de cerrar el parte.</p>
+                  </div>
+                </>
+              )}
+
+              {id === 'factura' && (
+                <>
+                  <p data-demo-if="needs-part" class="rounded-lg border border-primary/15 bg-background p-3 text-sm">Cierra el parte antes de preparar la factura de este ejemplo.</p>
+                  <button type="button" data-demo-action="create-invoice" data-demo-if="can-invoice" hidden class={primary}>Preparar factura de ejemplo</button>
+                  <div data-demo-if="has-invoice" hidden class="space-y-3">
+                    <dl class="grid gap-2 sm:grid-cols-3">
+                      <div class="rounded-lg border border-primary/10 px-3 py-2"><dt class="text-sm text-gray-600">Total</dt><dd data-demo-value="amount" class="font-bold text-primary"></dd></div>
+                      <div class="rounded-lg border border-primary/10 px-3 py-2"><dt class="text-sm text-gray-600">Ya cobrado</dt><dd data-demo-value="paid" class="font-bold text-primary"></dd></div>
+                      <div class="rounded-lg border border-primary/10 px-3 py-2"><dt class="text-sm text-gray-600">Queda por cobrar</dt><dd data-demo-value="remaining" class="font-bold text-primary"></dd></div>
+                    </dl>
+                    <div class="flex flex-wrap gap-2" data-demo-if="unpaid">
+                      <button type="button" data-demo-action="partial" class={outline}>Registrar <span data-demo-value="partial-amount"></span> recibidos</button>
+                      <button type="button" data-demo-action="full" class={primary}>Registrar saldo recibido</button>
+                    </div>
+                    <p class="text-sm text-gray-700">Solo registras dinero que ya ha llegado. No se procesa ningún pago.</p>
+                  </div>
+                </>
+              )}
             </div>
 
-            <div class="flex min-w-0 flex-col items-start justify-center rounded-xl bg-primary p-4 text-primary-foreground sm:rounded-2xl sm:p-6">
-              <p class="mb-1 text-sm font-medium text-accent">Paso {i + 1} de {pasos.length}</p>
-              <p class="text-lg font-bold sm:text-xl">{nombre}</p>
-              <p class="mt-2 max-w-[42ch] text-sm leading-relaxed text-white/90">{detalle}</p>
-              {i < pasos.length - 1 && (
-                <button type="button" data-recorrido-siguiente hidden class="mt-3 min-h-11 rounded-full px-1.5 text-left text-sm font-semibold underline underline-offset-4 hover:text-accent">
-                  Siguiente: {pasos[i + 1].nombre} <ArrowRight class="ml-1 inline size-4" aria-hidden="true" />
+            <div class="min-w-0 rounded-xl bg-primary p-4 text-white sm:rounded-2xl sm:p-6">
+              <h3 class="mb-3 font-bold">Así va el trabajo</h3>
+              <dl class="space-y-2 text-sm">
+                <div class="flex justify-between gap-3 border-b border-white/15 pb-2"><dt>Presupuesto</dt><dd data-demo-value="status-presupuesto" class="text-right font-bold text-accent"></dd></div>
+                <div class="flex justify-between gap-3 border-b border-white/15 pb-2"><dt>Visita</dt><dd data-demo-value="status-agenda" class="text-right font-bold text-accent"></dd></div>
+                <div class="flex justify-between gap-3 border-b border-white/15 pb-2"><dt>Parte</dt><dd data-demo-value="status-parte" class="text-right font-bold text-accent"></dd></div>
+                <div class="flex justify-between gap-3"><dt>Saldo de factura</dt><dd data-demo-value="progress-balance" class="text-right font-bold text-accent"></dd></div>
+              </dl>
+              {stage < stages.length - 1 && (
+                <button type="button" data-demo-next={stage + 1} class="mt-3 inline-flex min-h-11 items-center rounded px-1 text-left text-sm font-bold underline underline-offset-4 hover:text-accent disabled:opacity-55 disabled:no-underline" disabled>
+                  Siguiente: {stages[stage + 1]?.label}
                 </button>
               )}
             </div>
-          </div>
-        </article>
-      ))}
-      <p data-recorrido-anuncio class="sr-only" role="status" aria-atomic="true"></p>
+          </article>
+        ))}
+        <p data-recorrido-anuncio class="sr-only" role="status" aria-atomic="true"></p>
+      </div>
+
+      <details data-recorrido-fallback open class="border-t border-primary/12 px-3 py-1 sm:px-5">
+        <summary class="min-h-11 cursor-pointer py-3 text-sm font-semibold text-primary">Leer los tres casos sin interactuar</summary>
+        <div class="space-y-2 pb-4">
+          {demoCases.map((item) => (
+            <details class="rounded-xl border border-primary/15 bg-white px-4 py-2">
+              <summary class="min-h-11 cursor-pointer py-2 text-sm font-bold text-primary">{item.id === 'limpieza' ? item.title : item.name + ': ' + item.title}</summary>
+              <p class="mb-3 text-sm text-gray-700">{item.context}</p>
+              <ol class="list-decimal space-y-2 pb-3 pl-5 text-sm leading-relaxed text-gray-700">
+                <li><strong>Presupuesto.</strong> {item.customer} recibe una propuesta de {demoEuros(item.price)}. Pregunta: «{item.question}» {item.clarification}</li>
+                <li><strong>Agenda.</strong> Tras la aceptación, asignas la visita de {item.location} a {item.people[0]} ({item.slots[0]}).</li>
+                <li><strong>Parte.</strong> {item.people[0]} anota el trabajo: {item.tasks[0].toLowerCase()} y {item.tasks[1].toLowerCase()}. {item.note}</li>
+                <li><strong>Factura y cobro.</strong> Preparas la factura de {demoEuros(item.price)}. Si ya has recibido {demoEuros(item.firstPayment)}, quedan {demoEuros(item.price - item.firstPayment)} por cobrar.</li>
+              </ol>
+            </details>
+          ))}
+        </div>
+      </details>
     </div>
+
     <div class="mt-6 flex flex-wrap items-center gap-3">
       <p class="text-sm leading-relaxed text-gray-700">¿Lo vemos con un caso como el tuyo?</p>
       <DemoLink variant="outline" />
@@ -122,96 +201,15 @@ const pasos = [
 </section>
 
 <style>
+  [data-recorrido-interactive][hidden], [data-recorrido-panel][hidden], [data-recorrido-fallback][hidden], [data-demo-if][hidden] { display: none !important; }
+
   @media (prefers-reduced-motion: no-preference) {
-    [data-recorrido-panel]:not([hidden]) {
-      animation: recorrido-entrada 180ms ease-out;
-    }
-    [data-estado] {
-      transition: background-color 140ms ease-out;
-    }
+    [data-recorrido-panel]:not([hidden]) { animation: recorrido-entrada 150ms ease-out; }
     @keyframes recorrido-entrada {
-      from { opacity: 0.65; transform: translateY(3px); }
+      from { opacity: 0.7; transform: translateY(3px); }
       to { opacity: 1; transform: translateY(0); }
     }
   }
 </style>
 
-<script>
-  for (const raiz of document.querySelectorAll<HTMLElement>('[data-recorrido]')) {
-    const cabecera = raiz.querySelector<HTMLElement>('[data-recorrido-tabs]');
-    const tabs = [...raiz.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-    const panels = [...raiz.querySelectorAll<HTMLElement>('[data-recorrido-panel]')];
-    const anuncio = raiz.querySelector<HTMLElement>('[data-recorrido-anuncio]');
-    if (!cabecera || !anuncio || !tabs.length || tabs.length !== panels.length) continue;
-
-    const activar = (indice: number, enfocar = false) => {
-      for (const [i, tab] of tabs.entries()) {
-        tab.setAttribute('aria-selected', String(i === indice));
-        tab.tabIndex = i === indice ? 0 : -1;
-        panels[i].hidden = i !== indice;
-      }
-      if (enfocar) tabs[indice].focus();
-    };
-
-    tabs.forEach((tab, i) => {
-      panels[i].setAttribute('role', 'tabpanel');
-      panels[i].setAttribute('aria-labelledby', tab.id);
-      panels[i].tabIndex = 0;
-      tab.addEventListener('click', () => activar(i));
-      tab.addEventListener('keydown', (event) => {
-        const indices: Record<string, number> = {
-          ArrowLeft: (i - 1 + tabs.length) % tabs.length,
-          ArrowRight: (i + 1) % tabs.length,
-          Home: 0,
-          End: tabs.length - 1,
-        };
-        if (!Object.hasOwn(indices, event.key)) return;
-        event.preventDefault();
-        activar(indices[event.key], true);
-      });
-
-      const siguiente = panels[i].querySelector<HTMLButtonElement>('[data-recorrido-siguiente]');
-      if (siguiente) {
-        siguiente.hidden = false;
-        siguiente.addEventListener('click', () => activar(i + 1, true));
-      }
-
-      const accion = panels[i].querySelector<HTMLButtonElement>('[data-recorrido-accion]');
-      const tarea = panels[i].querySelector<HTMLInputElement>('[data-recorrido-comprobacion]');
-      const estado = panels[i].querySelector<HTMLElement>('[data-estado]');
-      const mensaje = panels[i].querySelector<HTMLElement>('[data-mensaje]');
-      if (accion && estado && mensaje) {
-        const titulo = accion.textContent;
-        if (tarea) {
-          tarea.disabled = false;
-          accion.disabled = !tarea.checked;
-          tarea.addEventListener('change', () => { accion.disabled = !tarea.checked; });
-        }
-        accion.hidden = false;
-        accion.addEventListener('click', () => {
-          const realizado = estado.hasAttribute('data-completado');
-          estado.toggleAttribute('data-completado', !realizado);
-          estado.textContent = realizado ? estado.dataset.inicial ?? '' : estado.dataset.final ?? '';
-          for (const dato of panels[i].querySelectorAll<HTMLElement>('[data-valor-final]')) {
-            dato.dataset.original ??= dato.textContent ?? '';
-            dato.textContent = realizado ? dato.dataset.original : dato.dataset.valorFinal ?? '';
-          }
-          if (tarea) {
-            tarea.disabled = !realizado;
-            if (realizado) {
-              tarea.checked = false;
-              accion.disabled = true;
-              tarea.focus();
-            }
-          }
-          accion.textContent = realizado ? titulo : 'Reiniciar este ejemplo';
-          mensaje.textContent = realizado ? 'Ejemplo reiniciado.' : accion.dataset.aviso ?? '';
-          anuncio.textContent = mensaje.textContent;
-        });
-      }
-    });
-
-    activar(0);
-    cabecera.hidden = false;
-  }
-</script>
+<script src="./recorrido-interactivo.ts"></script>

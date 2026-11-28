@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://menoslios.com',
+  site: 'https://www.menoslios.com',
   vite: {
     plugins: [tailwindcss()],
   },

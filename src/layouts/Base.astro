@@ -1,37 +1,65 @@
 ---
 import { brand } from '../config/brand';
+import { canonicalUrl, seo } from '../config/seo';
 
 interface Props {
-	title?: string;
-	description?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  breadcrumbs?: { name: string; path: string }[];
 }
 
 const {
-	title = `${brand.name} | Del presupuesto al cobro, sin líos`,
-	description = brand.description,
+  title = seo.homeTitle,
+  description = seo.homeDescription,
+  image = seo.shareImage,
+  imageAlt = seo.shareImageAlt,
+  breadcrumbs,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const site = Astro.site;
+if (!site) throw new Error('Missing canonical public site');
+const canonical = canonicalUrl(Astro.url.pathname, site);
+const socialImage = canonicalUrl(image, site);
+const schema = canonical.pathname === '/'
+  ? { '@context': 'https://schema.org', '@type': 'WebSite', name: brand.name, url: canonical.href }
+  : breadcrumbs && {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map(({ name, path }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      item: canonicalUrl(path, site).href,
+    })),
+  };
+const json = schema && JSON.stringify(schema).replaceAll('<', '\\u003c');
 ---
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonical} />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content={brand.name} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonical} />
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-	</head>
-	<body class="selection:bg-primary selection:text-white bg-background font-primary text-foreground">
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    {json && <script type="application/ld+json" is:inline set:html={json} />}
+  </head>
+  <body class="selection:bg-primary selection:text-white bg-background font-primary text-foreground">
+    <slot />
+  </body>
 </html>

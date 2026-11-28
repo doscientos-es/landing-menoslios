@@ -10,20 +10,20 @@ const sector = await readFile(
 
 test('la landing utiliza la nueva marca y el dominio canónico', () => {
   assert.match(home, /<html lang="es"/)
-  assert.match(home, /<title>Menos Líos \| Del presupuesto al cobro, sin líos<\/title>/)
-  assert.match(home, /rel="canonical" href="https:\/\/menoslios\.com\/"/)
+  assert.match(home, /<title>Software para empresas de servicios \| Menos Líos<\/title>/)
+  assert.match(home, /rel="canonical" href="https:\/\/www\.menoslios\.com\/"/)
   assert.match(home, /property="og:site_name" content="Menos Líos"/)
-  assert.match(home, /name="twitter:title" content="Menos Líos \| Del presupuesto al cobro, sin líos"/)
+  assert.match(home, /name="twitter:title" content="Software para empresas de servicios \| Menos Líos"/)
   assert.doesNotMatch(home, /Ábaco|PoolOps|MenosLios|Menos Lios|abaco-logo\.svg/)
   assert.doesNotMatch(home, /href="https:\/\/abaco\.doscientos\.es\//)
 })
 
 test('las páginas de sectores tienen metadatos propios', () => {
   assert.match(sector, /<title>[^<]+ \| Menos Líos<\/title>/)
-  assert.match(sector, /rel="canonical" href="https:\/\/menoslios\.com\/sectores\/electricidad\/"/)
+  assert.match(sector, /rel="canonical" href="https:\/\/www\.menoslios\.com\/sectores\/electricidad"/)
   assert.doesNotMatch(sector, /Ábaco|MenosLios|Menos Lios|abaco-logo\.svg/)
-  assert.match(sector, /<h1[^>]*>Electricidad<\/h1>/)
-  assert.match(sector, /Presupuesta instalaciones, gestiona avisos urgentes y factura al terminar el trabajo\./)
+  assert.match(sector, /<h1[^>]*>Software de gestión para electricistas<\/h1>/)
+  assert.match(sector, /Prepara presupuestos de instalaciones eléctricas, reparte avisos entre técnicos/)
   assert.match(sector, /href="\/#precios"/)
   assert.match(sector, /<footer\b/)
   assert.match(sector, /Del aviso eléctrico al parte de intervención/)
@@ -37,7 +37,7 @@ test('los sectores sin comparativa se generan correctamente', async () => {
     new URL('../dist/sectores/climatizacion/index.html', import.meta.url),
     'utf8',
   )
-  assert.match(climatizacion, /<title>Climatización \| Menos Líos<\/title>/)
+  assert.match(climatizacion, /<title>Software para instaladores de climatización \| Menos Líos<\/title>/)
   assert.doesNotMatch(climatizacion, /undefined/)
 })
 
@@ -64,7 +64,7 @@ test('la portada conserva el hero activo y sus secciones principales', () => {
   assert.match(home, /<h1[^>]*>Del presupuesto al cobro, <span[^>]*>sin líos\.<\/span><\/h1>/)
   assert.equal((home.match(/<h1\b/g) ?? []).length, 1)
   assert.match(home, /Presupuestos, agenda, partes y cobros para empresas de servicios/)
-  assert.match(home, /Cada oficio tiene su ritmo\./)
+  assert.match(home, /Elige tu oficio/)
   assert.match(home, /id="pricing-title"[^>]*>Precios<\/h2>/)
   assert.doesNotMatch(home, /<video\b[^>]*autoplay/)
   assert.match(home, /href="#contenido"[^>]*>Saltar al contenido/)
@@ -123,38 +123,27 @@ test('dos vídeos locales solo bajo demanda con alternativa textual por rol', as
   assert.match(home, /En el parte, marca las comprobaciones realizadas/)
 })
 
-test('los casos ficticios apuntan al oficio correspondiente sin añadir productos inexistentes', () => {
+test('las guías enlazan al oficio con un texto descriptivo', () => {
   for (const [slug, label] of [
-    ['limpieza', 'limpieza'], ['mantenimiento', 'mantenimiento'], ['instalaciones', 'instalaciones'],
+    ['limpieza', 'Organizar rutas de limpieza por centro'],
+    ['mantenimiento', 'Preparar partes de mantenimiento'],
+    ['instalaciones', 'Planificar un montaje tras el presupuesto'],
   ]) {
-    assert.match(home, new RegExp(`href="/sectores/${slug}"[^>]*>Ver ejemplo de ${label}<\/a>`))
+    assert.match(home, new RegExp(`href="/sectores/${slug}"[^>]*>${label}</a>`))
   }
-  assert.match(home, /Tres ejemplos ficticios: limpieza, mantenimiento e instalaciones\./)
 })
 
-test('cómo funciona explica las cinco mejoras sin prometer sincronización ni cobro automático', () => {
-  const workflow = home.match(/<section[^>]+id="pasos"[\s\S]*?<\/section>/)?.[0]
-  assert.ok(workflow)
-  assert.match(workflow, /presupuestos sin respuesta o con la fecha de validez pasada/)
-  assert.match(workflow, /quién tiene turno y quién está ausente ese día/)
-  assert.match(workflow, /próxima visita y puede abrir el mapa si hay dirección/)
-  assert.match(workflow, /retoma el borrador en el mismo dispositivo/)
-  assert.match(workflow, /facturas por cobrar o vencidas y consulta cuánto queda pendiente/)
-  assert.match(workflow, /después de un cobro parcial/)
-  assert.doesNotMatch(workflow, /cualquier dispositivo|cobra automátic[ao]/i)
-})
-
-test('el detalle móvil diferencia lo que puede hacer la oficina de lo que ve el técnico', () => {
-  const workflow = home.match(/<section[^>]+id="pasos"[\s\S]*?<\/section>/)?.[0]
-  const details = workflow?.match(/<details\b[^>]*>[\s\S]*?<\/details>/)?.[0]
-  assert.ok(details)
-  assert.match(details, /<summary\b[^>]*>\s*Ver más detalles de agenda, partes y cobros\s*<\/summary>/)
-  assert.match(details, /En la agenda de oficina<\/strong> Abre «Por resolver» para localizar visitas de hoy o mañana que siguen sin asignar o coinciden con una ausencia confirmada/)
-  assert.match(details, /En el móvil del técnico<\/strong> Busca tus visitas cerradas recientes por cliente, centro o nombre de la visita/)
-  assert.match(details, /fotos pendientes en el mismo dispositivo y reintenta su envío cuando tengas conexión/)
-  assert.match(details, /En la ficha del cliente y en facturas<\/strong> Consulta qué presupuestos no tienen respuesta y cuánto queda por cobrarle al cliente/)
-  assert.match(details, /descarga en CSV solo las que coinciden con tus filtros/)
-  assert.doesNotMatch(details, /cualquier dispositivo|sincroniza automátic|cobra automátic|todas las visitas/i)
+test('el trabajo de campo se explica con una foto y una captura, sin repetir tarjetas', () => {
+  const flow = home.match(/<section[^>]+id="pasos"[\s\S]*?<\/section>/)?.[0]
+  assert.ok(flow)
+  assert.match(flow, /El parte no espera a que vuelvas a la oficina/)
+  assert.match(flow, /src="\/sectores\/instalacion\.avif"[^>]*alt="[^"]+"/)
+  assert.match(flow, /src="\/producto\/mi-jornada\.webp"[^>]*alt="[^"]+"/)
+  assert.match(flow, /En ruta[\s\S]+En la oficina/)
+  assert.match(flow, /retoma el borrador en el mismo móvil/)
+  assert.match(flow, /Registra el cobro al recibirlo/)
+  assert.match(flow, /Reintenta el envío de fotos pendientes en el mismo dispositivo/)
+  assert.doesNotMatch(flow, /cualquier dispositivo|cobra automátic[ao]/i)
 })
 
 test('pricing preserves the live catalogue without adding commercial buttons or trial claims', () => {
@@ -191,7 +180,7 @@ test('los siete sectores conservan sus rutas y no ofrecen firmas legales ni cobr
   for (const [slug, texto] of sectores) {
     const html = await readFile(new URL(`../dist/sectores/${slug}/index.html`, import.meta.url), 'utf8')
     assert.ok(html.toLowerCase().includes(texto.toLowerCase()), slug)
-    assert.ok(html.includes(`https://menoslios.com/sectores/${slug}/`), slug)
+    assert.ok(html.includes(`https://www.menoslios.com/sectores/${slug}`), slug)
     assert.doesNotMatch(html, /firma digital|parte certificado|certificación instantánea|cobro[s]? inmediato[s]?|cobro[s]? automátic[oa][s]?|14 días gratis/i, slug)
   }
 })
