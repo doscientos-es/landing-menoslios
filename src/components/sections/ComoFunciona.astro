@@ -1,40 +1,53 @@
 ---
-import { CalendarDays, ClipboardCheck, FileText, Receipt } from '@lucide/astro';
-
-const steps = [
-  { title: 'Presupuesta y envía', copy: 'Envía el enlace para que tu cliente acepte online. Filtra los presupuestos sin respuesta o con la fecha de validez pasada para saber a quién escribir.', icon: FileText },
-  { title: 'Organiza las visitas', copy: 'Consulta quién tiene turno y quién está ausente ese día. Cada técnico ve su próxima visita y puede abrir el mapa si hay dirección.', icon: CalendarDays },
-  { title: 'Deja el parte hecho', copy: 'Anota tareas, materiales e incidencias durante la visita. Si lo dejas a medias, retoma el borrador en el mismo dispositivo.', icon: ClipboardCheck },
-  { title: 'Factura y sigue los cobros', copy: 'Filtra las facturas por cobrar o vencidas y consulta cuánto queda pendiente, incluso después de un cobro parcial.', icon: Receipt },
-];
 ---
 
-<section class="site-container py-16 sm:py-22" id="pasos" aria-labelledby="pasos-title">
-  <header class="mb-8 max-w-[44rem] sm:mb-10">
-    <h2 class="text-3xl font-black tracking-tight text-balance sm:text-5xl" id="pasos-title">La oficina y el equipo, en la misma página.</h2>
-    <p class="mt-4 max-w-[55ch] text-base leading-relaxed text-gray-700">Cuando toca facturar, no deberías tener que preguntar qué se hizo. El presupuesto, la visita y el parte siguen el mismo hilo.</p>
-  </header>
-
-  <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    {steps.map(({ title, copy, icon: Icon }) => (
-      <li class="flex flex-col rounded-2xl border border-primary/10 bg-white p-5 sm:p-6">
-        <div class="mb-5">
-          <span class="grid size-11 place-items-center rounded-xl bg-primary-light text-primary"><Icon class="size-5" aria-hidden="true" /></span>
-        </div>
-        <h3 class="text-xl font-bold leading-snug text-primary">{title}</h3>
-        <p class="mt-2 text-sm leading-relaxed text-gray-700">{copy}</p>
-      </li>
-    ))}
-  </ol>
-
-  <details class="mt-4 rounded-2xl border border-primary/10 bg-white">
-    <summary class="min-h-11 cursor-pointer rounded-xl px-5 py-3 text-sm font-bold leading-snug text-primary hover:bg-primary-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-6">
-      Ver más detalles de agenda, partes y cobros
-    </summary>
-    <ul class="grid gap-4 border-t border-primary/10 px-5 py-5 text-sm leading-relaxed text-gray-700 sm:px-6 lg:grid-cols-3 lg:gap-6">
-      <li><strong class="block text-primary">En la agenda de oficina</strong> Abre «Por resolver» para localizar visitas de hoy o mañana que siguen sin asignar o coinciden con una ausencia confirmada.</li>
-      <li><strong class="block text-primary">En el móvil del técnico</strong> Busca tus visitas cerradas recientes por cliente, centro o nombre de la visita. Consulta las fotos pendientes en el mismo dispositivo y reintenta su envío cuando tengas conexión.</li>
-      <li><strong class="block text-primary">En la ficha del cliente y en facturas</strong> Consulta qué presupuestos no tienen respuesta y cuánto queda por cobrarle al cliente. En Facturas, descarga en CSV solo las que coinciden con tus filtros.</li>
-    </ul>
-  </details>
+<section class="site-container py-16 sm:py-22" id="pasos" aria-labelledby="flujo-title">
+  <div class="workflow">
+    <div class="workflow-copy">
+      <h2 id="flujo-title" class="max-w-[19ch] text-3xl font-black tracking-tight text-primary sm:text-5xl">El parte no espera a que vuelvas a la oficina.</h2>
+      <p class="mt-4 max-w-[43ch] text-base leading-relaxed text-gray-700">El técnico abre la visita en el móvil, marca lo que ha hecho y guarda el parte. La oficina puede revisarlo sin tener que pedirle una foto de un papel.</p>
+      <div class="mt-6 grid gap-4 border-t border-primary/20 pt-5">
+        <p class="text-sm leading-relaxed text-gray-700"><strong class="text-primary">En ruta.</strong> Ve la próxima visita, abre el mapa si hay dirección y retoma el borrador en el mismo móvil si lo deja a medias.</p>
+        <p class="text-sm leading-relaxed text-gray-700"><strong class="text-primary">En la oficina.</strong> Sigue lo que falta por asignar y prepara la facturación con los partes cerrados. Registra el cobro al recibirlo.</p>
+      </div>
+      <details class="workflow-details mt-5">
+        <summary class="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-primary">Ver el detalle de cada paso</summary>
+        <ul class="space-y-2 pb-3 pl-4 text-sm leading-relaxed text-gray-700">
+          <li><strong>Presupuesta y envía.</strong> Localiza los presupuestos sin respuesta o con la fecha de validez pasada.</li>
+          <li><strong>Organiza las visitas.</strong> Consulta quién tiene turno y quién está ausente ese día. En «Por resolver» salen las visitas de hoy o mañana que siguen sin asignar o coinciden con una ausencia confirmada.</li>
+          <li><strong>Deja el parte hecho.</strong> Busca visitas cerradas por cliente, centro o nombre. Reintenta el envío de fotos pendientes en el mismo dispositivo cuando tengas conexión.</li>
+          <li><strong>Factura y sigue los cobros.</strong> Consulta el saldo después de un cobro parcial y descarga en CSV las facturas que coinciden con tus filtros.</li>
+        </ul>
+      </details>
+    </div>
+    <figure class="on-the-job">
+      <div class="on-the-job-scenes">
+        <img src="/sectores/instalacion.avif" alt="Un técnico trabaja sobre una escalera durante una instalación en una vivienda." width="1200" height="630" loading="lazy" decoding="async" class="job-photo" />
+        <img src="/producto/mi-jornada.webp" alt="Mi jornada en Menos Líos: agenda y tarjeta de la próxima visita de ejemplo." width="390" height="850" loading="lazy" decoding="async" class="job-app" />
+      </div>
+      <figcaption class="mt-3 text-xs leading-relaxed text-gray-700">En el móvil: Mi jornada, con una visita de ejemplo.</figcaption>
+    </figure>
+  </div>
 </section>
+
+<style>
+  .workflow{display:grid;grid-template-columns:minmax(0,1fr);gap:1.65rem;align-items:center}
+  .workflow-copy,.on-the-job{min-width:0}
+  .on-the-job{margin:0}
+  .on-the-job-scenes{position:relative;isolation:isolate;width:100%;max-width:100%;min-height:15rem;aspect-ratio:1.42;overflow:hidden;border-radius:1.1rem;background:#dbe6d8}
+  .job-photo{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:46% center}
+  .job-app{position:absolute;right:5%;bottom:5%;width:clamp(5.8rem,28%,10rem);height:auto;border:4px solid #233b2b;border-radius:.8rem;box-shadow:0 .4rem 1.4rem #1e292075}
+  .workflow-details{border-bottom:1px solid #d1ddce}
+  .workflow-details summary{list-style:none;cursor:pointer;text-decoration:underline;text-underline-offset:.28em}
+  .workflow-details summary::-webkit-details-marker{display:none}
+  .workflow-details summary::before{content:'+';line-height:1;font-size:1rem}
+  .workflow-details[open] summary::before{content:'−'}
+  .workflow-details ul{list-style:disc}
+  @media(min-width:52rem){.workflow{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(2rem,6vw,6rem)}}
+  @media(prefers-reduced-motion:no-preference){
+    .job-app{transition:transform 220ms cubic-bezier(.2,.75,.2,1)}
+    @media(hover:hover){.on-the-job:hover .job-app{transform:translateY(-.28rem)}}
+    .workflow-details[open] ul{animation:workflow-detail-in 160ms ease-out}
+    @keyframes workflow-detail-in{from{opacity:.6;transform:translateY(-.2rem)}to{opacity:1;transform:none}}
+  }
+</style>

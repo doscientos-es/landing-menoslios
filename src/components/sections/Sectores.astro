@@ -7,32 +7,28 @@ const sectores = (await getCollection('sectores')).sort((a, b) => a.data.orden -
 ---
 
 <section class="border-y border-primary/10 bg-primary-light" id="sectores" aria-labelledby="sectores-title">
-  <div class="site-container py-16 sm:py-22">
-    <header class="mb-8 max-w-[44rem] sm:mb-10">
-      <h2 id="sectores-title" class="text-3xl font-black tracking-tight text-balance sm:text-5xl">Cada oficio tiene su ritmo.</h2>
-      <p class="mt-4 max-w-[54ch] text-base leading-relaxed text-gray-700">Una avería urgente no se organiza como una ronda de mantenimiento. Mira cómo encaja Menos Líos en tu oficio.</p>
-    </header>
-
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {sectores.map(({ id, data }) => (
-        <li>
-          <a href={`/sectores/${id}`} class="group flex h-full flex-col overflow-hidden rounded-2xl border border-primary/10 bg-white hover:border-primary/45">
-            <img src={data.imagen} alt="" width="400" height="240" loading="lazy" decoding="async" class="aspect-[5/3] w-full bg-primary/15 object-cover" />
-            <div class="flex flex-1 flex-col gap-2 p-5">
-              <h3 class="text-xl font-bold text-primary">{data.titulo}</h3>
-              <p class="grow text-sm leading-relaxed text-gray-700">{data.descripcion}</p>
-              <span class="mt-3 flex items-center gap-1 text-sm font-bold text-primary group-hover:underline">Ver sector <ArrowUpRight class="size-4" aria-hidden="true" /></span>
-            </div>
-          </a>
-        </li>
-      ))}
-      <li class="flex flex-col justify-between gap-5 rounded-2xl bg-primary p-5 text-primary-foreground">
-        <div>
-          <h3 class="text-xl font-bold">¿No ves tu sector?</h3>
-          <p class="mt-2 text-sm leading-relaxed text-white/85">Trae un trabajo típico a la demo y vemos cómo lo organizarías.</p>
+  <div class="site-container py-14 sm:py-18">
+    <div class="grid gap-6 lg:grid-cols-[0.6fr_1.4fr] lg:gap-12">
+      <div>
+        <h2 id="sectores-title" class="text-3xl font-black tracking-tight text-primary sm:text-4xl">Elige tu oficio</h2>
+        <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <p class="text-sm text-gray-700">¿No está en la lista?</p>
+          <DemoLink class="!min-h-11 !px-3 !text-xs" />
         </div>
-        <DemoLink class="text-xs" />
-      </li>
-    </ul>
+      </div>
+      <ul class="grid content-start sm:grid-cols-2 sm:gap-x-6">
+        {sectores.map(({ id, data }) => (
+          <li class="border-t border-primary/20">
+            <a href={`/sectores/${id}`} class="group flex h-full min-h-11 items-start justify-between gap-3 rounded-sm py-3">
+              <div>
+                <h3 class="text-base font-bold text-primary group-hover:underline">{data.titulo}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-gray-700">{data.descripcion}</p>
+              </div>
+              <ArrowUpRight class="mt-1 size-4 shrink-0 text-primary" aria-hidden="true" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>

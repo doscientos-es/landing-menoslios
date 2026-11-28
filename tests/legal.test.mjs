@@ -12,7 +12,7 @@ test('el pie llega a las páginas legales y cada una señala su ubicación', asy
     assert.match(home, new RegExp(`href="/${route}/?"`))
     const html = await readPage(route)
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1)
-    assert.match(html, new RegExp(`rel="canonical" href="https://menoslios\\.com/${route}/"`))
+    assert.match(html, new RegExp(`rel="canonical" href="https://www\\.menoslios\\.com/${route}"`))
     assert.match(html, new RegExp(`href="/${route}" aria-current="page"`))
     assert.match(html, /<main\b/)
     for (const sibling of legalRoutes) assert.match(html, new RegExp(`href="/${sibling}"`))

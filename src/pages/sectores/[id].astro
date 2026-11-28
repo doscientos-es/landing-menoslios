@@ -7,6 +7,7 @@ import Footer from '../../components/layout/Footer.astro';
 import DemoLink from '../../components/ui/DemoLink.astro';
 import PreguntaFrecuente from '../../components/ui/PreguntaFrecuente.astro';
 import { brand } from '../../config/brand';
+import { seo, sectorSeo } from '../../config/seo';
 
 export async function getStaticPaths() {
   const sectores = await getCollection('sectores');
@@ -17,7 +18,22 @@ export async function getStaticPaths() {
 }
 
 const { sector } = Astro.props;
-const { titulo, descripcion, imagen, caso_uso, beneficios_sector, faq_sector } = sector.data;
+const { titulo, caso_uso, beneficios_sector, faq_sector } = sector.data;
+const editorial = sectorSeo[sector.id];
+if (!editorial) throw new Error(`Missing landing content for ${sector.id}`);
+const crumbs = [{ name: brand.name, path: '/' }, { name: titulo, path: `/sectores/${sector.id}` }];
+const collections = await getCollection('sectores');
+const related = editorial.related.flatMap((slug) => collections.filter(({ id }) => slug === id));
+const isMobileScreen = editorial.image.endsWith('parte-movil.webp');
+const contextPhotos: Record<string, { src: string; alt: string; width: number; height: number }> = {
+  instalaciones: { src: '/sectores/instalacion.avif', alt: 'Técnico sobre una escalera durante una instalación en una vivienda.', width: 1200, height: 630 },
+  climatizacion: { src: '/sectores/climatizacion.avif', alt: 'Unidad exterior de climatización instalada junto a una vivienda.', width: 600, height: 502 },
+  fontaneria: { src: '/sectores/fontaneria.avif', alt: 'Conjunto de tuberías, llaves y contadores montado en una pared.', width: 800, height: 600 },
+};
+const contextPhoto = contextPhotos[sector.id];
+const demoAnchor = ['limpieza', 'mantenimiento', 'instalaciones'].includes(sector.id)
+  ? `/?ejemplo=${sector.id}#demo-producto`
+  : '/#demo-producto';
 const preguntas = faq_sector?.length ? faq_sector : [
   {
     pregunta: '¿Qué es Menos Líos?',
@@ -30,36 +46,42 @@ const preguntas = faq_sector?.length ? faq_sector : [
 ];
 ---
 
-<Base title={`${titulo} | ${brand.name}`} description={descripcion}>
+<Base title={`${editorial.query} | ${brand.name}`} description={editorial.description} image={isMobileScreen ? seo.shareImage : editorial.image} imageAlt={isMobileScreen ? seo.shareImageAlt : editorial.imageAlt} breadcrumbs={crumbs}>
   <Header />
   <main id="contenido" tabindex="-1">
     <section class="bg-primary text-primary-foreground" aria-labelledby="sector-title">
       <div class="site-container grid items-center gap-8 py-12 sm:py-16 lg:grid-cols-2">
         <div>
-          <a href="/#sectores" class="mb-5 inline-flex min-h-10 items-center rounded text-sm font-semibold text-white/85 underline underline-offset-4">Ver todos los sectores</a>
-          <p class="mb-3 text-xs font-bold tracking-[0.16em] text-accent uppercase">{brand.name} para tu oficio</p>
-          <h1 class="text-4xl font-black tracking-tight sm:text-6xl" id="sector-title">{titulo}</h1>
-          <p class="mt-5 max-w-[44ch] text-lg leading-relaxed">{descripcion}</p>
-          <DemoLink class="mt-6" />
+          <nav aria-label="Ruta de navegación" class="mb-4 flex flex-wrap items-center gap-2 text-sm text-white/85">
+            <a href="/" class="inline-flex min-h-11 items-center underline underline-offset-4">{brand.name}</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{titulo}</span>
+          </nav>
+          <h1 class="text-4xl font-black tracking-tight text-balance sm:text-5xl" id="sector-title">{editorial.query}</h1>
+          <p class="mt-5 max-w-[42ch] text-lg leading-relaxed">{editorial.description}</p>
+          <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <DemoLink />
+            <a href={demoAnchor} class="inline-flex min-h-11 items-center text-sm font-bold underline underline-offset-4">Probar un ejemplo</a>
+          </div>
         </div>
-        <img src={imagen} alt="" width="640" height="420" class="aspect-[4/3] w-full rounded-3xl bg-white/10 object-cover" />
+        <figure class="min-w-0 rounded-2xl border border-white/20 bg-white/8 p-3">
+          <img src={editorial.image} alt={editorial.imageAlt} width={isMobileScreen ? 390 : 1080} height={isMobileScreen ? 850 : 760} decoding="async" fetchpriority="high" class:list={['mx-auto block h-auto rounded-lg', isMobileScreen ? 'w-[min(100%,13rem)]' : 'w-full']} />
+          <figcaption class="pt-3 text-xs text-white/90">Pantalla real de Menos Líos con datos ficticios.</figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="site-container py-14 sm:py-18" aria-labelledby="sector-steps-title">
-      <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">En tu día a día</p>
-      <h2 id="sector-steps-title" class="text-3xl font-black tracking-tight text-balance sm:text-4xl">Una forma más ordenada de llevar tu empresa de {titulo.toLowerCase()}.</h2>
-      <p class="mt-3 max-w-[54ch] leading-relaxed text-gray-700">Desde que entra la llamada del cliente hasta que se emite la factura, reúne avisos, materiales y partes del equipo sin depender del papel.</p>
+      <h2 id="sector-steps-title" class="text-3xl font-black tracking-tight text-pretty text-primary sm:text-4xl">{caso_uso?.titulo ?? titulo}</h2>
 
       {caso_uso && (
         <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <article class="rounded-2xl bg-primary p-6 text-primary-foreground">
-            <p class="mb-3 text-xs font-bold tracking-widest text-accent uppercase">Un ejemplo</p>
-            <h3 class="text-xl font-bold">{caso_uso.titulo}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-white/90">{caso_uso.descripcion}</p>
+          <article class="overflow-hidden rounded-2xl bg-primary text-primary-foreground">
+            {contextPhoto && <img src={contextPhoto.src} alt={contextPhoto.alt} width={contextPhoto.width} height={contextPhoto.height} loading="lazy" decoding="async" class="aspect-[2/1] w-full object-cover" />}
+            <p class="max-w-[54ch] p-6 leading-relaxed text-white/95">{caso_uso.descripcion}</p>
           </article>
           <div class="rounded-2xl border border-primary/10 bg-white p-6">
-            <h3 class="text-xl font-bold text-primary">Qué puedes ganar en orden</h3>
+            <h3 class="text-xl font-bold text-primary">Qué queda registrado</h3>
             <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-700">
               {caso_uso.resultados.map((resultado) => <li>{resultado}</li>)}
             </ul>
@@ -69,11 +91,11 @@ const preguntas = faq_sector?.length ? faq_sector : [
 
       {beneficios_sector?.length && (
         <div class="mt-8">
-          <h3 class="mb-4 text-xl font-bold text-primary">Funciones para este oficio</h3>
+          <h3 class="mb-4 text-xl font-bold text-primary">Funciones</h3>
           <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {beneficios_sector.map(({ paso, titulo: nombre, texto }) => (
+            {beneficios_sector.map(({ titulo: nombre, texto }) => (
               <li class="rounded-2xl border border-primary/10 bg-white p-5">
-                <p class="text-base font-bold text-primary"><span aria-hidden="true">{paso}. </span>{nombre}</p>
+                <p class="text-base font-bold text-primary">{nombre}</p>
                 <p class="mt-2 text-sm leading-relaxed text-gray-700">{texto}</p>
               </li>
             ))}
@@ -83,8 +105,8 @@ const preguntas = faq_sector?.length ? faq_sector : [
 
       <div class="mt-8 flex flex-wrap items-center justify-between gap-5 rounded-2xl bg-primary p-6 text-primary-foreground sm:p-8">
         <div>
-          <h3 class="text-xl font-bold">{brand.promise}</h3>
-          <p class="mt-2 max-w-[48ch] text-sm leading-relaxed text-white/90">Ven a la demo y mira cómo se organiza un trabajo desde que entra hasta que se cobra.</p>
+          <h3 class="text-xl font-bold">Trae un caso a la demo</h3>
+          <p class="mt-2 max-w-[48ch] text-sm leading-relaxed text-white/90">Cuéntanos qué trabajo quieres organizar y lo vemos en la app.</p>
         </div>
         <DemoLink />
       </div>
@@ -93,17 +115,23 @@ const preguntas = faq_sector?.length ? faq_sector : [
     <section class="border-t border-primary/10 bg-primary-light" id="preguntas" aria-labelledby="preguntas-sector-title">
       <div class="site-container grid gap-8 py-14 sm:py-18 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
         <header>
-          <p class="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">Antes de empezar</p>
-          <h2 class="text-3xl font-black tracking-tight text-balance sm:text-4xl" id="preguntas-sector-title">Preguntas frecuentes sobre {titulo.toLowerCase()}.</h2>
+          <h2 class="text-3xl font-black tracking-tight text-balance sm:text-4xl" id="preguntas-sector-title">Preguntas frecuentes</h2>
           <a href="mailto:hola@doscientos.es" class="mt-4 inline-flex min-h-11 items-center rounded-full font-bold text-primary underline underline-offset-4">Escríbenos</a>
         </header>
         <div class="grid gap-3">
           {preguntas.map(({ pregunta, respuesta }, i) => (
-            <PreguntaFrecuente abierta={i === 0} numero={i + 1} pregunta={pregunta} respuesta={respuesta} />
+            <PreguntaFrecuente abierta={i === 0} pregunta={pregunta} respuesta={respuesta} />
           ))}
         </div>
       </div>
     </section>
+    <nav class="site-container py-10" aria-labelledby="related-title">
+      <h2 id="related-title" class="text-xl font-bold text-primary">Otros oficios</h2>
+      <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1">
+        {related.map(({ id, data }) => <li><a href={`/sectores/${id}`} class="inline-flex min-h-11 items-center text-sm font-bold text-primary underline underline-offset-4">{data.titulo}</a></li>)}
+        <li><a href="/#sectores" class="inline-flex min-h-11 items-center text-sm font-bold text-primary underline underline-offset-4">Ver todos los sectores</a></li>
+      </ul>
+    </nav>
   </main>
   <Footer />
 </Base>
